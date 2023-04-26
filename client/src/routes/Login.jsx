@@ -46,13 +46,13 @@ const Login = () => {
 			navigate(from, { replace: true });
 		} catch (err) {
 			if (!err?.response) {
-				setErrMsg('No Server Response');
+				setErrMsg('Sem resposta do servidor');
 			} else if (err.response?.status === 400) {
-				setErrMsg('Missing E-mail or Password');
+				setErrMsg('Está faltando o e-mail ou a senha');
 			} else if (err.response?.status === 401) {
-				setErrMsg('Unauthorized');
+				setErrMsg('Não autorizado');
 			} else {
-				setErrMsg('Login Failed');
+				setErrMsg('Login falhou');
 			}
 			errRef.current.focus(); // Por o foco na mensagen de erro
 		}
@@ -70,6 +70,7 @@ const Login = () => {
 		// {success ? (
 		// 	<section>
 		// 		<h1>Você está logado</h1>
+		// 		navigate('/feed');
 		// 		{/* Colocar um placeholder de carregamento aqui */}
 		// 	</section>
 		// ) : (
