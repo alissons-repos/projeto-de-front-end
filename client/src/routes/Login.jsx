@@ -2,8 +2,8 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
-import api from '../api/axios';
-import path from '../api/endpoints';
+import api from '../apis/axios';
+import path from '../apis/endpoints';
 
 const Login = () => {
 	const { setAuth, persist, setPersist } = useAuth();

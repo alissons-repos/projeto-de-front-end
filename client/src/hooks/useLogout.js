@@ -1,4 +1,4 @@
-import api from '../api/axios';
+import api from '../apis/axios';
 import useAuth from './useAuth';
 
 const useLogout = () => {

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import AuthContext from '../context/AuthProvider';
+import AuthContext from '../contexts/AuthProvider';
 
 const useAuth = () => {
 	// Esse hook personalizado elimina a necessidade de importar e definir o contexto em todos os arquivos que ele for necessário.

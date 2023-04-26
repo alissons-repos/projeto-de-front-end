@@ -1,4 +1,4 @@
-import api from '../api/axios';
+import api from '../apis/axios';
 import useAuth from './useAuth';
 
 // O hook useRefreshToken será utilizado para manter o token de acesso sempre atualizado
@@ -21,10 +21,10 @@ const useRefreshToken = () => {
 		// Manteremos o estado anterior, porém adicionaremos em accessToken esse novo Refresh Token
 		// Tanto access como refresh são tokens, a diferença entre eles é seu propósito e eles serão armazenados no contexto
 		setAuth((prev) => {
-			console.log(JSON.stringify(prev));
-			console.log(response.data.accessToken);
+			console.log(JSON.stringify(prev)); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			console.log(response.data.accessToken); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			return { ...prev, roles: response.data.roles, accessToken: response.data.accessToken };
-			// Override the previus access token with the new access/refresh token
+			// Sobrescreve o access token anterior com o novo refresh token
 		});
 		return response.data.accessToken;
 	};
