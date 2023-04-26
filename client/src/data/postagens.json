@@ -1,0 +1,74 @@
+[
+	{
+		"titulo": "Adote um cachorro filhote",
+		"descricao": "Cachorros filhotes para adoção responsável, já estão vermifugados e com a primeira dose da vacina.",
+		"categoria": "Adoção",
+		"data_postagem": "2023-04-19",
+		"dono": "João Silva",
+		"sexo": "Macho",
+		"racas": ["Vira-lata"],
+		"quantidade": 3,
+		"imagem": "",
+		"id": 1
+	},
+	{
+		"titulo": "Adoção de gatos adultos",
+		"descricao": "Dois gatos adultos para adoção, já castrados e vacinados. São muito dóceis e adoram brincar.",
+		"categoria": "Adoção",
+		"data_postagem": "2023-04-18",
+		"dono": "Maria Santos",
+		"sexo": "Fêmea",
+		"racas": ["Siamese", "Persa"],
+		"quantidade": 2,
+		"imagem": "",
+		"id": 2
+	},
+	{
+		"titulo": "Cruzamento de Golden Retriever",
+		"descricao": "Disponível para cruzamento macho Golden Retriever com pedigree, saudável e com todas as vacinas em dia.",
+		"categoria": "Cruzamento",
+		"data_postagem": "2023-04-17",
+		"dono": "Pedro Oliveira",
+		"sexo": "Macho",
+		"racas": ["Golden Retriever"],
+		"quantidade": 1,
+		"imagem": "",
+		"id": 3
+	},
+	{
+		"titulo": "Adote um coelho",
+		"descricao": "Coelho macho para adoção, já castrado e com todas as vacinas em dia. Muito dócil e adora brincar.",
+		"categoria": "Adoção",
+		"data_postagem": "2023-04-16",
+		"dono": "Ana Rodrigues",
+		"sexo": "Macho",
+		"racas": ["Mini Lion Head"],
+		"quantidade": 1,
+		"imagem": "",
+		"id": 4
+	},
+	{
+		"titulo": "Cruzamento de Bulldog Francês",
+		"descricao": "Fêmea Bulldog Francês disponível para cruzamento, com pedigree e todas as vacinas em dia.",
+		"categoria": "Cruzamento",
+		"data_postagem": "2023-04-15",
+		"dono": "Lucas Alves",
+		"sexo": "Fêmea",
+		"racas": ["Bulldog Francês"],
+		"quantidade": 1,
+		"imagem": "/img1.jpg",
+		"id": 5
+	},
+	{
+		"titulo": "Adoção de filhote de cachorro",
+		"descricao": "Filhote de cachorro para adoção, já desmamado e vermifugado. Muito brincalhão e adora crianças.",
+		"categoria": "Adoção",
+		"data_postagem": "2023-04-14",
+		"dono": "Camila Costa",
+		"sexo": "Macho",
+		"racas": ["Poodle"],
+		"quantidade": 1,
+		"imagem": "https://place.dog/150/150",
+		"id": 6
+	}
+]
