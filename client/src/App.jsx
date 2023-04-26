@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 
 // Componentes
 import Layout from './components/Layout';
-import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
 
 // Rotas
@@ -16,12 +15,6 @@ import MyProfile from './routes/MyProfile';
 // Style
 import './App.css';
 
-const ROLES = {
-	User: 2001,
-	Editor: 1984,
-	Admin: 5150,
-};
-
 // Seria possível utilizar o AuthContext junto com as rotas para fazer a autenticação por meio de estruturas de controle, porém isso poluiria o código e foge do recomendado.
 
 function App() {
@@ -33,14 +26,11 @@ function App() {
 				<Route path='register' element={<Register />} />
 				<Route path='*' element={<NoPage />} />
 
-				{/* O componente RequireAuth fica encarregado de fazer a validação de acesso as rotas privadas */}
+				{/* Todos os filhos de PersistLogin serão renderizados pelo "Outlet" do react-router-dom */}
 				<Route element={<PersistLogin />}>
-					{/* Todos os filhos de PersistLogin serão renderizados pelo "Outlet" do react-router-dom */}
-					<Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-						<Route path='feed' element={<Feed />} />
-						<Route path='posting' element={<MyPostings />} />
-						<Route path='profile' element={<MyProfile />} />
-					</Route>
+					<Route path='feed' element={<Feed />} />
+					<Route path='posting' element={<MyPostings />} />
+					<Route path='profile' element={<MyProfile />} />
 				</Route>
 			</Route>
 		</Routes>
