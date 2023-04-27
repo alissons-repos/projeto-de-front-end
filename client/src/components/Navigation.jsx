@@ -1,3 +1,5 @@
+import style from './Navigation.module.css';
+
 const Navigation = () => {
 	return <div>Navigation</div>;
 };

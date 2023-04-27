@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import style from './NoPage.module.css';
+
 const NoPage = () => {
 	return (
 		<section>
