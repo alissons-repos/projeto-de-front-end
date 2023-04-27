@@ -7,7 +7,7 @@ const NoPage = () => {
 		<section>
 			<h1>Erro 404</h1>
 			<h3>Oops, página não encontrada!</h3>
-			<div className='#'>
+			<div className=''>
 				<p>
 					Faça login<Link to='/login'>login</Link>para ter acesso a aplicação.
 				</p>
