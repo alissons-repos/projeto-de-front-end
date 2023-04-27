@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 
 import api from '../apis/axios';
 import path from '../apis/endpoints';
+
+import style from './Register.module.css';
 
 const USER_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,4})+$/;
 const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
@@ -98,8 +99,8 @@ const Register = () => {
 					<form onSubmit={handleSubmit}>
 						<label htmlFor='username'>
 							E-mail:
-							<FontAwesomeIcon icon={faCheck} className={validName ? 'valid' : 'hide'} />
-							<FontAwesomeIcon icon={faTimes} className={validName || !user ? 'hide' : 'invalid'} />
+							<FaCheck className={validName ? 'valid' : 'hide'} />
+							<FaTimes className={validName || !user ? 'hide' : 'invalid'} />
 						</label>
 						<input
 							type='text'
@@ -113,15 +114,15 @@ const Register = () => {
 							onBlur={() => setUserFocus(false)}
 						/>
 						<p id='uidnote' className={userFocus && user && !validName ? 'instructions' : 'offscreen'}>
-							<FontAwesomeIcon icon={faInfoCircle} />
+							<FaInfoCircle />
 							Deve ser um e-mail válido.
 							{/* TODO: MELHORAR A DESCRIÇÃO DE ERRO DO E-MAIL */}
 						</p>
 
 						<label htmlFor='password'>
 							Senha:
-							<FontAwesomeIcon icon={faCheck} className={validPwd ? 'valid' : 'hide'} />
-							<FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? 'hide' : 'invalid'} />
+							<FaCheck className={validPwd ? 'valid' : 'hide'} />
+							<FaTimes className={validPwd || !pwd ? 'hide' : 'invalid'} />
 						</label>
 						<input
 							type='password'
@@ -133,16 +134,16 @@ const Register = () => {
 							onBlur={() => setPwdFocus(false)}
 						/>
 						<p id='pwdnote' className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
-							<FontAwesomeIcon icon={faInfoCircle} />A senha deve conter 8 ou mais caracteres, pelo menos
-							uma letra maiúscula, uma minúscula, um número e um símbolo especial.
+							<FaInfoCircle />A senha deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula,
+							uma minúscula, um número e um símbolo especial.
 							<br />
 							Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
 						</p>
 
 						<label htmlFor='confirm_pwd'>
 							Confirmar Senha:
-							<FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? 'valid' : 'hide'} />
-							<FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? 'hide' : 'invalid'} />
+							<FaCheck className={validMatch && matchPwd ? 'valid' : 'hide'} />
+							<FaTimes className={validMatch || !matchPwd ? 'hide' : 'invalid'} />
 						</label>
 						<input
 							type='password'
@@ -154,7 +155,7 @@ const Register = () => {
 							onBlur={() => setMatchFocus(false)}
 						/>
 						<p id='confirmnote' className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
-							<FontAwesomeIcon icon={faInfoCircle} />A confirmação deve coincidir com o campo senha.
+							<FaInfoCircle />A confirmação deve coincidir com o campo senha.
 						</p>
 
 						<button disabled={!validName || !validPwd || !validMatch ? true : false}>Registre-se</button>

@@ -22,7 +22,7 @@ function App() {
 		<Routes>
 			<Route path='/' element={<Layout />}>
 				{/* Tudo dentro de Layout será representado pelo "Outlet" */}
-				<Route path='login' element={<Login />} />
+				<Route index path='login' element={<Login />} />
 				<Route path='register' element={<Register />} />
 				<Route path='*' element={<NoPage />} />
 
