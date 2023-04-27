@@ -121,8 +121,8 @@ const Register = () => {
 
 						<label htmlFor='password'>
 							Senha:
-							<FaCheck icon={FaCheck} className={validPwd ? 'valid' : 'hide'} />
-							<FaTimes icon={FaTimes} className={validPwd || !pwd ? 'hide' : 'invalid'} />
+							<FaCheck className={validPwd ? 'valid' : 'hide'} />
+							<FaTimes className={validPwd || !pwd ? 'hide' : 'invalid'} />
 						</label>
 						<input
 							type='password'
@@ -134,16 +134,16 @@ const Register = () => {
 							onBlur={() => setPwdFocus(false)}
 						/>
 						<p id='pwdnote' className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
-							<FaInfoCircle icon={FaInfoCircle} />A senha deve conter 8 ou mais caracteres, pelo menos uma
-							letra maiúscula, uma minúscula, um número e um símbolo especial.
+							<FaInfoCircle />A senha deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula,
+							uma minúscula, um número e um símbolo especial.
 							<br />
 							Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
 						</p>
 
 						<label htmlFor='confirm_pwd'>
 							Confirmar Senha:
-							<FontAwesomeIcon icon={FaCheck} className={validMatch && matchPwd ? 'valid' : 'hide'} />
-							<FontAwesomeIcon icon={FaTimes} className={validMatch || !matchPwd ? 'hide' : 'invalid'} />
+							<FaCheck className={validMatch && matchPwd ? 'valid' : 'hide'} />
+							<FaTimes className={validMatch || !matchPwd ? 'hide' : 'invalid'} />
 						</label>
 						<input
 							type='password'
@@ -155,7 +155,7 @@ const Register = () => {
 							onBlur={() => setMatchFocus(false)}
 						/>
 						<p id='confirmnote' className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
-							<FontAwesomeIcon icon={FaInfoCircle} />A confirmação deve coincidir com o campo senha.
+							<FaInfoCircle />A confirmação deve coincidir com o campo senha.
 						</p>
 
 						<button disabled={!validName || !validPwd || !validMatch ? true : false}>Registre-se</button>
