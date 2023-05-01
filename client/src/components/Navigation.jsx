@@ -30,12 +30,18 @@ const Navigation = () => {
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
 				<div className='d-flex flex-row flex-lg-column gap-4 gap-lg-2 align-items-center p-3'>
 					<img className={style.avatar} src='' alt='' />
-					<div className='d-flex flex-column'>
+					<div className='d-flex flex-column list-unstyled'>
 						{/* <h2>{auth?.user.userName}</h2> */}
 						<h2 className=''>Fulano de Tal</h2>
-						<Link to='/profile'>Meu Perfil</Link>
-						<Link to='/postings'>Meus Posts</Link>
-						<Link to='/logout'>Sair</Link>
+						<li>
+							<Link to='/profile'>Meu Perfil</Link>
+						</li>
+						<li>
+							<Link to='/postings'>Meus Posts</Link>
+						</li>
+						<li>
+							<Link to='/logout'>Sair</Link>
+						</li>
 					</div>
 					{/* <div className='position-absolute bottom-0'>Footer</div> */}
 				</div>

@@ -4,7 +4,7 @@ import postagens from '../data/postagens.json';
 
 import style from './Postings.module.css';
 
-const Postings = () => {
+const Postings = ({ message }) => {
 	return (
 		<div className='col-12 col-lg-10 pt-lg-5' style={{ backgroundColor: '#F2F2F2' }}>
 			<div className=''>
@@ -27,7 +27,7 @@ const Postings = () => {
 				</ul>
 			</div>
 			<div className='d-flex flex-wrap justify-content-center gap-3'>
-				{postagens ? (
+				{postagens.length !== 0 ? (
 					postagens.map((post) => (
 						// card col-12 col-md-6 col-lg-4
 						<li key={post.id} className={['card', style.cardStyle].join(' ')}>
@@ -54,7 +54,7 @@ const Postings = () => {
 						</li>
 					))
 				) : (
-					<p>Não há postagens no momento</p>
+					<p>{message}</p>
 				)}
 			</div>
 		</div>
