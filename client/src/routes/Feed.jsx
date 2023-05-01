@@ -5,9 +5,11 @@ import style from './Feed.module.css';
 
 const Feed = () => {
 	return (
-		<div>
-			<Navigation />
-			<Postings />
+		<div className='container-fluid'>
+			<div className='row d-flex'>
+				<Navigation className='col-6 bg-dark' />
+				<Postings className='col-6 bg-danger' />
+			</div>
 		</div>
 	);
 };
