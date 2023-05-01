@@ -1,3 +1,4 @@
+import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Postings from '../components/Postings';
 
@@ -8,8 +9,9 @@ const MyPostings = () => {
 	return (
 		<div className='container-fluid'>
 			<div className='row d-flex'>
-				<Navigation className='bg-dark' />
-				<Postings className='bg-danger' message={message} />
+				<Header />
+				<Navigation />
+				<Postings message={message} />
 			</div>
 		</div>
 	);

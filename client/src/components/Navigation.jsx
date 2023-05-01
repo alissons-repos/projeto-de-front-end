@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 // </Link>
 
 import useAuth from '../hooks/useAuth';
-
+import Header from './Header';
 import style from './Navigation.module.css';
 
 const Navigation = () => {

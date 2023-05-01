@@ -6,7 +6,6 @@ const Layout = () => {
 	// Não é necessário passar o atributo "children" dentro dos parâmetro do componente
 	return (
 		<main className=''>
-			{/* <Header /> */}
 			<Outlet />
 			{/* <Footer /> */}
 		</main>
