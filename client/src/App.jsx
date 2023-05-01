@@ -30,7 +30,7 @@ function App() {
 				{/* Todos os filhos de PersistLogin serão renderizados pelo "Outlet" do react-router-dom */}
 				<Route element={<PersistLogin />}>
 					<Route path='feed' element={<Feed />} />
-					<Route path='posting' element={<MyPostings />} />
+					<Route path='postings' element={<MyPostings />} />
 					<Route path='profile' element={<MyProfile />} />
 				</Route>
 			</Route>
