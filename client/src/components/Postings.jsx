@@ -4,6 +4,7 @@ import Header from './Header';
 import postagens from '../data/postagens.json';
 
 import style from './Postings.module.css';
+import FaveButton from './FaveButton';
 
 const Postings = ({ message }) => {
 	return (
@@ -45,10 +46,10 @@ const Postings = ({ message }) => {
 								<div className={style.descriptionSize}>
 									<p className='card-text'>{post.descricao}</p>
 								</div>
-								<div className='text-center'>
-									<button className='btn btn-danger'>Amei</button>
+								<div className='text-center container'>
+									<FaveButton />
 									<Link href='#' className='btn btn-primary'>
-										Mostar mais
+										Mostrar mais
 									</Link>
 								</div>
 							</div>
