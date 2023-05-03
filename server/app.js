@@ -1,13 +1,21 @@
 require('dotenv').config();
 
 // Importando dependências
-import express from 'express';
-import mongoose from 'mongoose';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
-import corsOptions from './src/config/corsOptions';
-import connectDB from './src/config/dbConnection';
+// Importando configurações, middlewares e rotas
+const corsOptions = require('./src/config/corsOptions');
+const connectDB = require('./src/config/dbConnection');
+const credentials = require('./src/middlewares/credentials');
+const refreshRoute = require('./src/routes/refresh');
+const userRoute = require('./src/routes/users');
+const postRoute = require('./src/routes/posts');
+const registerRoute = require('./src/routes/register');
+const loginRoute = require('./src/routes/login');
+const logoutRoute = require('./src/routes/logout');
 
 // Instanciando a aplicação e definido sua porta
 const app = express();
@@ -16,19 +24,19 @@ const PORT = process.env.PORT || 3500;
 // Conectando App ao MongoDB
 connectDB();
 
-// Middlewares necessários para a execução da aplicação
+// Utilizando middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(credentials);
+app.use(credentials); // credentials é necessário para permitir o correto funcionamento de CORS e deve ser chamado antes de sua utilização
 app.use(cors(corsOptions));
 
-// Declarando as rotas da aplicação
-const rotaInicio = require('./content/routes/inicio.router');
-const rotaUsuario = require('./content/routes/usuarios.router');
-
-// Utilizando rotas como middlewares
-app.use(rotaInicio);
-app.use(rotaUsuario);
+// Utilizando rotas
+app.use(refreshRoute);
+app.use(userRoute);
+app.use(postRoute);
+app.use(registerRoute);
+app.use(loginRoute);
+app.use(logoutRoute);
 
 // Inicializando a aplicação
 mongoose.connection.once('open', () => {
