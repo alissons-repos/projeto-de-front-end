@@ -1,9 +1,7 @@
-const allowedOrigins = ['http://localhost:3500', 'http://127.0.0.1:5500'];
-// Lista de domínios permitidos para acessar o backend
-// Utilizando um servidor local não possuímos um domínio, então "origin" vem como "undefined", portanto precisamos permitir que nosso localhost tenha acesso a aplicação, apesar de nossa "rota" já estar especificada na
+const allowedOrigins = require('./allowedOrigins');
 
 // Cross Origin Resource Sharing (CORS) ou Compartilhamento de recursos entre origens
-export default corsOptions = {
+const corsOptions = {
 	// Configurações que passaremos para o middleware cors
 	origin: (origin, callback) => {
 		// Se o domínio estiver em "allowedOrigins", permitiremos seu acesso ao backend
@@ -18,3 +16,5 @@ export default corsOptions = {
 	},
 	optionsSuccessStatus: 200,
 };
+
+module.exports = corsOptions;
