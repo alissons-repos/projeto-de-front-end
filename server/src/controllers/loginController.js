@@ -1,50 +1,37 @@
-const User = require('../model/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 const handleLogin = async (req, res) => {
-	const { user, pwd } = req.body;
-	if (!user || !pwd) return res.status(422).json({ Erro: 'E-mail e senha são obrigatórios!' });
+	const { email, pwd } = req.body;
+	if (!email || !pwd) return res.status(422).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unprocessable Entity
 
-	const foundUser = await User.findOne({ username: user }).exec();
-	if (!foundUser) return res.sendStatus(401); // Unauthorized
+	const foundUser = await User.findOne({ email: email }).exec();
+	if (!foundUser) return res.status(422).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
 
 	const match = await bcrypt.compare(pwd, foundUser.password);
 	if (match) {
-		const roles = Object.values(foundUser.roles);
-		// É nesse momento em que devemos criar os token JWT para serem utilizados nas outras rotas
-		const accessToken = jwt.sign(
-			{ userInfo: { username: foundUser.username, roles: roles } },
-			process.env.ACCESS_TOKEN_SECRET,
-			{
-				expiresIn: '1m',
-			}
-		);
-		// No payload do JWT estamos guardando um objeto "userInfo" que conterá seu nome de usuário e seus cargos
-		const refreshToken = jwt.sign({ username: foundUser.username }, process.env.REFRESH_TOKEN_SECRET, {
+		const accessToken = jwt.sign({ userData: { email: foundUser.email } }, process.env.ACCESS_TOKEN_SECRET, {
+			expiresIn: '1m',
+		});
+		const refreshToken = jwt.sign({ email: foundUser.email }, process.env.REFRESH_TOKEN_SECRET, {
 			expiresIn: '10m',
 		});
-		// Salvando o refresh token com o usuário logado, não é necessário passar muitas coias no payload do refreshToken
+		// No payload do accessToken estamos guardando um objeto "userData" que conterá seu email
 
 		foundUser.refreshToken = refreshToken;
 		const result = await foundUser.save();
 		console.log(result);
 
-		// const otherUsers = usersDB.users.filter((person) => person.username !== foundUser.username);
-		// const currentUser = { ...foundUser, refreshToken };
-		// usersDB.setUsers([...otherUsers, currentUser]);
-		// Reescrevendo, salvando, os dados no "banco de dados" simulado
-		// await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(usersDB.users));
-		// O token não deve ser armazenado em cookies ou no localStorage de modo que fique disponível para o JS. O token deve ficar apenas na memória.
-		// Deixaremos o token salvo em um cookie utilizando a propriedade "http only", tornando-o inacessível para JS.
+		// O token não deve ser armazenado em cookies ou no localStorage de modo que fique disponível para o JS do browser.
+		// O token deve ficar apenas em memória. Porém, deixaremos salvo em um cookie com a propriedade "http only", tornando-o inacessível para JS.
 
 		res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 600000 }); // secure: true
-		// Para testes com o Thunder Client precisamos tirar o atributo "segure" do cookie
-		res.json({ Message: `User ${user} is logged in!`, Token: accessToken });
+		return res.status(200).json({ Mensagem: 'Autenticação realizada com sucesso!', Token: accessToken });
 		// Estamos armazenando o refreshToken e entregando o accessToken para o usuário utilizar nas outras requisições.
-		// Porém o accessToken expira muito rápido, então precisamos "trocar" o token de verificação. Para isso criamos uma rota refresh que possui um método GET que aciona o refreshTokenController.
+		// O accessToken expira muito rápido, então precisamos "trocar" o token de verificação. Para isso criamos uma rota refresh que possui um método GET que aciona o refreshController.
 	} else {
-		res.sendStatus(401); // Unauthorized
+		return res.status(422).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
 	}
 };
 
