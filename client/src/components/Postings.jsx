@@ -8,38 +8,37 @@ import style from './Postings.module.css';
 
 const Postings = ({ message }) => {
 	return (
-		<div className='col-12 col-lg-10 pt-lg-5' style={{ backgroundColor: '#F2F2F2' }}>
-			<div className=''>
-				<ul className='d-flex justify-content-center gap-5 p-2 list-unstyled'>
-					<li className='h3'>
-						<Link className={[style.linkStyle, style.fontSize].join(' ')} to='#'>
-							Adoção
-						</Link>
-					</li>
-					<li className='h3'>
-						<Link className={style.linkStyle} to='#'>
-							Cruzamento
-						</Link>
-					</li>
-					<li className='h3'>
-						<Link className={style.linkStyle} to='#'>
-							Eventos?
-						</Link>
-					</li>
-				</ul>
-			</div>
-			<div className='d-flex flex-wrap justify-content-center gap-3'>
+		<div className='col-12 col-xl-10'>
+			<ul className='d-flex justify-content-center gap-5 list-unstyled p-3 bg-success'>
+				<li>
+					<Link className={style.linkStyle} to='#'>
+						Adoção
+					</Link>
+				</li>
+				<li>
+					<Link className={style.linkStyle} to='#'>
+						Cruzamento
+					</Link>
+				</li>
+				<li>
+					<Link className={style.linkStyle} to='#'>
+						Eventos?
+					</Link>
+				</li>
+			</ul>
+			<ul className='row list-unstyled'>
 				{postagens.length !== 0 ? (
 					postagens.map((post) => (
 						// card col-12 col-md-6 col-lg-4
-						<li key={post.id} style={{ listStyle: 'none' }}>
+						<li key={post.id} className='col-12 col-md-6 col-lg-4'>
 							<Card data={post} />
+							<br />
 						</li>
 					))
 				) : (
 					<p>{message}</p>
 				)}
-			</div>
+			</ul>
 		</div>
 	);
 };

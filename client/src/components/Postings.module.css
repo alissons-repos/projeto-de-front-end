@@ -1,26 +1,10 @@
-.active {
-	background-color: crimson;
-}
-
 .linkStyle {
+	font-size: 2rem;
 	color: #ffbe5c;
 	font-weight: bold;
 	text-decoration: none;
 	border-bottom: 2px solid #ffbe5c;
 }
-
 .linkStyle:hover {
 	color: #ff874f;
-}
-
-.cardStyle {
-	max-width: 250px;
-	min-height: 150px;
-}
-
-.descriptionSize {
-	height: 150px;
-}
-.titleSize {
-	height: 50px;
 }

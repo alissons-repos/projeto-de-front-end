@@ -8,7 +8,7 @@ const Feed = () => {
 	const message = 'Não há nenhuma postagem no momento!';
 	return (
 		<div className='container-fluid'>
-			<div className='row d-flex'>
+			<div className='row'>
 				<Header />
 				<Navigation />
 				<Postings message={message} />
