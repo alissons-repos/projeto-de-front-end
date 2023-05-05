@@ -22,7 +22,7 @@ const Navigation = () => {
 	}, []);
 
 	return (
-		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center bg-danger'>
+		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
 				<div className='d-flex flex-row flex-xl-column gap-4 align-items-center p-3'>
 					<img className={style.avatar} src='' alt='' />

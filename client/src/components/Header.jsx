@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 	return (
-		<nav className='d-flex gap-5 p-2 align-items-center' style={{ backgroundColor: '#ffbe5c' }}>
-			<span>
-				<Link className='fs-4 ms-5 text-decoration-none link-light fw-semibold' to='/feed'>
+		<nav className='position-fixed list-unstyled p-2' style={{ backgroundColor: '#FE9A2E' }}>
+			<li className='ps-3 fs-4 text-decoration-none fw-semibold'>
+				<Link className='linkStyle' to='/feed'>
 					Meu Amigo PET
 				</Link>
-			</span>
+			</li>
 		</nav>
 	);
 };

@@ -1,3 +1,13 @@
 body {
 	background-color: #f2f2f2;
 }
+
+/* linkStyle está sendo utilizado na barra de navegação */
+.linkStyle {
+	color: #fafafa;
+	text-decoration: none;
+	border-bottom: 2px solid #f7be81;
+}
+.linkStyle:hover {
+	color: #f7be81;
+}

@@ -9,24 +9,29 @@ import style from './Postings.module.css';
 const Postings = ({ message }) => {
 	return (
 		<div className='col-12 col-xl-10'>
-			<ul className='d-flex justify-content-center gap-5 list-unstyled p-3 bg-success'>
-				<li>
-					<Link className={style.linkStyle} to='#'>
-						Adoção
-					</Link>
-				</li>
-				<li>
-					<Link className={style.linkStyle} to='#'>
-						Cruzamento
-					</Link>
-				</li>
-				<li>
-					<Link className={style.linkStyle} to='#'>
-						Eventos?
-					</Link>
-				</li>
-			</ul>
-			<ul className='row list-unstyled'>
+			<div className='row'>
+				<div className='col-12 col-xl-10 position-fixed' style={{ backgroundColor: '#FE9A2E' }}>
+					<nav className='d-flex justify-content-center gap-5 list-unstyled p-2'>
+						<li className='fs-4 text-decoration-none fw-semibold'>
+							<Link className='linkStyle' to='#'>
+								Adoção
+							</Link>
+						</li>
+						<li className='fs-4 text-decoration-none fw-semibold'>
+							<Link className='linkStyle' to='#'>
+								Cruzamento
+							</Link>
+						</li>
+						<li className='fs-4 text-decoration-none fw-semibold'>
+							<Link className='linkStyle' to='#'>
+								Eventos?
+							</Link>
+						</li>
+					</nav>
+				</div>
+			</div>
+			<br />
+			<ul className='row list-unstyled mt-5'>
 				{postagens.length !== 0 ? (
 					postagens.map((post) => (
 						// card col-12 col-md-6 col-lg-4
