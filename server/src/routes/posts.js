@@ -13,7 +13,7 @@ router
 router
 	// GET -> Permite que qualquer pessoa consulte um post específico com seu ID (requisição do modal na rota feed)
 	.route('/posts/:id')
-	.get(verifyID, postsController.getThePostID);
+	.get(verifyID, postsController.getPostID);
 
 // ROTAS PRIVADAS
 router

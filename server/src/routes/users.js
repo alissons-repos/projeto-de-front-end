@@ -13,7 +13,7 @@ router
 router
 	// GET -> Permite que qualquer pessoa consulte um usuário específico com seu ID (sem correspondência no front)
 	.route('/users/:id')
-	.get(verifyID, usersController.getTheUserID);
+	.get(verifyID, usersController.getUserID);
 
 // ROTAS PRIVADAS
 router
