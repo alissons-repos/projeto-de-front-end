@@ -1,69 +1,86 @@
-const Employee = require('../model/Employee');
+const User = require('../models/User');
+const Post = require('../models/Post');
 
-// const data = {};
-// data.employees = require('../model/employees.json');
-// const data = {
-// 	employees: require('../model/employees.json'),
-// 	setEmployees: function (data) {
-// 		this.employees = data;
-// 	},
-// };
-// O objeto "data" está sendo utilizado para simular um BD. Ele possui uma propriedade que armazena os dados propriamente ditos e uma função para definir esses dados (setter). Alguns BDs possuem métodos nativos que salvam ou deletam dados (MongoDB com seu Driver Nativo ou com Mongoose)
-
-const getAllEmployees = (req, res) => {
-	res.json(data.employees);
+const getAllUsers = async (req, res) => {
+	try {
+		const users = await User.find().exec();
+		if (!users) return res.status(204).json({ Mensagem: 'Nenhum usuário encontrado!' }); // No Content
+		return res.status(200).json(users); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
 };
 
-const createNewEmployee = (req, res) => {
-	const newEmployee = {
-		id: data.employees?.length ? data.employees[data.employees.length - 1].id + 1 : 1,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-	};
-
-	if (!newEmployee.firstname || !newEmployee.lastname) {
-		return res.status(400).json({ Message: 'First and last names are required!' });
+const getUserID = async (req, res) => {
+	try {
+		const user = await User.findOne({ _id: req.params.id }).select('-password').exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
+		return res.status(200).json(user); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
 	}
-
-	data.setEmployees([...data.employees, newEmployee]);
-	res.status(201).json(data.employees);
 };
 
-const updateEmployee = (req, res) => {
-	const employee = data.employees.find((emp) => emp.id === parseInt(req.body.id));
-	if (!employee) {
-		return res.status(400).json({ Message: `Employee ID ${req.body.id} not found!` });
+const getTheUser = async (req, res) => {
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
+		return res.status(200).json(user); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
 	}
-	if (req.body.firstname) employee.firstname = req.body.firstname;
-	if (req.body.lastname) employee.lastname = req.body.lastname;
-	const filteredArray = data.employees.filter((emp) => emp.id !== parseInt(req.body.id));
-	const unsortedArray = [...filteredArray, employee];
-	data.setEmployees(unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0)));
-	res.json(data.employees);
 };
 
-const deleteEmployee = (req, res) => {
-	const employee = data.employees.find((emp) => emp.id === parseInt(req.body.id));
-	if (!employee) {
-		return res.status(400).json({ Message: `Employee ID ${req.body.id} not found!` });
+const updateTheUser = async (req, res) => {
+	// if (!req?.params?.id) return res.status(400).json({ Erro: 'ID não informado!' }); // Bad Request
+	// if (!req.body) return res.status(400).json({ Erro: 'Nenhum dado informado para ser atualizado!' }); // Bad Request
+	const { email, firstName, lastName } = req.body;
+	if (!email && !firstName && !lastName) {
+		return res.status(400).json({ Erro: 'Nenhum dado informado para ser atualizado!' }); // Bad Request
 	}
-	const filteredArray = data.employees.filter((emp) => emp.id !== parseInt(req.body.id));
-	data.setEmployees(filteredArray);
-	res.json(data.employees);
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
+		if (req.body?.email) {
+			const emailExist = await User.findOne({ email: req.body.email }).exec();
+			if (emailExist) return res.status(409).json({ Erro: 'O email informado já existe!' }); // Conflict
+			user.email = req.body.email;
+		}
+		if (req.body?.firstName) user.firstName = req.body.firstName;
+		if (req.body?.lastName) user.lastName = req.body.lastName;
+		// Falta implementar a parte de alterar o próprio avatar ???
+		const result = await user.save();
+		return res.status(200).json(result); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
 };
 
-const getEmployee = (req, res) => {
-	const employee = data.employees.find((emp) => emp.id === parseInt(req.params.id));
-	if (!employee) {
-		return res.status(400).json({ Message: `Employee ID ${req.params.id} not found!` });
+const deleteTheUser = async (req, res) => {
+	// if (!req?.params?.id) return res.status(400).json({ Erro: 'ID não informado!' }); // Bad Request
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
+		// user.postings.forEach(async (post) => await Post.deleteOne({ _id: post._id }));
+		for (let i = 0; i < user.postings.length; i++) {
+			await Post.deleteOne({ _id: user.postings[i] });
+		}
+		const result = await user.deleteOne({ _id: req.user.userID });
+		return res.status(200).json(result); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
 	}
-	res.json(employee);
 };
 
 module.exports = {
-	getAllEmployees,
-	createNewEmployee,
-	updateEmployee,
-	deleteEmployee,
-	getEmployee,
+	getAllUsers,
+	getUserID,
+	getTheUser,
+	updateTheUser,
+	deleteTheUser,
 };

@@ -3,25 +3,25 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const handleLogin = async (req, res) => {
-	const { email, pwd } = req.body;
-	if (!email || !pwd) return res.status(422).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unprocessable Entity
+	const { email, password } = req.body;
+	if (!email || !password) return res.status(422).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unprocessable Entity
 
-	const foundUser = await User.findOne({ email: email }).exec();
+	const foundUser = await User.findOne({ email: email }).select('+password').exec();
 	if (!foundUser) return res.status(422).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
 
-	const match = await bcrypt.compare(pwd, foundUser.password);
+	const match = await bcrypt.compare(password, foundUser.password);
 	if (match) {
-		const accessToken = jwt.sign({ userData: { email: foundUser.email } }, process.env.ACCESS_TOKEN_SECRET, {
-			expiresIn: '1m',
+		const accessToken = jwt.sign({ userData: { userID: foundUser._id } }, process.env.ACCESS_TOKEN_SECRET, {
+			expiresIn: '5m',
 		});
-		const refreshToken = jwt.sign({ email: foundUser.email }, process.env.REFRESH_TOKEN_SECRET, {
+		const refreshToken = jwt.sign({ userID: foundUser._id }, process.env.REFRESH_TOKEN_SECRET, {
 			expiresIn: '10m',
 		});
-		// No payload do accessToken estamos guardando um objeto "userData" que conterá seu email
+		// No payload do accessToken estamos guardando um objeto "userData" que conterá seu id
 
 		foundUser.refreshToken = refreshToken;
 		const result = await foundUser.save();
-		console.log(result);
+		// console.log(result); // LIMPAR QUANDO ESTIVER PRONTO
 
 		// O token não deve ser armazenado em cookies ou no localStorage de modo que fique disponível para o JS do browser.
 		// O token deve ficar apenas em memória. Porém, deixaremos salvo em um cookie com a propriedade "http only", tornando-o inacessível para JS.

@@ -13,11 +13,11 @@ const handleRefresh = async (req, res) => {
 
 	jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, decoded) => {
 		// decoded recebe o objeto payload decodificado guardado no jwt
-		if (error || foundUser.email !== decoded.email) return res.status(403).json({ Erro: 'Token inválido!' }); // Forbidden
-		const accessToken = jwt.sign({ userData: { email: decoded.email } }, process.env.ACCESS_TOKEN_SECRET, {
+		if (error || foundUser._id !== decoded.userID) return res.status(403).json({ Erro: 'Token inválido!' }); // Forbidden
+		const accessToken = jwt.sign({ userData: { userID: decoded.id } }, process.env.ACCESS_TOKEN_SECRET, {
 			expiresIn: '1m',
 		});
-		res.json({ Token: accessToken });
+		res.status(200).json({ Token: accessToken });
 	});
 };
 
