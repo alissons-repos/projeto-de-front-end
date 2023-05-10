@@ -28,7 +28,6 @@ const getAllUserPosts = async (req, res) => {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
 		const postings = (await user.populate('postings')).$getPopulatedDocs();
-		// console.log(postings); // LIMPAR QUANDO ESTIVER PRONTO
 		if (!postings) return res.status(204).json({ Mensagem: 'Nenhuma postagem encontrada!' }); // No Content
 		return res.status(200).json(postings); // OK
 	} catch (error) {
@@ -63,6 +62,7 @@ const createNewUserPost = async (req, res) => {
 	// Falta implementar a parte de adicionar a imagem do post ???
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
 		const result = await Post.create({
 			title,
 			description,
@@ -72,7 +72,6 @@ const createNewUserPost = async (req, res) => {
 			amount: Math.trunc(amount),
 			owner: req.user.userID,
 		});
-		console.log(result);
 		user.postings.push(result);
 		user.save();
 		return res.status(201).json({ Mensagem: 'Postagem criada com sucesso!' }); // Created
@@ -109,8 +108,12 @@ const updateTheUserPost = async (req, res) => {
 	}
 	// Falta implementar a parte de alterar a imagem do post ???
 	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
 		const post = await Post.findOne({ _id: req.params.id }).exec();
-		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Bad Request
+		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
+		const includes = user.postings.includes(req.params.id);
+		if (!includes) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Bad Request
 		if (title) post.title = title;
 		if (description) post.description = description;
 		if (category) post.category = category;
@@ -127,11 +130,11 @@ const updateTheUserPost = async (req, res) => {
 
 const deleteTheUserPost = async (req, res) => {
 	try {
-		const post = await Post.findOne({ _id: req.params.id }).exec();
-		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
-		const postIndex = user.postings.indexOf(String(req.params.id));
+		const post = await Post.findOne({ _id: req.params.id }).exec();
+		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
+		const postIndex = user.postings.indexOf(req.params.id);
 		if (postIndex === -1) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Not Found
 		user.postings.splice(postIndex, 1);
 		user.save();
