@@ -1,3 +1,9 @@
+/* * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+} */
+
 body {
 	background-color: #f2f2f2;
 }
@@ -8,6 +14,55 @@ body {
 	text-decoration: none;
 	border-bottom: 2px solid #f7be81;
 }
+
 .linkStyle:hover {
 	color: #f7be81;
+}
+
+/* input[type='text'],
+input[type='password'] {
+} */
+
+.instructions {
+	border-radius: 0.5rem;
+	background: #000;
+	color: #fff;
+	position: absolute;
+	margin-top: -30px;
+}
+
+.instructions > svg {
+	margin-right: 0.25rem;
+}
+
+.offscreen {
+	position: absolute;
+	left: -9999px;
+}
+
+.hide {
+	display: none;
+	/* display: inline; */
+}
+
+.valid {
+	color: limegreen;
+	/* border: 1px solid limegreen; */
+	margin-left: 0.25rem;
+}
+
+.invalid {
+	color: red;
+	/* border: 1px solid red; */
+	margin-left: 0.25rem;
+}
+
+.errmsg {
+	background-color: lightpink;
+	color: firebrick;
+	font-weight: bold;
+}
+
+.line {
+	display: inline-block;
 }
