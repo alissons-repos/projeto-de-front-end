@@ -120,9 +120,6 @@ const Login = () => {
 											required
 											onChange={(e) => setUser(e.target.value)}
 										/>
-										<div className='form-text' style={{ color: '#909090' }} id='emailHelp'>
-											Não compartilharemos seu email
-										</div>
 									</div>
 									<div className='px-2 mb-3'>
 										<label className='form-label' htmlFor='password'>
@@ -137,9 +134,6 @@ const Login = () => {
 											required
 											onChange={(e) => setPwd(e.target.value)}
 										/>
-										<div className='form-text' style={{ color: '#909090' }} id='passwordHelp'>
-											Utilize uma senha forte
-										</div>
 									</div>
 									<div className='px-2 mb-3'>
 										<div className='persistCheck'>

@@ -8,7 +8,7 @@ import path from '../apis/endpoints';
 import style from './Register.module.css';
 
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,4})+$/;
-const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
+const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -28,11 +28,11 @@ const Register = () => {
 	const [validEmail, setValidEmail] = useState(false);
 	const [emailFocus, setEmailFocus] = useState(false);
 
-	const [pwd, setPwd] = useState('');
-	const [validPwd, setValidPwd] = useState(false);
-	const [pwdFocus, setPwdFocus] = useState(false);
+	const [password, setPassword] = useState('');
+	const [validPassword, setValidPassword] = useState(false);
+	const [passwordFocus, setPasswordFocus] = useState(false);
 
-	const [matchPwd, setMatchPwd] = useState('');
+	const [matchPassword, setMatchPassword] = useState('');
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
@@ -48,24 +48,24 @@ const Register = () => {
 	}, [email]);
 
 	useEffect(() => {
-		setValidPwd(PWD_REGEX.test(pwd));
-		setValidMatch(pwd === matchPwd);
-	}, [pwd, matchPwd]);
+		setValidPassword(PASSWORD_REGEX.test(password));
+		setValidMatch(password === matchPassword);
+	}, [password, matchPassword]);
 
 	useEffect(() => {
-		setErrMsg(''); // Limpar o erro sempre que houver alguma alteração em "email" e "pwd" e "matchPwd"
-	}, [email, pwd, matchPwd]);
+		setErrMsg(''); // Limpar o erro sempre que houver alguma alteração em "email" e "password" e "matchPassword"
+	}, [email, password, matchPassword]);
 
 	const handleSubmit = async (event) => {
-		event.preventDefault(); // Previne o comportamento padrão do formulário ao recarregar a página
+		event.preventDefault(); // Previne o comportamento padrão do browser de recarregar a página ao enviar o formulário
 		const v1 = EMAIL_REGEX.test(email);
-		const v2 = PWD_REGEX.test(pwd);
+		const v2 = PASSWORD_REGEX.test(password);
 		if (!v1 || !v2) {
 			setErrMsg('E-mail ou senha inválido!');
 			return;
 		}
 		try {
-			const response = await api.post(path.REGISTER_URL, JSON.stringify({ email, pwd }), {
+			const response = await api.post(path.REGISTER_URL, JSON.stringify({ email, password }), {
 				withCredentials: true,
 			});
 			console.log(response?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
@@ -73,8 +73,8 @@ const Register = () => {
 			console.log(JSON.stringify(response)); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			setSuccess(true);
 			setEmail('');
-			setPwd('');
-			setMatchPwd('');
+			setPassword('');
+			setMatchPassword('');
 			navigate(from, { replace: true });
 		} catch (err) {
 			if (!err?.response) {
@@ -119,13 +119,10 @@ const Register = () => {
 								onFocus={() => setEmailFocus(true)}
 								onBlur={() => setEmailFocus(false)}
 							/>
-							<div className='form-text' style={{ color: '#909090' }} id='emailHelp'>
+							<div className='form-text' style={{ color: '#909090' }}>
 								Não compartilharemos seu email com ninguém
 							</div>
-							<p
-								id='uidnote'
-								className={emailFocus && email && !validEmail ? 'instructions' : 'offscreen'}
-							>
+							<p className={emailFocus && email && !validEmail ? 'instructions' : 'offscreen'}>
 								<FaInfoCircle />
 								Deve ser um e-mail válido.
 								{/* TODO: MELHORAR A DESCRIÇÃO DE ERRO DO E-MAIL */}
@@ -135,28 +132,29 @@ const Register = () => {
 						<div className='col-12 col-lg-6 my-2'>
 							<label htmlFor='password' className='form-label'>
 								Senha:
-								<FaCheck className={validPwd ? 'valid' : 'hide'} />
-								<FaTimes className={validPwd || !pwd ? 'hide' : 'invalid'} />
+								<FaCheck className={validPassword ? 'valid' : 'hide'} />
+								<FaTimes className={validPassword || !password ? 'hide' : 'invalid'} />
 							</label>
 							<input
 								className='form-control'
 								placeholder='**********'
 								type='password'
 								id='password'
-								onChange={(event) => setPwd(event.target.value)}
-								value={pwd}
+								onChange={(event) => setPassword(event.target.value)}
+								value={password}
 								required
-								onFocus={() => setPwdFocus(true)}
-								onBlur={() => setPwdFocus(false)}
+								onFocus={() => setPasswordFocus(true)}
+								onBlur={() => setPasswordFocus(false)}
 							/>
-							<div className='col-12 form-text' style={{ color: '#909090' }} id='passwordHelp'>
+							<div className='col-12 form-text' style={{ color: '#909090' }}>
 								A senha deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula,
 								um número e um símbolo especial. Símbolos especiais permitidos: ? ! @ # $ % & * , . ; :
 								/
 							</div>
 							<p
-								id='pwdnote'
-								className={pwdFocus && !validPwd ? 'form-text instructions' : 'form-text offscreen'}
+								className={
+									passwordFocus && !validPassword ? 'form-text instructions' : 'form-text offscreen'
+								}
 							>
 								<FaInfoCircle />A senha deve conter 8 ou mais caracteres, pelo menos uma letra
 								maiúscula, uma minúscula, um número e um símbolo especial. Símbolos especiais
@@ -165,23 +163,23 @@ const Register = () => {
 						</div>
 
 						<div className='col-12 col-lg-6 my-2'>
-							<label htmlFor='confirm_pwd' className='form-label'>
+							<label htmlFor='match' className='form-label'>
 								Confirmar Senha:
-								<FaCheck className={validMatch && matchPwd ? 'valid' : 'hide'} />
-								<FaTimes className={validMatch || !matchPwd ? 'hide' : 'invalid'} />
+								<FaCheck className={validMatch && matchPassword ? 'valid' : 'hide'} />
+								<FaTimes className={validMatch || !matchPassword ? 'hide' : 'invalid'} />
 							</label>
 							<input
 								className='form-control'
 								placeholder='**********'
 								type='password'
-								id='confirm_pwd'
-								onChange={(event) => setMatchPwd(event.target.value)}
-								value={matchPwd}
+								id='match'
+								onChange={(event) => setMatchPassword(event.target.value)}
+								value={matchPassword}
 								required
 								onFocus={() => setMatchFocus(true)}
 								onBlur={() => setMatchFocus(false)}
 							/>
-							<p id='confirmnote' className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
+							<p className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
 								<FaInfoCircle />A confirmação deve coincidir com o campo senha.
 							</p>
 						</div>
@@ -228,7 +226,7 @@ const Register = () => {
 								className='btn btn-secondary'
 								style={{ backgroundColor: '#ffbe5c', border: 'none' }}
 								type='submit'
-								disabled={!validEmail || !validPwd || !validMatch ? true : false}
+								disabled={!validEmail || !validPassword || !validMatch ? true : false}
 							>
 								Registre-se
 							</button>
