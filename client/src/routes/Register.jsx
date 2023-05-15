@@ -107,7 +107,13 @@ const Register = () => {
 								<FaTimes className={validEmail || !email ? 'hide' : 'invalid'} />
 							</label>
 							<input
-								className='form-control'
+								className={
+									!email
+										? 'form-control'
+										: validEmail
+										? 'form-control input-valid'
+										: 'form-control input-invalid'
+								}
 								placeholder='emailbacana@mail.com'
 								type='email'
 								id='email'
@@ -119,9 +125,9 @@ const Register = () => {
 								onFocus={() => setEmailFocus(true)}
 								onBlur={() => setEmailFocus(false)}
 							/>
-							<div className='form-text' style={{ color: '#909090' }}>
+							{/* <div className='form-text' style={{ color: '#909090' }}>
 								Não compartilharemos seu email com ninguém
-							</div>
+							</div> */}
 							<p className={emailFocus && email && !validEmail ? 'instructions' : 'offscreen'}>
 								<FaInfoCircle />
 								Deve ser um e-mail válido.
@@ -136,7 +142,13 @@ const Register = () => {
 								<FaTimes className={validPassword || !password ? 'hide' : 'invalid'} />
 							</label>
 							<input
-								className='form-control'
+								className={
+									!password
+										? 'form-control'
+										: validPassword
+										? 'form-control input-valid'
+										: 'form-control input-invalid'
+								}
 								placeholder='**********'
 								type='password'
 								id='password'
@@ -146,19 +158,15 @@ const Register = () => {
 								onFocus={() => setPasswordFocus(true)}
 								onBlur={() => setPasswordFocus(false)}
 							/>
-							<div className='col-12 form-text' style={{ color: '#909090' }}>
+							{/* <div className='form-text' style={{ color: '#909090' }}>
 								A senha deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula,
-								um número e um símbolo especial. Símbolos especiais permitidos: ? ! @ # $ % & * , . ; :
-								/
-							</div>
-							<p
-								className={
-									passwordFocus && !validPassword ? 'form-text instructions' : 'form-text offscreen'
-								}
-							>
+								um número e um símbolo especial.
+								<br /> Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
+							</div> */}
+							<p className={passwordFocus && !validPassword ? 'instructions' : 'offscreen'}>
 								<FaInfoCircle />A senha deve conter 8 ou mais caracteres, pelo menos uma letra
-								maiúscula, uma minúscula, um número e um símbolo especial. Símbolos especiais
-								permitidos: ? ! @ # $ % & * , . ; : /
+								maiúscula, uma minúscula, um número e um símbolo especial. <br />
+								<span> Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /</span>
 							</p>
 						</div>
 
@@ -169,7 +177,13 @@ const Register = () => {
 								<FaTimes className={validMatch || !matchPassword ? 'hide' : 'invalid'} />
 							</label>
 							<input
-								className='form-control'
+								className={
+									!matchPassword
+										? 'form-control'
+										: validMatch
+										? 'form-control input-valid'
+										: 'form-control input-invalid'
+								}
 								placeholder='**********'
 								type='password'
 								id='match'
@@ -189,7 +203,7 @@ const Register = () => {
 								Nome:
 							</label>
 							<input
-								className='form-control'
+								className={!firstName ? 'form-control' : 'form-control input-valid'}
 								placeholder='Fulano Beltrano'
 								type='text'
 								id='firstName'
@@ -209,7 +223,7 @@ const Register = () => {
 								Sobrenome:
 							</label>
 							<input
-								className='form-control'
+								className={!lastName ? 'form-control' : 'form-control input-valid'}
 								placeholder='Sicrano de Souza'
 								type='text'
 								id='lastName'
