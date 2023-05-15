@@ -1,16 +1,13 @@
 import { Link } from 'react-router-dom';
-import Header from './Header';
 import Card from './Card';
 
 import postagens from '../data/postagens.json';
-
-import style from './Postings.module.css';
 
 const Postings = ({ message }) => {
 	return (
 		<div className='col-12 col-xl-10'>
 			<div className='row'>
-				<div className='col-12 col-xl-10 position-fixed' style={{ backgroundColor: '#FE9A2E' }}>
+				<div className='col-12 col-xl-10 position-fixed' style={{ backgroundColor: '#fe9a2e' }}>
 					<nav className='d-flex justify-content-center gap-5 list-unstyled p-2'>
 						<li className='fs-4 text-decoration-none fw-semibold'>
 							<Link className='linkStyle' to='#'>

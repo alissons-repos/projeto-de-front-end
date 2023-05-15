@@ -5,8 +5,6 @@ import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import api from '../apis/axios';
 import path from '../apis/endpoints';
 
-import style from './Register.module.css';
-
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,4})+$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
 
@@ -16,13 +14,10 @@ const Register = () => {
 	const from = location.state?.from?.pathname || '/';
 
 	const emailRef = useRef(); // Necessário para por o foco no campo e-mail quando a tela recarregar
-	const errRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade
+	const errorRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade
 
 	const [firstName, setFirstName] = useState('');
-	const [firstNameFocus, setFirstNameFocus] = useState(false);
-
 	const [lastName, setLastName] = useState('');
-	const [lastNameFocus, setLastNameFocus] = useState(false);
 
 	const [email, setEmail] = useState('');
 	const [validEmail, setValidEmail] = useState(false);
@@ -36,7 +31,7 @@ const Register = () => {
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
-	const [errMsg, setErrMsg] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
 	const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
@@ -53,7 +48,7 @@ const Register = () => {
 	}, [password, matchPassword]);
 
 	useEffect(() => {
-		setErrMsg(''); // Limpar o erro sempre que houver alguma alteração em "email" e "password" e "matchPassword"
+		setErrorMsg(''); // Limpar o erro sempre que houver alguma alteração em "email" e "password" e "matchPassword"
 	}, [email, password, matchPassword]);
 
 	const handleSubmit = async (event) => {
@@ -61,7 +56,7 @@ const Register = () => {
 		const v1 = EMAIL_REGEX.test(email);
 		const v2 = PASSWORD_REGEX.test(password);
 		if (!v1 || !v2) {
-			setErrMsg('E-mail ou senha inválido!');
+			setErrorMsg('E-mail ou senha inválido!');
 			return;
 		}
 		try {
@@ -76,20 +71,20 @@ const Register = () => {
 			setPassword('');
 			setMatchPassword('');
 			navigate(from, { replace: true });
-		} catch (err) {
-			if (!err?.response) {
-				setErrMsg('Sem resposta do servidor!');
-			} else if (err.response?.status === 409) {
-				setErrMsg('O e-mail informado já está em uso, tente outro!');
+		} catch (error) {
+			if (!error?.response) {
+				setErrorMsg('Sem resposta do servidor!');
+			} else if (error.response?.status === 409) {
+				setErrorMsg('O e-mail informado já está em uso, tente outro!');
 			} else {
-				setErrMsg('Algo deu errado!');
+				setErrorMsg('Algo deu errado!');
 			}
-			errRef.current.focus(); // Por o foco na mensagen de erro
+			errorRef.current.focus(); // Por o foco na mensagen de erro
 		}
 	};
 
 	return (
-		<>
+		<div>
 			{success ? (
 				<section>
 					{/* Colocar um placeholder de carregamento aqui */}
@@ -97,14 +92,16 @@ const Register = () => {
 					{navigate('/login')};
 				</section>
 			) : (
-				<section className='container'>
-					<h1 className='text-center'>Cadastre-se</h1>
+				<section className='container vh-100 d-flex flex-column justify-content-center'>
+					<section className='row'>
+						<h1 className='text-center display-2 p-3 m-0'>Cadastre-se</h1>
+					</section>
 					<form onSubmit={handleSubmit} className='row'>
 						<div className='col-12 my-2'>
 							<label htmlFor='email' className='form-label'>
 								E-mail:
-								<FaCheck className={validEmail ? 'valid' : 'hide'} />
-								<FaTimes className={validEmail || !email ? 'hide' : 'invalid'} />
+								<FaCheck className={validEmail ? 'ms-2 valid' : 'hide'} />
+								<FaTimes className={validEmail || !email ? 'hide' : 'ms-2 invalid'} />
 							</label>
 							<input
 								className={
@@ -125,21 +122,18 @@ const Register = () => {
 								onFocus={() => setEmailFocus(true)}
 								onBlur={() => setEmailFocus(false)}
 							/>
-							{/* <div className='form-text' style={{ color: '#909090' }}>
-								Não compartilharemos seu email com ninguém
-							</div> */}
-							<p className={emailFocus && email && !validEmail ? 'instructions' : 'offscreen'}>
+							<div className={emailFocus && email && !validEmail ? 'p-2 instructions' : 'offscreen'}>
 								<FaInfoCircle />
 								Deve ser um e-mail válido.
-								{/* TODO: MELHORAR A DESCRIÇÃO DE ERRO DO E-MAIL */}
-							</p>
+							</div>
+							<div className='form-text'>Não compartilharemos seu email com ninguém</div>
 						</div>
 
 						<div className='col-12 col-lg-6 my-2'>
 							<label htmlFor='password' className='form-label'>
 								Senha:
-								<FaCheck className={validPassword ? 'valid' : 'hide'} />
-								<FaTimes className={validPassword || !password ? 'hide' : 'invalid'} />
+								<FaCheck className={validPassword ? 'ms-2 valid' : 'hide'} />
+								<FaTimes className={validPassword || !password ? 'hide' : 'ms-2 invalid'} />
 							</label>
 							<input
 								className={
@@ -158,23 +152,20 @@ const Register = () => {
 								onFocus={() => setPasswordFocus(true)}
 								onBlur={() => setPasswordFocus(false)}
 							/>
-							{/* <div className='form-text' style={{ color: '#909090' }}>
-								A senha deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula,
-								um número e um símbolo especial.
-								<br /> Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
-							</div> */}
-							<p className={passwordFocus && !validPassword ? 'instructions' : 'offscreen'}>
-								<FaInfoCircle />A senha deve conter 8 ou mais caracteres, pelo menos uma letra
-								maiúscula, uma minúscula, um número e um símbolo especial. <br />
-								<span> Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /</span>
-							</p>
+							<div className={passwordFocus && !validPassword ? 'p-2 instructions' : 'offscreen'}>
+								<FaInfoCircle />
+								Deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um
+								número e um símbolo especial. <br />
+								<FaInfoCircle />
+								Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
+							</div>
 						</div>
 
 						<div className='col-12 col-lg-6 my-2'>
 							<label htmlFor='match' className='form-label'>
 								Confirmar Senha:
-								<FaCheck className={validMatch && matchPassword ? 'valid' : 'hide'} />
-								<FaTimes className={validMatch || !matchPassword ? 'hide' : 'invalid'} />
+								<FaCheck className={validMatch && matchPassword ? 'ms-2 valid' : 'hide'} />
+								<FaTimes className={validMatch || !matchPassword ? 'hide' : 'ms-2 invalid'} />
 							</label>
 							<input
 								className={
@@ -193,9 +184,9 @@ const Register = () => {
 								onFocus={() => setMatchFocus(true)}
 								onBlur={() => setMatchFocus(false)}
 							/>
-							<p className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
+							<div className={matchFocus && !validMatch ? 'p-2 instructions' : 'offscreen'}>
 								<FaInfoCircle />A confirmação deve coincidir com o campo senha.
-							</p>
+							</div>
 						</div>
 
 						<div className='col-12 col-lg-6 my-2'>
@@ -213,9 +204,7 @@ const Register = () => {
 								onFocus={() => setFirstNameFocus(true)}
 								onBlur={() => setFirstNameFocus(false)}
 							/>
-							<div className='form-text' style={{ color: '#909090' }} id='passwordHelp'>
-								Pode utilizar também nomes compostos
-							</div>
+							<div className='form-text'>Pode utilizar também nomes compostos</div>
 						</div>
 
 						<div className='col-12 col-lg-6 my-2'>
@@ -238,25 +227,29 @@ const Register = () => {
 						<div className='my-3 d-flex flex-column'>
 							<button
 								className='btn btn-secondary'
-								style={{ backgroundColor: '#ffbe5c', border: 'none' }}
+								style={{ backgroundColor: '#fe9a2e', border: 'none' }}
 								type='submit'
-								disabled={!validEmail || !validPassword || !validMatch ? true : false}
+								disabled={
+									!validEmail || !validPassword || !validMatch || !firstName || !lastName
+										? true
+										: false
+								}
 							>
 								Registre-se
 							</button>
 						</div>
 					</form>
-					<section>
-						<p className='text-center'>
+					<section className='text-center'>
+						<p>
 							Já possui um cadastro? <Link to='/login'>Entrar</Link>
 						</p>
-						<p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'}>
-							{errMsg}
+						<p ref={errorRef} className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>
+							&nbsp;{errorMsg}
 						</p>
 					</section>
 				</section>
 			)}
-		</>
+		</div>
 	);
 };
 

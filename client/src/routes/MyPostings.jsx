@@ -2,8 +2,6 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Postings from '../components/Postings';
 
-import style from './MyPostings.module.css';
-
 const MyPostings = () => {
 	const message = 'Você não possui nenhuma postagem!';
 	return (
