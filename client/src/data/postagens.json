@@ -1,0 +1,110 @@
+[
+	{
+		"title": "Adote uma gata filhote",
+		"description": "Essa gatinha fofa está procurando um lar para chamar de seu. Já está com a primeira dose da vacina e vermifugada.",
+		"category": "Adoção",
+		"sex": "fêmea",
+		"breeds": ["SRD"],
+		"amount": 1,
+		"id": 1
+	},
+	{
+		"title": "Evento de adoção de cães",
+		"description": "Venha participar do nosso evento de adoção de cães! Teremos diversos animais disponíveis para serem adotados.",
+		"category": "Evento",
+		"sex": null,
+		"breeds": ["Vira-lata", "Poodle", "Labrador"],
+		"amount": null,
+		"id": 2
+	},
+	{
+		"title": "Cruzar minha cadela Poodle",
+		"description": "Estou procurando um cão macho para cruzar com minha cadela Poodle. Ela é dócil e saudável.",
+		"category": "Cruzamento",
+		"sex": "ambos",
+		"breeds": ["Poodle"],
+		"amount": null,
+		"id": 3
+	},
+	{
+		"title": "Adote uma gata filhote",
+		"description": "Essa gatinha fofa está procurando um lar para chamar de seu. Já está com a primeira dose da vacina e vermifugada.",
+		"category": "Adoção",
+		"sex": "macho",
+		"breeds": ["SRD"],
+		"amount": 1,
+		"id": 4
+	},
+	{
+		"title": "Evento de adoção de cães",
+		"description": "Venha participar do nosso evento de adoção de cães! Teremos diversos animais disponíveis para serem adotados.",
+		"category": "Evento",
+		"sex": null,
+		"breeds": ["Vira-lata", "Poodle", "Labrador"],
+		"amount": null,
+		"id": 5
+	},
+	{
+		"title": "Cruzar minha cadela Poodle",
+		"description": "Estou procurando um cão macho para cruzar com minha cadela Poodle. Ela é dócil e saudável.",
+		"category": "Cruzamento",
+		"sex": "fêmea",
+		"breeds": ["Poodle"],
+		"amount": null,
+		"id": 6
+	},
+	{
+		"title": "Adote uma gata filhote",
+		"description": "Essa gatinha fofa está procurando um lar para chamar de seu. Já está com a primeira dose da vacina e vermifugada.",
+		"category": "Adoção",
+		"sex": "macho",
+		"breeds": ["SRD"],
+		"amount": 1,
+		"id": 1
+	},
+	{
+		"title": "Evento de adoção de cães",
+		"description": "Venha participar do nosso evento de adoção de cães! Teremos diversos animais disponíveis para serem adotados.",
+		"category": "Evento",
+		"sex": null,
+		"breeds": ["Vira-lata", "Poodle", "Labrador"],
+		"amount": null,
+		"id": 2
+	},
+	{
+		"title": "Cruzar minha cadela Poodle",
+		"description": "Estou procurando um cão macho para cruzar com minha cadela Poodle. Ela é dócil e saudável.",
+		"category": "Cruzamento",
+		"sex": "fêmea",
+		"breeds": ["Poodle"],
+		"amount": null,
+		"id": 3
+	},
+	{
+		"title": "Adote uma gata filhote",
+		"description": "Essa gatinha fofa está procurando um lar para chamar de seu. Já está com a primeira dose da vacina e vermifugada.",
+		"category": "Adoção",
+		"sex": "fêmea",
+		"breeds": ["SRD"],
+		"amount": 1,
+		"id": 4
+	},
+	{
+		"title": "Evento de adoção de cães",
+		"description": "Venha participar do nosso evento de adoção de cães! Teremos diversos animais disponíveis para serem adotados.",
+		"category": "Evento",
+		"sex": null,
+		"breeds": ["Vira-lata", "Poodle", "Labrador"],
+		"amount": null,
+		"id": 5
+	},
+	{
+		"title": "Cruzar minha cadela Poodle",
+		"description": "Estou procurando um cão macho para cruzar com minha cadela Poodle. Ela é dócil e saudável.",
+		"category": "Cruzamento",
+		"sex": "fêmea",
+		"breeds": ["Poodle"],
+		"amount": null,
+		"id": 6
+	}
+]
