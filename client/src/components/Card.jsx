@@ -17,31 +17,31 @@ const Card = ({ data }) => {
 			</div>
 			<div className={style.cardFooter}>
 				<div className={style.cardBadges}>
-					<span className='badge text-bg-warning fs-5 fw-normal'>{data.category}</span>
+					<span className='badge text-bg-danger fw-normal fs-5'>{data.category}</span>
 					{!data.sex ? (
 						''
 					) : data.sex === 'ambos' ? (
-						<span className='badge text-bg-success fs-5'>
+						<span className='badge text-bg-danger fw-normal fs-5'>
 							<BsGenderAmbiguous />
 						</span>
 					) : data.sex === 'fêmea' ? (
-						<span className='badge text-bg-success fs-5'>
+						<span className='badge text-bg-danger fw-normal fs-5'>
 							<BsGenderFemale />
 						</span>
 					) : (
-						<span className='badge text-bg-success fs-5'>
+						<span className='badge text-bg-danger fw-normal fs-5'>
 							<BsGenderMale />
 						</span>
 					)}
-					{!data.amount ? '' : <span className='badge text-bg-success fs-5 fw-normal'>{data.amount}</span>}
+					{/* {!data.amount ? '' : <span className='badge text-bg-danger fw-normal fs-5'>{data.amount}</span>} */}
 				</div>
 				<div className={style.cardButtons}>
 					<button className='btn btn-danger'>
 						<FaHeart /> {!data.likes ? 0 : data.likes}
 					</button>
-					<NavLink to='#' className='btn btn-primary'>
+					{/* <NavLink to='#' className='btn btn-primary'>
 						Mostar mais
-					</NavLink>
+					</NavLink> */}
 				</div>
 			</div>
 		</div>
