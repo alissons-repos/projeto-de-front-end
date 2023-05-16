@@ -3,21 +3,8 @@ import { Link } from 'react-router-dom';
 
 import useAuth from '../hooks/useAuth';
 
-const Navigation = () => {
+const Navigation = ({ isLarge }) => {
 	// const { auth } = useAuth();
-
-	const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
-	const isLarge = windowSize[0] >= 1200 ? true : false;
-
-	useEffect(() => {
-		const handleWindowResize = () => {
-			setWindowSize([window.innerWidth, window.innerHeight]);
-		};
-		window.addEventListener('resize', handleWindowResize);
-		return () => {
-			window.removeEventListener('resize', handleWindowResize);
-		};
-	}, []);
 
 	return (
 		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>
