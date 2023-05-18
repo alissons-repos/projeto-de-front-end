@@ -1,0 +1,24 @@
+.tag {
+    padding: 5px 15px;
+    font-size: 0.875em;
+    color: #fff;
+    background-color: #FFBE5C;
+    border-radius: 5px;
+    text-align: center;
+    height: 30px;
+}
+
+.sex-male {
+    padding: 5px 10px;
+    background-color: #83D2FF;
+}
+
+.sex-female {
+    padding: 5px 10px;
+    background-color: #FFBBC3;
+}
+
+.sex-ambiguous {
+    padding: 5px 10px;
+    background-color: #e4b7ff;
+}

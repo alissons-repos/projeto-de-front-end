@@ -1,0 +1,7 @@
+.leftPanelBackground {
+    background: url('../img/index-bg-image-75p.jpg') #fe9a2e bottom left no-repeat;
+}
+
+.btnOutlineOnHoverTextFix:hover {
+    color: #fe9a2e;
+}

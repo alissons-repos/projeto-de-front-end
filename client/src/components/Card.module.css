@@ -1,18 +1,20 @@
 .card {
-	border: 1px solid #848484;
+	/* border: 1px solid #848484; */
+	box-shadow: rgba(0, 0, 0, 0.125) 0 4px 4px;
 	border-radius: 16px;
 }
 .cardImage {
-	background-color: #424242;
-	border: 2px solid #424242;
+	background-color: #dadada;
+	/* border: 2px solid #dadada; */
 	border-radius: 16px 16px 0 0;
 	width: 100%;
 	height: 200px;
 }
 .cardBody {
-	background-color: #e6e6e6;
+	background-color: #fff;
 }
 .cardTitle {
+	/* font-family: 'Montserrat', sans-serif; */
 	font-size: 1.5rem;
 	padding: 16px;
 	margin: 0;
@@ -22,10 +24,12 @@
 	padding: 0 16px 16px 16px;
 }
 .cardFooter {
+	background-color: #fff;
+	border-radius: 0 0 16px 16px;
 	display: flex;
 	justify-content: space-between;
 	padding: 8px 16px;
-	border-top: 1px solid #848484;
+	border-top: 1px dotted #dadada;
 }
 .cardBadges {
 	display: flex;
