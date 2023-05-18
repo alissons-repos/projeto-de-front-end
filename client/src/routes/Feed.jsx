@@ -7,8 +7,8 @@ const Feed = ({ isLarge }) => {
 	return (
 		<div className='container-fluid'>
 			<div className='row'>
-				<Header />
-				<Navigation isLarge={isLarge} />
+				<Header isLarge={isLarge} />
+				{isLarge ? <Navigation isLarge={isLarge} /> : <></>}
 				<Postings message={message} isLarge={isLarge} />
 			</div>
 		</div>
