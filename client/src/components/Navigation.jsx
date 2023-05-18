@@ -9,7 +9,7 @@ const Navigation = ({ isLarge }) => {
 	return (
 		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
-				<div className='d-flex flex-row flex-xl-column gap-4 align-items-center p-3'>
+				<div className='d-flex flex-column gap-3 align-items-center p-3'>
 					<img className='avatar' src='' alt='' />
 					<div className='d-flex flex-column list-unstyled'>
 						{/* <h2>{auth?.user.userName}</h2> */}
@@ -19,6 +19,9 @@ const Navigation = ({ isLarge }) => {
 						</li>
 						<li>
 							<Link to='/postings'>Meus Posts</Link>
+						</li>
+						<li>
+							<Link to='/feed'>Feed</Link>
 						</li>
 						<li>
 							<Link to='/logout'>Sair</Link>

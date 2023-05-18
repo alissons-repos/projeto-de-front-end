@@ -45,7 +45,7 @@ function App() {
 				<Route element={<PersistLogin />}>
 					<Route path='feed' element={<Feed isLarge={isLarge} />} />
 					<Route path='postings' element={<MyPostings isLarge={isLarge} />} />
-					<Route path='profile' element={<MyProfile />} />
+					<Route path='profile' element={<MyProfile isLarge={isLarge} />} />
 				</Route>
 			</Route>
 		</Routes>
