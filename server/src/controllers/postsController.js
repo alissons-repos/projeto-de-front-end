@@ -146,6 +146,31 @@ const deleteTheUserPost = async (req, res) => {
 	}
 };
 
+const uploadImgTheUserPost = async (req, res) => {
+	if (!req.file) {
+		return res.status(400).json({ Erro: 'Nenhum arquivo de imagem enviado!' }); // Bad Request
+	}
+	const image = req.file.filename;
+	// if (!image) {
+	// 	return res.status(400).json({ Erro: 'Nenhum arquivo de imagem enviado!' }); // Bad Request
+	// }
+	// Adicionar validação no formato do arquivo?
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
+		const post = await Post.findOne({ _id: req.params.id }).exec();
+		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
+		const includes = user.postings.includes(req.params.id);
+		if (!includes) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Bad Request
+		if (image) post.image = req.file.filename;
+		const result = await post.save();
+		return res.status(200).json({ Arquivo: 'Arquivo enviado com sucesso!', Resultado: result }); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
+};
+
 module.exports = {
 	getAllPosts,
 	getPostID,
@@ -153,4 +178,5 @@ module.exports = {
 	createNewUserPost,
 	updateTheUserPost,
 	deleteTheUserPost,
+	uploadImgTheUserPost,
 };

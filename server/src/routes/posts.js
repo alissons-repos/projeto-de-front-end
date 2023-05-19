@@ -3,6 +3,7 @@ const router = express.Router();
 const postsController = require('../controllers/postsController');
 const verifyJWT = require('../middlewares/verifyJWT');
 const verifyID = require('../middlewares/verifyID');
+const uploads = require('../middlewares/uploads');
 
 // ROTAS PÚBLICAS
 router
@@ -22,6 +23,11 @@ router
 	.route('/auth/posts')
 	.get(verifyJWT, postsController.getAllUserPosts)
 	.post(verifyJWT, postsController.createNewUserPost);
+
+router
+	// POST -> Permite que o usuário logado adicione uma foto ao seu post (...)
+	.route('/auth/posts/upload/:id')
+	.post(verifyJWT, verifyID, uploads.single('file'), postsController.uploadImgTheUserPost);
 
 router
 	// PATCH -> Permite que o usuário logado atualize um de seus posts (requisição do botão editar)
