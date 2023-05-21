@@ -83,18 +83,20 @@ const Login = () => {
 					{/* Página inteira */}
 					<div className='row'>
 						{/* Direita */}
-						<div className={`${style.leftPanelBackground} col-12 col-lg-7 vh-100 px-4 text-white`}>
-							<div className='d-flex flex-column justify-content-center h-100 p-5'>
-								<h1 className='display-font display-5 fw-normal'>Arranje um companheiro para o seu pet!</h1>
-								<p className='lead fs-5 py-4'>
-									{/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis incidunt sed quisquam
-									voluptates aliquam quas nostrum, ipsa minus in voluptatum animi id quos esse quia
-									voluptate beatae. Cupiditate, laborum dolorum? */}
-									Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se a nós e faça você também parte de nossa calorosa comunidade!
-								</p>
-								<Link className='btn btn-outline-light btn-lg' to='/register'>
-									Faça parte
-								</Link>
+						<div className={`${style.grassBG} col-12 col-lg-7 vh-100 px-0 text-white`}>
+							<div className={`${style.dogsBG} d-flex flex-column justify-content-center px-4 h-100`}>
+								<div className={`d-flex flex-column justify-content-center h-100 p-5`}>
+									<h1 className='display-font display-5 fw-normal'>Arranje um companheiro para o seu pet!</h1>
+									<p className='lead fs-5 py-4'>
+										{/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis incidunt sed quisquam
+										voluptates aliquam quas nostrum, ipsa minus in voluptatum animi id quos esse quia
+										voluptate beatae. Cupiditate, laborum dolorum? */}
+										Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se a nós e faça você também parte de nossa calorosa comunidade!
+									</p>
+									<Link className='btn btn-outline-light btn-lg' to='/register'>
+										Faça parte
+									</Link>
+								</div>
 							</div>
 						</div>
 						{/* Esquerda */}

@@ -1,5 +1,9 @@
-.leftPanelBackground {
-    background: url('../img/index-bg-image-75p.jpg') #fe9a2e bottom left no-repeat;
+.grassBG {
+    background: url('../img/grass.png') #fe9a2e bottom repeat-x;
+}
+
+.dogsBG {
+    background: url('../img/dogs.png') bottom center no-repeat;
 }
 
 .btnOutlineOnHoverTextFix:hover {
