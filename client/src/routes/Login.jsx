@@ -10,7 +10,7 @@ const Login = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-	const from = location.state?.from?.pathname || '/';
+	const from = location.state?.from?.pathname || '/' || '/login';
 
 	const emailRef = useRef(); // Necessário para por o foco no campo e-mail quando a tela recarregar
 	const errorRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade

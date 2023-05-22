@@ -9,8 +9,8 @@ const storageConfig = multer.diskStorage({
 	},
 	filename: (req, file, callback) => {
 		const fileName = file.originalname.toLowerCase().split(' ').join('-');
-		const timeStamp = new Date().getTime();
-		callback(null, `${timeStamp}_${fileName}`);
+		const userID = req.user.userID;
+		callback(null, `${userID}_${fileName}`);
 	},
 });
 

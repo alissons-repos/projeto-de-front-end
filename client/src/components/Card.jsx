@@ -5,10 +5,15 @@ import { BsGenderAmbiguous, BsGenderFemale, BsGenderMale } from 'react-icons/bs'
 
 import style from './Card.module.css';
 
+// import { apiPrivate } from '../apis/axios';
+import path from '../apis/endpoints';
+
 const Card = ({ data }) => {
+	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${data.image}`;
+
 	return (
 		<div className={style.card}>
-			<img src={data.imagem} className={style.cardImage} alt='' />
+			<img src={imagePath} className={style.cardImage} alt='' />
 			<div className={style.cardBody}>
 				<h5 className={style.cardTitle}>{data.title}</h5>
 				<p className={['text-truncate', style.cardText].join(' ')} style={{ lineClamp: 2 }}>

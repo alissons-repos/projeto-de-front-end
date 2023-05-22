@@ -1,5 +1,8 @@
+const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+const DIRECTORY = path.resolve('public');
 
 // Mongoose Schema
 const userSchema = new Schema(
@@ -8,8 +11,8 @@ const userSchema = new Schema(
 			type: String,
 			required: false,
 			trim: true,
-			// default: `https://www.gravatar.com/avatar/${emailHash}?s=200`,
-			get: (v) => `${root}${v}`,
+			default: `default_avatar_0`,
+			get: (fileName) => `'${DIRECTORY}/${fileName}`,
 		},
 		email: {
 			type: String,

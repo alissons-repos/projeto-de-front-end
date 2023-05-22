@@ -70,6 +70,7 @@ const createNewUserPost = async (req, res) => {
 			sex,
 			breeds,
 			amount: Math.trunc(amount),
+			image: `default_image_${Math.floor(Math.random() * 6)}.jpg`,
 			owner: req.user.userID,
 		});
 		user.postings.push(result);

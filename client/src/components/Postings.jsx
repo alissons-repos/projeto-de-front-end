@@ -1,9 +1,26 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from './Card';
 
-import postagens from '../data/postagens.json';
+import { apiPrivate } from '../apis/axios';
+import path from '../apis/endpoints';
 
 const Postings = ({ message, isLarge }) => {
+	const [posts, setPosts] = useState([]);
+
+	const getPosts = async () => {
+		try {
+			const response = await apiPrivate.get(path.POSTS_URL);
+			setPosts(response.data);
+		} catch (error) {
+			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+		}
+	};
+
+	useEffect(() => {
+		getPosts();
+	}, []);
+
 	// style={{ backgroundColor: '#fe9a2e' }}
 	return (
 		<div className='col-12 col-xl-10'>
@@ -32,9 +49,9 @@ const Postings = ({ message, isLarge }) => {
 			{/* </div> */}
 			<br />
 			<ul className='row list-unstyled mt-xl-5'>
-				{postagens.length !== 0 ? (
-					postagens.map((post) => (
-						<li key={post.id} className='col-12 col-md-6 col-xxl-4'>
+				{posts.length !== 0 ? (
+					posts.map((post) => (
+						<li key={post._id} className='col-12 col-md-6 col-xxl-4'>
 							<Card data={post} />
 							<br />
 						</li>
