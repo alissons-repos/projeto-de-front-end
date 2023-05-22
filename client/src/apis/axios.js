@@ -9,9 +9,7 @@ export const apiPrivate = axios.create({
 
 const api = axios.create({
 	baseURL: path.BASE_URL,
-	headers: {
-		'Content-Type': 'application/json',
-	},
+	headers: { 'Content-Type': 'application/json' },
 });
 
 export default api;

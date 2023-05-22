@@ -15,7 +15,8 @@ const handleRefresh = async (req, res) => {
 		// decoded recebe o objeto payload decodificado guardado no jwt
 		if (error || foundUser._id !== decoded.userID) return res.status(403).json({ Erro: 'Token inválido!' }); // Forbidden
 		const accessToken = jwt.sign({ userData: { userID: decoded.id } }, process.env.ACCESS_TOKEN_SECRET, {
-			expiresIn: '1m',
+			expiresIn: '30s',
+			// 1m
 		});
 		res.status(200).json({ Token: accessToken });
 	});

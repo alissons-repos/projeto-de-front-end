@@ -1,6 +1,7 @@
 const routes = {
 	BASE_URL: 'http://localhost:3500',
 	PUBLIC_URL: '/public',
+	REFRESH_URL: '/refresh',
 	LOGIN_URL: '/login',
 	LOGOUT_URL: '/logout',
 	REGISTER_URL: '/register',

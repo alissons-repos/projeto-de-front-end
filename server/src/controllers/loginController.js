@@ -4,10 +4,10 @@ const User = require('../models/User');
 
 const handleLogin = async (req, res) => {
 	const { email, password } = req.body;
-	if (!email || !password) return res.status(422).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unprocessable Entity
+	if (!email || !password) return res.status(400).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unprocessable Entity
 
 	const foundUser = await User.findOne({ email: email }).select('+password').exec();
-	if (!foundUser) return res.status(422).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
+	if (!foundUser) return res.status(400).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
 
 	const match = await bcrypt.compare(password, foundUser.password);
 	if (match) {
@@ -26,12 +26,12 @@ const handleLogin = async (req, res) => {
 		// O token não deve ser armazenado em cookies ou no localStorage de modo que fique disponível para o JS do browser.
 		// O token deve ficar apenas em memória. Porém, deixaremos salvo em um cookie com a propriedade "http only", tornando-o inacessível para JS.
 
-		res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 600000 }); // secure: true
+		res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 600000 }); // secure: true
 		return res.status(200).json({ Mensagem: 'Autenticação realizada com sucesso!', Token: accessToken });
 		// Estamos armazenando o refreshToken e entregando o accessToken para o usuário utilizar nas outras requisições.
 		// O accessToken expira muito rápido, então precisamos "trocar" o token de verificação. Para isso criamos uma rota refresh que possui um método GET que aciona o refreshController.
 	} else {
-		return res.status(422).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
+		return res.status(401).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
 	}
 };
 

@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
-import api from '../apis/axios';
+import { apiPrivate } from '../apis/axios';
 import path from '../apis/endpoints';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-	const from = location.state?.from?.pathname || '/' || '/login';
+	const from = location.state?.from?.pathname || '/feed';
 
 	const emailRef = useRef(); // Necessário para por o foco no campo e-mail quando a tela recarregar
 	const errorRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade
@@ -33,24 +33,22 @@ const Login = () => {
 		event.preventDefault(); // Previne o comportamento padrão do formulário ao recarregar a página
 
 		try {
-			const response = await api.post(path.LOGIN_URL, JSON.stringify({ email, password }), {
-				withCredentials: true,
-			});
-			console.log(JSON.stringify(response)); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			console.log(JSON.stringify(response?.data)); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			const accessToken = response?.data?.accessToken;
+			const response = await apiPrivate.post(path.LOGIN_URL, JSON.stringify({ email, password }));
+			console.log(response?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			const accessToken = response?.data?.Token;
 			setAuth({ email, accessToken });
 			setEmail('');
 			setPassword('');
 			setSuccess(true);
-			navigate(from, { replace: true });
+			navigate(from, { state: { from: location }, replace: true });
+			// setTimeout(navigate(from, { replace: true }), 2000); // FIXME:
 		} catch (error) {
 			if (!error?.response) {
 				setErrorMsg('Sem resposta do servidor!');
 			} else if (error.response?.status === 400) {
-				setErrorMsg('Está faltando o e-mail ou a senha!');
+				setErrorMsg('E-mail e senha são obrigatórios!');
 			} else if (error.response?.status === 401) {
-				setErrorMsg('Não autorizado!');
+				setErrorMsg('Email ou senha inválidos!');
 			} else {
 				setErrorMsg('Algo deu errado!');
 			}
@@ -72,7 +70,6 @@ const Login = () => {
 				<section>
 					{/* Colocar um placeholder de carregamento aqui */}
 					<h1>Login efetuado com sucesso!</h1>
-					{navigate('/feed')};
 				</section>
 			) : (
 				<section className='container-fluid'>

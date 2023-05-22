@@ -10,7 +10,7 @@ const handleLogout = async (req, res) => {
 	const foundUser = await User.findOne({ refreshToken }).exec();
 	// Apagando o cookie jwt salvo no browser mesmo se não encontrarmos o usuário
 	if (!foundUser) {
-		res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' }); // secure: true
+		res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true }); // secure: true
 		// O objeto de configuração do médoto clearCookie não precisa dos atributos "maxAge" e "expires", de resto deve ser tudo igual
 		return res.status(204).json({ Mensagem: 'Desconexão realizada com sucesso!' }); // No content
 	}
@@ -21,7 +21,7 @@ const handleLogout = async (req, res) => {
 	// console.log(result); // LIMPAR QUANDO ESTIVER PRONTO
 
 	// Apagando o cookie jwt salvo no browser depois de apagar o refreshToken salvo com o usuário
-	res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' }); // secure: true
+	res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true }); // secure: true
 	// O atributo "secure" é necessário para https já o "sameSite" com valor "None" é necessário para habilitar o uso entre sites (uso do cookie?)
 	return res.status(204).json({ Mensagem: 'Desconexão realizada com sucesso!' }); // No content
 };
