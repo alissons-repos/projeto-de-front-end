@@ -1,0 +1,11 @@
+.grassBG {
+    background: url('../img/grass.png') #fe9a2e bottom repeat-x;
+}
+
+.dogsBG {
+    background: url('../img/dogs.png') bottom center no-repeat;
+}
+
+.btnOutlineOnHoverTextFix:hover {
+    color: #fe9a2e;
+}

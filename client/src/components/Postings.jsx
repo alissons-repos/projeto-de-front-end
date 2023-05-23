@@ -49,20 +49,20 @@ const Postings = ({ message, isLarge }) => {
 		<div className='col-12 col-xl-10'>
 			<div className={isLarge ? 'col-12 col-xl-10 position-fixed' : 'col-12 col-xl-10 position-static'}>
 				<div className='row' style={{ backgroundColor: '#fe9a2e' }}>
-					<nav className='d-flex justify-content-center gap-4 list-unstyled p-2'>
-						<li className='fs-4 text-decoration-none fw-semibold'>
-							<Link className='linkStyle' to='#'>
+					<nav className='d-flex justify-content-center gap-5 list-unstyled p-2'>
+						<li className='fs-4'>
+							<Link className='navlinkStyle' to='#'>
 								Adoção
 							</Link>
 						</li>
-						<li className='fs-4 text-decoration-none fw-semibold'>
-							<Link className='linkStyle' to='#'>
+						<li className='fs-4'>
+							<Link className='navlinkStyle' to='#'>
 								Cruzamento
 							</Link>
 						</li>
-						<li className='fs-4 text-decoration-none fw-semibold'>
-							<Link className='linkStyle' to='#'>
-								Eventos
+						<li className='fs-4'>
+							<Link className='navlinkStyle' to='#'>
+								Eventos?
 							</Link>
 						</li>
 					</nav>

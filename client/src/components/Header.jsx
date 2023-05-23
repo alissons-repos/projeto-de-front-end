@@ -1,22 +1,24 @@
 import { Link } from 'react-router-dom';
 
+import logo from '../img/map-logo.svg';
+
 const Header = ({ isLarge }) => {
 	return (
 		<>
 			{isLarge ? (
 				<nav className='position-fixed list-unstyled p-2' style={{ backgroundColor: '#FE9A2E' }}>
-					<div className='fs-4 text-decoration-none fw-semibold ps-lg-3'>
-						<Link className='linkStyle' to='/feed'>
-							Meu Amigo PET
+					<div className='ps-2 fs-4 text-decoration-none fw-semibold ps-lg-3'>
+						<Link to='/feed'>
+							<img src={logo} alt="Meu Amigo PET" width="70" />
 						</Link>
 					</div>
 				</nav>
 			) : (
 				<nav className='navbar navbar-expand-xl' style={{ backgroundColor: '#FE9A2E' }}>
 					<div className='container-fluid'>
-						<div className='fs-4 text-decoration-none fw-semibold ps-lg-3'>
-							<Link className='linkStyle' to='/feed'>
-								Meu Amigo PET
+						<div className='ps-2 fs-4 text-decoration-none fw-semibold ps-lg-3'>
+							<Link to='/feed'>
+								<img src={logo} alt="Meu Amigo PET" width="70" />
 							</Link>
 						</div>
 						<button className='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#userInfo'>

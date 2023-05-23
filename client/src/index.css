@@ -1,3 +1,6 @@
+/* Importação de fontes*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,700;0,900;1,200;1,300;1,400;1,500;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /* * {
 	margin: 0;
 	padding: 0;
@@ -5,11 +8,14 @@
 } */
 
 body {
-	background-color: #e9ecef;
+	font-family: 'Roboto', sans-serif;
+	color: #7e7e7e;
+	background-color: #fafafa /* #fafafa #e9ecef*/;
 }
 
-h1 {
-	color: #fe9a2e;
+/* Fonte secundária da aplicação, usada em textos de display */
+.display-font {
+	font-family: 'Montserrat', sans-serif;
 }
 
 /* button {
@@ -20,8 +26,8 @@ h1 {
 } */
 
 .avatar {
-	background-color: #484848;
-	border: 2px solid #242424;
+	background-color: #dadada;
+	/* border: 2px solid #242424; */
 	width: 200px;
 	height: 200px;
 	min-width: 150px;
@@ -29,15 +35,27 @@ h1 {
 	border-radius: 50%;
 }
 
-/* linkStyle está sendo utilizado na barra de navegação */
+/* linkStyle está sendo utilizado para links padrão */
 .linkStyle {
-	color: #fafafa;
 	text-decoration: none;
-	border-bottom: 2px solid #f7be81;
+	color: #fe9a2e;
 }
 
 .linkStyle:hover {
-	color: #f7be81;
+	color: #ffbe5c;
+	border-bottom: 1px #ffbe5c solid;
+}
+
+/* navlinkStyle está sendo utilizado na barra de navegação */
+.navlinkStyle {
+	color: #fafafa;
+	text-decoration: none;
+	/* border-bottom: 2px solid #f7be81; */
+}
+
+.navlinkStyle:hover {
+	color: #fafafa;
+	border-bottom: 2px solid #fafafa;
 }
 
 /* input[type='text'],
