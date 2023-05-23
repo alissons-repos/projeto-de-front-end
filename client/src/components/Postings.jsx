@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+import FaveButton from './FaveButton';
 import Card from './Card';
 
 import useApiPrivate from '../hooks/useApiPrivate';
@@ -46,7 +48,6 @@ const Postings = ({ message, isLarge }) => {
 	// style={{ backgroundColor: '#fe9a2e' }}
 	return (
 		<div className='col-12 col-xl-10'>
-			{/* <div className='row'> */}
 			<div className={isLarge ? 'col-12 col-xl-10 position-fixed' : 'col-12 col-xl-10 position-static'}>
 				<div className='row' style={{ backgroundColor: '#fe9a2e' }}>
 					<nav className='d-flex justify-content-center gap-4 list-unstyled p-2'>
