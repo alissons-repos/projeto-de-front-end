@@ -2,7 +2,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const DIRECTORY = path.resolve('public');
+// const DIRECTORY = path.resolve('public');
 
 // Mongoose Schema
 const postSchema = new Schema(
@@ -12,7 +12,7 @@ const postSchema = new Schema(
 			required: false,
 			trim: true,
 			default: `default_image_0`,
-			get: (fileName) => `'${DIRECTORY}/${fileName}`,
+			// get: (fileName) => `'${DIRECTORY}/${fileName}`,
 		},
 		owner: {
 			type: mongoose.Schema.Types.String,
@@ -70,6 +70,12 @@ const postSchema = new Schema(
 			min: 1,
 			default: null,
 		},
+		likes: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+		],
 	},
 	{
 		timestamps: true,

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import FaveButton from './FaveButton';
 import Card from './Card';
 
 import useApiPrivate from '../hooks/useApiPrivate';

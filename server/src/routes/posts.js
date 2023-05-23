@@ -25,15 +25,25 @@ router
 	.post(verifyJWT, postsController.createNewUserPost);
 
 router
-	// POST -> Permite que o usuário logado adicione uma foto ao seu post (...)
-	.route('/auth/posts/upload/:id')
-	.post(verifyJWT, verifyID, uploads.single('file'), postsController.uploadImgTheUserPost);
-
-router
 	// PATCH -> Permite que o usuário logado atualize um de seus posts (requisição do botão editar)
 	// DELETE -> Permite que o usuário logado detele um de seus posts (requisição do botão deletar)
 	.route('/auth/posts/:id')
 	.patch(verifyJWT, verifyID, postsController.updateTheUserPost)
 	.delete(verifyJWT, verifyID, postsController.deleteTheUserPost);
+
+router
+	// PATCH -> Permite que o usuário logado adicione/atualize uma foto ao seu post (...)
+	.route('/auth/posts/upload/:id')
+	.patch(verifyJWT, verifyID, uploads.single('file'), postsController.uploadImgTheUserPost);
+
+router
+	// PATCH -> Permite que o usuário logado favorite um post (...)
+	.route('/auth/posts/like/:id')
+	.patch(verifyJWT, verifyID, postsController.likeTheUserPost);
+
+router
+	// PATCH -> Permite que o usuário logado desfavorite um post (...)
+	.route('/auth/posts/unlike/:id')
+	.patch(verifyJWT, verifyID, postsController.unlikeTheUserPost);
 
 module.exports = router;

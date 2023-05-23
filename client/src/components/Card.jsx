@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import { BsGenderAmbiguous, BsGenderFemale, BsGenderMale } from 'react-icons/bs';
 
+import FaveButton from './FaveButton';
+
 import style from './Card.module.css';
 
 // import { apiPrivate } from '../apis/axios';
@@ -42,7 +44,7 @@ const Card = ({ data }) => {
 				</div>
 				<div className={style.cardButtons}>
 					<button className='btn btn-danger'>
-						<FaHeart /> {!data.likes ? 0 : data.likes}
+						<FaHeart /> {data.likes.length ? data.likes.length : 0}
 					</button>
 					{/* <NavLink to='#' className='btn btn-primary'>
 						Mostar mais

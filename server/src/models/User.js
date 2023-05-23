@@ -2,7 +2,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const DIRECTORY = path.resolve('public');
+// const DIRECTORY = path.resolve('public');
 
 // Mongoose Schema
 const userSchema = new Schema(
@@ -12,7 +12,7 @@ const userSchema = new Schema(
 			required: false,
 			trim: true,
 			default: `default_avatar_0`,
-			get: (fileName) => `'${DIRECTORY}/${fileName}`,
+			// get: (fileName) => `'${DIRECTORY}/${fileName}`,
 		},
 		email: {
 			type: String,
