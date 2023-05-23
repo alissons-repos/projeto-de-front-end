@@ -3,11 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 import logo from '../img/map-logo-grad.svg';
-
 import style from './Login.module.css';
 
-import api from '../apis/axios';
 import { apiPrivate } from '../apis/axios';
+
 import path from '../apis/endpoints';
 
 const Login = () => {

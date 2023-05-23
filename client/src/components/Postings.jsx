@@ -62,7 +62,7 @@ const Postings = ({ message, isLarge }) => {
 						</li>
 						<li className='fs-4'>
 							<Link className='navlinkStyle' to='#'>
-								Eventos?
+								Eventos
 							</Link>
 						</li>
 					</nav>
