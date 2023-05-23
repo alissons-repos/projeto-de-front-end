@@ -1,64 +1,87 @@
-import { Link } from 'react-router-dom';
-import Header from './Header';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import postagens from '../data/postagens.json';
-
-import style from './Postings.module.css';
 import FaveButton from './FaveButton';
+import Card from './Card';
 
-const Postings = ({ message }) => {
+import useApiPrivate from '../hooks/useApiPrivate';
+import path from '../apis/endpoints';
+
+const Postings = ({ message, isLarge }) => {
+	const [posts, setPosts] = useState([]);
+
+	const apiPrivate = useApiPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		let isMounted = true;
+		const controller = new AbortController();
+
+		const getPosts = async () => {
+			try {
+				const response = await apiPrivate.get(path.POSTS_URL, {
+					signal: controller.signal,
+					// Esse propriedade permite que possamos cancelar a requisição utilizando utilizando métodos da classe AbortController()
+				});
+				console.log(response.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+				isMounted && setPosts(response.data); // Estrutura condicional, se isMounted for true então executa setPosts()
+			} catch (error) {
+				console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+				navigate(path.LOGIN_URL, { state: { from: location }, replace: true });
+			}
+		};
+
+		getPosts();
+
+		// Cleanup function é utilizada para parar ou desfazer o processo definido no corpo do useEffect antes do return
+		return () => {
+			isMounted = false;
+			isMounted && controller.abort();
+			// A explicação do erro está no link abaixo e está relacionado com ao StrictMode do React que monta e desmonta os componentes 2 vezes
+			// https://stackoverflow.com/questions/73140563/axios-throwing-cancelederror-with-abort-controller-in-react
+			// controller.abort(); // AXIOS 'ERR_CANCELED'
+			// Estamos cancelando qualquer requisição após o refresh da página
+		};
+	}, []);
+
+	// style={{ backgroundColor: '#fe9a2e' }}
 	return (
-		<div className='col-12 col-lg-10 pt-lg-5' style={{ backgroundColor: '#F2F2F2' }}>
-			<div className=''>
-				<ul className='d-flex justify-content-center gap-5 p-2 list-unstyled'>
-					<li className='h3'>
-						<Link className={[style.linkStyle, style.fontSize].join(' ')} to='#'>
-							Adoção
-						</Link>
-					</li>
-					<li className='h3'>
-						<Link className={style.linkStyle} to='#'>
-							Cruzamento
-						</Link>
-					</li>
-					<li className='h3'>
-						<Link className={style.linkStyle} to='#'>
-							Eventos?
-						</Link>
-					</li>
-				</ul>
-			</div>
-			<div className='d-flex flex-wrap justify-content-center gap-3'>
-				{postagens.length !== 0 ? (
-					postagens.map((post) => (
-						// card col-12 col-md-6 col-lg-4
-						<li key={post.id} className={['card', style.cardStyle].join(' ')}>
-							<img
-								src={post.imagem}
-								className='card-img-top bg-secondary text-center'
-								style={{ minWidth: '150px', minHeight: '150px' }}
-								alt=''
-							/>
-							<div className='card-body'>
-								<div className={style.titleSize}>
-									<h5 className='card-title'>{post.titulo}</h5>
-								</div>
-								<div className={style.descriptionSize}>
-									<p className='card-text'>{post.descricao}</p>
-								</div>
-								<div className='text-center container'>
-									<FaveButton />
-									<Link href='#' className='btn btn-primary'>
-										Mostrar mais
-									</Link>
-								</div>
-							</div>
+		<div className='col-12 col-xl-10'>
+			<div className={isLarge ? 'col-12 col-xl-10 position-fixed' : 'col-12 col-xl-10 position-static'}>
+				<div className='row' style={{ backgroundColor: '#fe9a2e' }}>
+					<nav className='d-flex justify-content-center gap-4 list-unstyled p-2'>
+						<li className='fs-4 text-decoration-none fw-semibold'>
+							<Link className='linkStyle' to='#'>
+								Adoção
+							</Link>
 						</li>
-					))
-				) : (
-					<p>{message}</p>
-				)}
+						<li className='fs-4 text-decoration-none fw-semibold'>
+							<Link className='linkStyle' to='#'>
+								Cruzamento
+							</Link>
+						</li>
+						<li className='fs-4 text-decoration-none fw-semibold'>
+							<Link className='linkStyle' to='#'>
+								Eventos
+							</Link>
+						</li>
+					</nav>
+				</div>
 			</div>
+			<br />
+			{posts?.length ? (
+				<ul className='row list-unstyled mt-xl-5'>
+					{posts.map((post) => (
+						<li key={post._id} className='col-12 col-md-6 col-xxl-4'>
+							<Card data={post} />
+							<br />
+						</li>
+					))}
+				</ul>
+			) : (
+				<p>{message}</p>
+			)}
 		</div>
 	);
 };

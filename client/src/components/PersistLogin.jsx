@@ -16,8 +16,8 @@ const PersistLogin = () => {
 			try {
 				await refresh();
 				// Busca por meio de uma requisição get do axios um novo refresh token acessando a rota "/refresh"
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			} finally {
 				isMounted && setIsLoading(false);
 				// Estrutura condicional para resolver o problema de memory liking

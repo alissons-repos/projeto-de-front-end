@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Componentes
 import Layout from './components/Layout';
+import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
 
 // Rotas
@@ -18,6 +20,19 @@ import './App.css';
 // Seria possível utilizar o AuthContext junto com as rotas para fazer a autenticação por meio de estruturas de controle, porém isso poluiria o código e foge do recomendado.
 
 function App() {
+	const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
+	const isLarge = windowSize[0] >= 1200 ? true : false;
+
+	useEffect(() => {
+		const handleWindowResize = () => {
+			setWindowSize([window.innerWidth, window.innerHeight]);
+		};
+		window.addEventListener('resize', handleWindowResize);
+		return () => {
+			window.removeEventListener('resize', handleWindowResize);
+		};
+	}, []);
+
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
@@ -28,10 +43,12 @@ function App() {
 				<Route path='*' element={<NoPage />} />
 
 				{/* Todos os filhos de PersistLogin serão renderizados pelo "Outlet" do react-router-dom */}
-				<Route element={<PersistLogin />}>
-					<Route path='feed' element={<Feed />} />
-					<Route path='postings' element={<MyPostings />} />
-					<Route path='profile' element={<MyProfile />} />
+				<Route element={<RequireAuth />}>
+					{/* <Route element={<PersistLogin />}> */}
+					<Route path='feed' element={<Feed isLarge={isLarge} />} />
+					<Route path='postings' element={<MyPostings isLarge={isLarge} />} />
+					<Route path='profile' element={<MyProfile isLarge={isLarge} />} />
+					{/* </Route> */}
 				</Route>
 			</Route>
 		</Routes>

@@ -1,0 +1,292 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Testando Meu Amigo PET 2",
+    "dateExported": "2023-05-10T12:56:18.682Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Rotas não autenticadas",
+            "containerId": "",
+            "created": "2023-05-07T20:00:51.257Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "15a36bf5-2a21-45c2-a82d-9bedfcd6f0d2",
+            "name": "Rotas autenticadas user",
+            "containerId": "",
+            "created": "2023-05-07T20:00:51.258Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "d5b72f8c-7679-400f-b903-07a2690cd891",
+            "name": "Rotas autenticadas posts",
+            "containerId": "",
+            "created": "2023-05-07T20:00:51.259Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "8bb94c15-dec9-4db4-82fe-e4e6da4dbd0b",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Register user",
+            "url": "http://localhost:3500/register",
+            "method": "POST",
+            "sortNum": 3750,
+            "created": "2023-05-08T00:06:23.891Z",
+            "modified": "2023-05-08T01:48:35.536Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"user4@mail.com\",\n  \"password\": \"teste4\",\n  \"firstName\": \"Juvenal\",\n  \"lastName\": \"Gonçalves Conceição\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c68c781c-3c7f-48b9-bb1f-28c68a74826f",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Login users",
+            "url": "http://localhost:3500/login",
+            "method": "POST",
+            "sortNum": 7500,
+            "created": "2023-05-07T20:00:51.264Z",
+            "modified": "2023-05-08T12:32:55.469Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"email\": \"user3@mail.com\",\n\t\"password\": \"teste3\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1f08b605-8573-4751-aefa-9849d2443759",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Logout users",
+            "url": "http://localhost:3500/logout",
+            "method": "GET",
+            "sortNum": 7812.5,
+            "created": "2023-05-07T20:00:51.265Z",
+            "modified": "2023-05-08T12:15:52.044Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTQ4MTA1LCJleHAiOjE2ODM1NDgxNjV9.YIMy5FEgicSw5nFwEXo6C1-zdlttxwRQTlxjIq36JXU"
+            },
+            "tests": []
+        },
+        {
+            "_id": "cc414625-d326-4986-90be-332ec5b95e33",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Consulta users",
+            "url": "http://localhost:3500/users",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-05-07T20:00:51.256Z",
+            "modified": "2023-05-08T00:01:58.826Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d3483167-2020-4c38-8179-3f58edcb323c",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Consulta users por id",
+            "url": "http://localhost:3500/users/6458076c82e3cb594de59e30",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-07T20:00:51.257Z",
+            "modified": "2023-05-08T01:45:34.153Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyMzFlZWMzLTcxOGItNDc3OS1hMmU4LWU4NmUyMmQ4MTJhZiIsImlhdCI6MTY2ODE3MjM3MywiZXhwIjoxNjY4MTcyOTczfQ.ibzVOT53-mBpb1WDjdYEQ3yMCKmfEiWnYNsiVC7IDSi"
+            },
+            "tests": []
+        },
+        {
+            "_id": "9203e7af-1204-4a56-b1ef-77d4be525f6c",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Consulta posts",
+            "url": "http://localhost:3500/posts",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-07T20:00:51.258Z",
+            "modified": "2023-05-08T00:02:19.553Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "81b09ed3-3976-4615-a695-5a25108d29cc",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "3ce331b5-a81d-4fb7-84cc-1796595fd2a4",
+            "name": "Consulta posts por id",
+            "url": "http://localhost:3500/posts/6458f14a327efb181012e519",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-05-07T20:00:51.259Z",
+            "modified": "2023-05-08T12:57:10.703Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyMzFlZWMzLTcxOGItNDc3OS1hMmU4LWU4NmUyMmQ4MTJhZiIsImlhdCI6MTY2ODE3MjM3MywiZXhwIjoxNjY4MTcyOTczfQ.ibzVOT53-mBpb1WDjdYEQ3yMCKmfEiWnYNsiVC7IDSi"
+            },
+            "tests": []
+        },
+        {
+            "_id": "ca8da713-41bf-41c6-ac13-a4ff58e971e8",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "15a36bf5-2a21-45c2-a82d-9bedfcd6f0d2",
+            "name": "User consulta seus dados",
+            "url": "http://localhost:3500/auth/users",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-05-07T20:00:51.266Z",
+            "modified": "2023-05-08T12:39:24.697Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTQ5NTM0LCJleHAiOjE2ODM1NDk1OTR9.Pr8dG17CHK9Dr6J2uS3veFKcCB922EVrDToeLlYw_xo"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b76cd69e-85c6-4dbb-9eb3-ea5499700ba7",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "15a36bf5-2a21-45c2-a82d-9bedfcd6f0d2",
+            "name": "User atualiza seus dados",
+            "url": "http://localhost:3500/auth/users",
+            "method": "PATCH",
+            "sortNum": 120000,
+            "created": "2023-05-07T20:00:51.267Z",
+            "modified": "2023-05-08T01:33:50.330Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstName\": \"Patricia\",\n  \"lastName\": \"Bragantino\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTA5NjAyLCJleHAiOjE2ODM1MDk2NjJ9.nQVZru8kG_gE_-0OPjJEu0EW5WGixtNDqrrXo1Dew8Q"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b9b7d25a-ad1b-4469-aee8-54161b5b87f1",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "15a36bf5-2a21-45c2-a82d-9bedfcd6f0d2",
+            "name": "User deleta sua conta",
+            "url": "http://localhost:3500/auth/users",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2023-05-07T20:00:51.268Z",
+            "modified": "2023-05-08T01:39:28.877Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4NTI4NjE0YTU2ZGIyZjhhNjc2MzgifSwiaWF0IjoxNjgzNTA5OTYwLCJleHAiOjE2ODM1MTAwMjB9.bK9fRZygLxUxe308W9cQQ8snAwaVS3M-QIWdOWs40CM"
+            },
+            "tests": []
+        },
+        {
+            "_id": "40ecf591-ba63-470c-97ee-e4d8d8ae382e",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "d5b72f8c-7679-400f-b903-07a2690cd891",
+            "name": "Consulta posts do user",
+            "url": "http://localhost:3500/auth/posts",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2023-05-07T20:00:51.269Z",
+            "modified": "2023-05-08T14:01:51.606Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTU0NTA2LCJleHAiOjE2ODM1NTQ4MDZ9.XjzQky8SuLs6YSeh0OQbWplq9SinqpFpNMdpSg_6c3I"
+            },
+            "tests": []
+        },
+        {
+            "_id": "95e6f576-b54c-4f52-aad3-dc76f41ef878",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "d5b72f8c-7679-400f-b903-07a2690cd891",
+            "name": "Cria post do user",
+            "url": "http://localhost:3500/auth/posts",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2023-05-07T20:00:51.270Z",
+            "modified": "2023-05-08T13:53:59.778Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Adote 2 cachorros filhotes\",\n  \"description\": \"Cachorros filhotes para adoção, já estão vermifugados e com a primeira dose da vacina.\",\n  \"category\": \"adoção\",\n  \"sex\": \"ambos\",\n  \"breeds\": [\"Vira-lata\", \"Border Collie\"],\n  \"amount\": 2\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTUzODQxLCJleHAiOjE2ODM1NTQxNDF9.rPG7yJect4-TQMMthwySl6YU_NE-Ae84jdIJEt30mU8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "7b4c8233-4367-4faf-8fdc-3f0bc20c38ef",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "d5b72f8c-7679-400f-b903-07a2690cd891",
+            "name": "Atualiza post do user",
+            "url": "http://localhost:3500/auth/posts/6458fef7c215f015c31a4e09",
+            "method": "PATCH",
+            "sortNum": 160000,
+            "created": "2023-05-07T20:00:51.271Z",
+            "modified": "2023-05-08T14:03:00.723Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Adote 2 cachorros filhotes\",\n  \"description\": \"Cachorros filhotes para adoção, já estão vermifugados e com a primeira dose da vacina.\",\n  \"category\": \"cruzamento\",\n  \"sex\": \"fêmea\",\n  \"breeds\": [\"Vira-lata\"],\n  \"amount\": \"15.14\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTU0NTA2LCJleHAiOjE2ODM1NTQ4MDZ9.XjzQky8SuLs6YSeh0OQbWplq9SinqpFpNMdpSg_6c3I"
+            },
+            "tests": []
+        },
+        {
+            "_id": "a0d0d31d-6a1e-4eb4-9a7d-7a0223bb86d8",
+            "colId": "6de7af90-2642-4989-88be-cc614296cd3a",
+            "containerId": "d5b72f8c-7679-400f-b903-07a2690cd891",
+            "name": "Deleta post do user",
+            "url": "http://localhost:3500/auth/posts/6458fbf07da8a333cbf73abb",
+            "method": "DELETE",
+            "sortNum": 170000,
+            "created": "2023-05-07T20:00:51.272Z",
+            "modified": "2023-05-08T13:50:49.280Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJ1c2VySUQiOiI2NDU4M2Q1NzZlODZlOWYxMjliYmZhOGQifSwiaWF0IjoxNjgzNTUzODQxLCJleHAiOjE2ODM1NTQxNDF9.rPG7yJect4-TQMMthwySl6YU_NE-Ae84jdIJEt30mU8"
+            },
+            "tests": []
+        }
+    ]
+}

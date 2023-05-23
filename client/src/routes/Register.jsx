@@ -5,85 +5,86 @@ import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import api from '../apis/axios';
 import path from '../apis/endpoints';
 
-import style from './Register.module.css';
-
-const USER_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,4})+$/;
-const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
+const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,4})+$/;
+const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
 
 const Register = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const from = location.state?.from?.pathname || '/';
 
-	const userRef = useRef(); // Necessário para por o foco no campo e-mail quando a tela recarregar
-	const errRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade
+	const emailRef = useRef(); // Necessário para por o foco no campo e-mail quando a tela recarregar
+	const errorRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade
 
-	const [user, setUser] = useState('');
-	const [validName, setValidName] = useState(false);
-	const [userFocus, setUserFocus] = useState(false);
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 
-	const [pwd, setPwd] = useState('');
-	const [validPwd, setValidPwd] = useState(false);
-	const [pwdFocus, setPwdFocus] = useState(false);
+	const [email, setEmail] = useState('');
+	const [validEmail, setValidEmail] = useState(false);
+	const [emailFocus, setEmailFocus] = useState(false);
 
-	const [matchPwd, setMatchPwd] = useState('');
+	const [password, setPassword] = useState('');
+	const [validPassword, setValidPassword] = useState(false);
+	const [passwordFocus, setPasswordFocus] = useState(false);
+
+	const [matchPassword, setMatchPassword] = useState('');
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
-	const [errMsg, setErrMsg] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
 	const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
-		userRef.current.focus(); // Por o foco no input de email
+		emailRef.current.focus(); // Por o foco no input de email
 	}, []);
 
 	useEffect(() => {
-		setValidName(USER_REGEX.test(user));
-	}, [user]);
+		setValidEmail(EMAIL_REGEX.test(email));
+	}, [email]);
 
 	useEffect(() => {
-		setValidPwd(PWD_REGEX.test(pwd));
-		setValidMatch(pwd === matchPwd);
-	}, [pwd, matchPwd]);
+		setValidPassword(PASSWORD_REGEX.test(password));
+		setValidMatch(password === matchPassword);
+	}, [password, matchPassword]);
 
 	useEffect(() => {
-		setErrMsg(''); // Limpar o erro sempre que houver alguma alteração em "user" e "pwd" e "matchPwd"
-	}, [user, pwd, matchPwd]);
+		setErrorMsg(''); // Limpar o erro sempre que houver alguma alteração em "email" e "password" e "matchPassword"
+	}, [email, password, matchPassword]);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault(); // Previne o comportamento padrão do formulário ao recarregar a página
-		const v1 = USER_REGEX.test(user);
-		const v2 = PWD_REGEX.test(pwd);
+	const handleSubmit = async (event) => {
+		event.preventDefault(); // Previne o comportamento padrão do browser de recarregar a página ao enviar o formulário
+		const v1 = EMAIL_REGEX.test(email);
+		const v2 = PASSWORD_REGEX.test(password);
 		if (!v1 || !v2) {
-			setErrMsg('E-mail ou senha inválido!');
+			setErrorMsg('E-mail ou senha inválido!');
 			return;
 		}
 		try {
-			const response = await api.post(path.REGISTER_URL, JSON.stringify({ user, pwd }), {
+			const response = await api.post(path.REGISTER_URL, JSON.stringify({ email, password }), {
 				withCredentials: true,
 			});
 			console.log(response?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			console.log(response?.accessToken); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			console.log(JSON.stringify(response)); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			setSuccess(true);
-			setUser('');
-			setPwd('');
-			setMatchPwd('');
+			setEmail('');
+			setPassword('');
+			setMatchPassword('');
 			navigate(from, { replace: true });
-		} catch (err) {
-			if (!err?.response) {
-				setErrMsg('Sem resposta do servidor!');
-			} else if (err.response?.status === 409) {
-				setErrMsg('O e-mail informado já está em uso, tente outro!');
+		} catch (error) {
+			if (!error?.response) {
+				setErrorMsg('Sem resposta do servidor!');
+			} else if (error.response?.status === 409) {
+				setErrorMsg('O e-mail informado já está em uso, tente outro!');
 			} else {
-				setErrMsg('Algo deu errado!');
+				setErrorMsg('Algo deu errado!');
 			}
-			errRef.current.focus(); // Por o foco na mensagen de erro
+			errorRef.current.focus(); // Por o foco na mensagen de erro
 		}
 	};
 
 	return (
-		<>
+		<div>
 			{success ? (
 				<section>
 					{/* Colocar um placeholder de carregamento aqui */}
@@ -91,85 +92,164 @@ const Register = () => {
 					{navigate('/login')};
 				</section>
 			) : (
-				<section>
-					<p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'}>
-						{errMsg}
-					</p>
-					<h1>Cadastre-se</h1>
-					<form onSubmit={handleSubmit}>
-						<label htmlFor='username'>
-							E-mail:
-							<FaCheck className={validName ? 'valid' : 'hide'} />
-							<FaTimes className={validName || !user ? 'hide' : 'invalid'} />
-						</label>
-						<input
-							type='text'
-							id='username'
-							ref={userRef}
-							autoComplete='off'
-							onChange={(e) => setUser(e.target.value)}
-							value={user}
-							required
-							onFocus={() => setUserFocus(true)}
-							onBlur={() => setUserFocus(false)}
-						/>
-						<p id='uidnote' className={userFocus && user && !validName ? 'instructions' : 'offscreen'}>
-							<FaInfoCircle />
-							Deve ser um e-mail válido.
-							{/* TODO: MELHORAR A DESCRIÇÃO DE ERRO DO E-MAIL */}
-						</p>
+				<section className='container vh-100 d-flex flex-column justify-content-center'>
+					<section className='row'>
+						<h1 className='text-center display-2 p-3 m-0'>Cadastre-se</h1>
+					</section>
+					<form onSubmit={handleSubmit} className='row'>
+						<div className='col-12 my-2'>
+							<label htmlFor='email' className='form-label'>
+								E-mail:
+								<FaCheck className={validEmail ? 'ms-2 valid' : 'hide'} />
+								<FaTimes className={validEmail || !email ? 'hide' : 'ms-2 invalid'} />
+							</label>
+							<input
+								className={
+									!email
+										? 'form-control'
+										: validEmail
+										? 'form-control input-valid'
+										: 'form-control input-invalid'
+								}
+								placeholder='emailbacana@mail.com'
+								type='email'
+								id='email'
+								ref={emailRef}
+								autoComplete='off'
+								onChange={(event) => setEmail(event.target.value)}
+								value={email}
+								required
+								onFocus={() => setEmailFocus(true)}
+								onBlur={() => setEmailFocus(false)}
+							/>
+							<div className={emailFocus && email && !validEmail ? 'p-2 instructions' : 'offscreen'}>
+								<FaInfoCircle />
+								Deve ser um e-mail válido.
+							</div>
+							<div className='form-text'>Não compartilharemos seu email com ninguém</div>
+						</div>
 
-						<label htmlFor='password'>
-							Senha:
-							<FaCheck className={validPwd ? 'valid' : 'hide'} />
-							<FaTimes className={validPwd || !pwd ? 'hide' : 'invalid'} />
-						</label>
-						<input
-							type='password'
-							id='password'
-							onChange={(e) => setPwd(e.target.value)}
-							value={pwd}
-							required
-							onFocus={() => setPwdFocus(true)}
-							onBlur={() => setPwdFocus(false)}
-						/>
-						<p id='pwdnote' className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
-							<FaInfoCircle />A senha deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula,
-							uma minúscula, um número e um símbolo especial.
-							<br />
-							Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
-						</p>
+						<div className='col-12 col-lg-6 my-2'>
+							<label htmlFor='password' className='form-label'>
+								Senha:
+								<FaCheck className={validPassword ? 'ms-2 valid' : 'hide'} />
+								<FaTimes className={validPassword || !password ? 'hide' : 'ms-2 invalid'} />
+							</label>
+							<input
+								className={
+									!password
+										? 'form-control'
+										: validPassword
+										? 'form-control input-valid'
+										: 'form-control input-invalid'
+								}
+								placeholder='**********'
+								type='password'
+								id='password'
+								onChange={(event) => setPassword(event.target.value)}
+								value={password}
+								required
+								onFocus={() => setPasswordFocus(true)}
+								onBlur={() => setPasswordFocus(false)}
+							/>
+							<div className={passwordFocus && !validPassword ? 'p-2 instructions' : 'offscreen'}>
+								<FaInfoCircle />
+								Deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um
+								número e um símbolo especial. <br />
+								<FaInfoCircle />
+								Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
+							</div>
+						</div>
 
-						<label htmlFor='confirm_pwd'>
-							Confirmar Senha:
-							<FaCheck className={validMatch && matchPwd ? 'valid' : 'hide'} />
-							<FaTimes className={validMatch || !matchPwd ? 'hide' : 'invalid'} />
-						</label>
-						<input
-							type='password'
-							id='confirm_pwd'
-							onChange={(e) => setMatchPwd(e.target.value)}
-							value={matchPwd}
-							required
-							onFocus={() => setMatchFocus(true)}
-							onBlur={() => setMatchFocus(false)}
-						/>
-						<p id='confirmnote' className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
-							<FaInfoCircle />A confirmação deve coincidir com o campo senha.
-						</p>
+						<div className='col-12 col-lg-6 my-2'>
+							<label htmlFor='match' className='form-label'>
+								Confirmar Senha:
+								<FaCheck className={validMatch && matchPassword ? 'ms-2 valid' : 'hide'} />
+								<FaTimes className={validMatch || !matchPassword ? 'hide' : 'ms-2 invalid'} />
+							</label>
+							<input
+								className={
+									!matchPassword
+										? 'form-control'
+										: validMatch
+										? 'form-control input-valid'
+										: 'form-control input-invalid'
+								}
+								placeholder='**********'
+								type='password'
+								id='match'
+								onChange={(event) => setMatchPassword(event.target.value)}
+								value={matchPassword}
+								required
+								onFocus={() => setMatchFocus(true)}
+								onBlur={() => setMatchFocus(false)}
+							/>
+							<div className={matchFocus && !validMatch ? 'p-2 instructions' : 'offscreen'}>
+								<FaInfoCircle />A confirmação deve coincidir com o campo senha.
+							</div>
+						</div>
 
-						<button disabled={!validName || !validPwd || !validMatch ? true : false}>Registre-se</button>
+						<div className='col-12 col-lg-6 my-2'>
+							<label htmlFor='firstName' className='form-label'>
+								Nome:
+							</label>
+							<input
+								className={!firstName ? 'form-control' : 'form-control input-valid'}
+								placeholder='Fulano Beltrano'
+								type='text'
+								id='firstName'
+								onChange={(event) => setFirstName(event.target.value)}
+								value={firstName}
+								required
+								onFocus={() => setFirstNameFocus(true)}
+								onBlur={() => setFirstNameFocus(false)}
+							/>
+							<div className='form-text'>Pode utilizar também nomes compostos</div>
+						</div>
+
+						<div className='col-12 col-lg-6 my-2'>
+							<label htmlFor='lastName' className='form-label'>
+								Sobrenome:
+							</label>
+							<input
+								className={!lastName ? 'form-control' : 'form-control input-valid'}
+								placeholder='Sicrano de Souza'
+								type='text'
+								id='lastName'
+								onChange={(event) => setLastName(event.target.value)}
+								value={lastName}
+								required
+								onFocus={() => setLastNameFocus(true)}
+								onBlur={() => setLastNameFocus(false)}
+							/>
+						</div>
+
+						<div className='my-3 d-flex flex-column'>
+							<button
+								className='btn btn-secondary'
+								style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+								type='submit'
+								disabled={
+									!validEmail || !validPassword || !validMatch || !firstName || !lastName
+										? true
+										: false
+								}
+							>
+								Registre-se
+							</button>
+						</div>
 					</form>
-					<p>
-						Já possui um cadastro?
-						<br />
-						<span className='line'>
-							<Link to='/login'>Entrar</Link>
-						</span>
-					</p>
+					<section className='text-center'>
+						<p>
+							Já possui um cadastro? <Link to='/login'>Entrar</Link>
+						</p>
+						<p ref={errorRef} className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>
+							&nbsp;{errorMsg}
+						</p>
+					</section>
 				</section>
 			)}
-		</>
+		</div>
 	);
 };
 

@@ -1,13 +1,15 @@
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
-import style from './MyProfile.module.css';
+import Profile from '../components/Profile';
 
-const MyProfile = () => {
+const MyProfile = ({ isLarge }) => {
 	return (
-		<div>
-			<Header />
-			<Navigation />
-			<h1>MyProfile</h1>
+		<div className='container-fluid'>
+			<div className='row'>
+				<Header isLarge={isLarge} />
+				{isLarge ? <Navigation isLarge={isLarge} /> : <></>}
+				<Profile />
+			</div>
 		</div>
 	);
 };
