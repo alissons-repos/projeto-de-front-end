@@ -2,11 +2,9 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
-import logo from '../img/map-logo-grad.svg';
-import style from './Login.module.css';
+import logo from '../../public/map-logo-grad.svg';
 
 import { apiPrivate } from '../apis/axios';
-
 import path from '../apis/endpoints';
 
 const Login = () => {
@@ -80,15 +78,18 @@ const Login = () => {
 					{/* Página inteira */}
 					<div className='row'>
 						{/* Direita */}
-						<div className={`${style.grassBG} col-12 col-lg-7 vh-100 px-0 text-white`}>
-							<div className={`${style.dogsBG} d-flex flex-column justify-content-center px-4 h-100`}>
+						<div className={`grassBG col-12 col-lg-7 vh-100 px-0 text-white`}>
+							<div className={`dogsBG d-flex flex-column justify-content-center px-4 h-100`}>
 								<div className={`d-flex flex-column justify-content-center h-100 p-5`}>
-									<h1 className='display-font display-5 fw-normal'>Arranje um companheiro para o seu pet!</h1>
+									<h1 className='display-font display-5 fw-normal'>
+										Arranje um companheiro para o seu pet!
+									</h1>
 									<p className='lead fs-5 py-4'>
 										{/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis incidunt sed quisquam
 										voluptates aliquam quas nostrum, ipsa minus in voluptatum animi id quos esse quia
 										voluptate beatae. Cupiditate, laborum dolorum? */}
-										Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se a nós e faça você também parte de nossa calorosa comunidade!
+										Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se
+										a nós e faça você também parte de nossa calorosa comunidade!
 									</p>
 									<Link className='btn btn-outline-light btn-lg' to='/register'>
 										Faça parte
@@ -100,7 +101,12 @@ const Login = () => {
 						<div className='col-12 col-lg-5 vh-100 px-4'>
 							<div className='d-flex flex-column justify-content-center h-100'>
 								{/* <h1 className='text-center display-2'>Meu Amigo PET</h1> */}
-								<img src={logo} alt="Meu Amigo PET" width="250" style={{paddingBottom: "30px", margin: "0 auto"}} />
+								<img
+									src={logo}
+									alt='Meu Amigo PET'
+									width='250'
+									style={{ paddingBottom: '30px', margin: '0 auto' }}
+								/>
 								<form onSubmit={handleSubmit}>
 									<div className='px-2 mb-3'>
 										<label className='form-label' htmlFor='email'>
@@ -154,10 +160,15 @@ const Login = () => {
 											Entrar
 										</button>
 										<span className='text-center'>
-											<Link className="linkStyle" to='/recover'>Esqueci minha senha</Link>
+											<Link className='linkStyle' to='/recover'>
+												Esqueci minha senha
+											</Link>
 										</span>
 										<span className='text-center'>
-											Ainda não possui uma conta? <Link className="linkStyle" to='/register'>Cadastre-se</Link>
+											Ainda não possui uma conta?{' '}
+											<Link className='linkStyle' to='/register'>
+												Cadastre-se
+											</Link>
 										</span>
 									</div>
 								</form>

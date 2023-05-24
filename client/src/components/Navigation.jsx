@@ -11,21 +11,29 @@ const Navigation = ({ isLarge }) => {
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
 				<div className='d-flex flex-column gap-3 align-items-center p-3'>
 					<img className='avatar' src='' alt='' />
-					<div className='d-flex flex-column' style={{ textAlign: "center" }}>
+					<div className='d-flex flex-column text-center'>
 						{/* <h2>{auth?.user.userName}</h2> */}
 						<h2 className='display-font'>Fulano de Tal</h2>
 						<ul className='list-unstyled'>
 							<li className='py-2'>
-								<Link className="linkStyle" to='/profile'>Meu Perfil</Link>
+								<Link className='linkStyle' to='/profile'>
+									Meu Perfil
+								</Link>
 							</li>
 							<li className='py-2'>
-								<Link className="linkStyle" to='/postings'>Meus Posts</Link>
+								<Link className='linkStyle' to='/postings'>
+									Meus Posts
+								</Link>
 							</li>
 							<li className='py-2'>
-								<Link className="linkStyle" to='/feed'>Feed</Link>
+								<Link className='linkStyle' to='/feed'>
+									Feed
+								</Link>
 							</li>
 							<li className='py-2'>
-								<Link className="linkStyle" to='/logout'>Sair</Link>
+								<Link className='linkStyle' to='/logout'>
+									Sair
+								</Link>
 							</li>
 						</ul>
 					</div>

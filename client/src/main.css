@@ -1,12 +1,6 @@
 /* Importação de fontes*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,700;0,900;1,200;1,300;1,400;1,500;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-/* * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-} */
-
 body {
 	font-family: 'Roboto', sans-serif;
 	color: #7e7e7e;
@@ -18,50 +12,33 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-/* button {
-	background-color: #fe9a2e;
-}
-.btn-orange {
-	background-color: #fe9a2e;
-} */
-
+/* Classes usadas no componente Navigation */
 .avatar {
 	background-color: #dadada;
-	/* border: 2px solid #242424; */
 	width: 200px;
 	height: 200px;
 	min-width: 150px;
 	min-height: 150px;
 	border-radius: 50%;
 }
-
-/* linkStyle está sendo utilizado para links padrão */
 .linkStyle {
 	text-decoration: none;
 	color: #fe9a2e;
 }
-
 .linkStyle:hover {
 	color: #ffbe5c;
 	border-bottom: 1px #ffbe5c solid;
 }
-
-/* navlinkStyle está sendo utilizado na barra de navegação */
 .navlinkStyle {
 	color: #fafafa;
 	text-decoration: none;
-	/* border-bottom: 2px solid #f7be81; */
 }
-
 .navlinkStyle:hover {
 	color: #fafafa;
 	border-bottom: 2px solid #fafafa;
 }
 
-/* input[type='text'],
-input[type='password'] {
-} */
-
+/* Classes usadas na rota register */
 .instructions {
 	background: #adb5bd;
 	position: absolute;
@@ -71,37 +48,30 @@ input[type='password'] {
 	border-radius: 0.375rem;
 	/* adb5bd, 6c757d */
 }
-
 .instructions > svg {
 	margin-right: 0.25rem;
 }
-
 .offscreen {
 	visibility: hidden;
 	display: none;
 }
-
 .hide {
 	display: none;
 }
-
 .valid {
 	fill: #198754;
 	border-color: #198754;
 }
-
 .invalid {
 	fill: #dc3545;
 	border-color: #dc3545;
 }
-
 .errormsg {
 	background-color: rgb(220, 53, 69, 0.25);
 	color: #dc3545;
 	font-weight: bold;
 	border-radius: 0.375rem;
 }
-
 .input-valid {
 	border-color: #198754;
 }
@@ -115,4 +85,80 @@ input[type='password'] {
 .input-invalid:focus {
 	border-color: #dc3545;
 	box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+/* Classes usadas no componente Card */
+.customCard {
+	box-shadow: rgba(0, 0, 0, 0.125) 0 4px 4px;
+	border-radius: 16px;
+}
+.cardImage {
+	background-color: #dadada;
+	border-radius: 16px 16px 0 0;
+	width: 100%;
+	height: 200px;
+}
+.cardBody {
+	background-color: #fff;
+}
+.cardTitle {
+	font-size: 1.5rem;
+	padding: 16px;
+	margin: 0;
+}
+.cardText {
+	margin: 0;
+	padding: 0 16px 16px 16px;
+	line-clamp: 2;
+}
+.cardTitle::first-letter,
+.cardText::first-letter {
+	text-transform: uppercase;
+}
+.cardFooter {
+	background-color: #fff;
+	border-radius: 0 0 16px 16px;
+	border-top: 1px dotted #dadada;
+	padding: 8px 16px;
+	display: flex;
+	justify-content: right;
+	gap: 8px;
+}
+.cardBadges {
+	display: flex;
+	gap: 8px;
+}
+
+/* Classes usadas no componente Tag */
+.tag {
+	padding: 5px 15px;
+	font-size: 0.875em;
+	color: #fff;
+	background-color: #ffbe5c;
+	border-radius: 5px;
+	text-align: center;
+	height: 30px;
+}
+.sex-male {
+	padding: 5px 10px;
+	background-color: #83d2ff;
+}
+.sex-female {
+	padding: 5px 10px;
+	background-color: #ffbbc3;
+}
+.sex-ambiguous {
+	padding: 5px 10px;
+	background-color: #e4b7ff;
+}
+
+/* Classes usadas na rota login */
+.grassBG {
+	background: url('../public/grass.png') #fe9a2e bottom repeat-x;
+}
+.dogsBG {
+	background: url('../public/dogs.png') bottom center no-repeat;
+}
+.btnOutlineOnHoverTextFix:hover {
+	color: #fe9a2e;
 }
