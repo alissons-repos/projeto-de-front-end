@@ -19,18 +19,25 @@ const FaveButton = () => {
 	const handleMouseLeave = (e) => fillIcon(false);
 
 	return (
-		<button
-			className='btn'
-			onClick={handleClick}
-			onMouseOver={favedFlag ? undefined : handleMouseOver}
-			onMouseLeave={favedFlag ? undefined : handleMouseLeave}
-		>
+		<>
 			{icon ? (
-				<AiFillHeart color={favedFlag ? '#dc3545' : '#909090'} size='1.25em' />
+				<AiFillHeart
+					color={favedFlag ? '#dc3545' : '#909090'}
+					size='1.5em'
+					onClick={handleClick}
+					onMouseOver={favedFlag ? undefined : handleMouseOver}
+					onMouseLeave={favedFlag ? undefined : handleMouseLeave}
+				/>
 			) : (
-				<AiOutlineHeart color='#909090' size='1.25em' />
+				<AiOutlineHeart
+					color='#909090'
+					size='1.5em'
+					onClick={handleClick}
+					onMouseOver={favedFlag ? undefined : handleMouseOver}
+					onMouseLeave={favedFlag ? undefined : handleMouseLeave}
+				/>
 			)}
-		</button>
+		</>
 	);
 };
 

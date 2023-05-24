@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import logo from '../img/map-logo.svg';
+import logo from '../public/map-logo.svg';
 
 const Header = ({ isLarge }) => {
 	return (
@@ -9,7 +9,7 @@ const Header = ({ isLarge }) => {
 				<nav className='position-fixed list-unstyled p-2' style={{ backgroundColor: '#FE9A2E' }}>
 					<div className='ps-2 fs-4 text-decoration-none fw-semibold ps-lg-3'>
 						<Link to='/feed'>
-							<img src={logo} alt="Meu Amigo PET" width="70" />
+							<img src={logo} alt='Meu Amigo PET' width='70' />
 						</Link>
 					</div>
 				</nav>
@@ -18,7 +18,7 @@ const Header = ({ isLarge }) => {
 					<div className='container-fluid'>
 						<div className='ps-2 fs-4 text-decoration-none fw-semibold ps-lg-3'>
 							<Link to='/feed'>
-								<img src={logo} alt="Meu Amigo PET" width="70" />
+								<img src={logo} alt='Meu Amigo PET' width='70' />
 							</Link>
 						</div>
 						<button className='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#userInfo'>
@@ -28,20 +28,28 @@ const Header = ({ isLarge }) => {
 							<div className='d-flex flex-column gap-3 align-items-center p-3'>
 								<img className='avatar' src='' alt='' />
 								<ul className='navbar-nav'>
-									<div className='d-flex flex-column list-unstyled'>
+									<div className='d-flex flex-column text-center list-unstyled'>
 										{/* <h2>{auth?.user.userName}</h2> */}
-										<h2 className=''>Fulano de Tal</h2>
-										<li>
-											<Link to='/profile'>Meu Perfil</Link>
+										<h2 className='display-font text-white'>Fulano de Tal</h2>
+										<li className='py-2'>
+											<Link className='navlinkStyle' to='/profile'>
+												Meu Perfil
+											</Link>
 										</li>
-										<li>
-											<Link to='/postings'>Meus Posts</Link>
+										<li className='py-2'>
+											<Link className='navlinkStyle' to='/postings'>
+												Meus Posts
+											</Link>
 										</li>
-										<li>
-											<Link to='/feed'>Feed</Link>
+										<li className='py-2'>
+											<Link className='navlinkStyle' to='/feed'>
+												Feed
+											</Link>
 										</li>
-										<li>
-											<Link to='/logout'>Sair</Link>
+										<li className='py-2'>
+											<Link className='navlinkStyle' to='/logout'>
+												Sair
+											</Link>
 										</li>
 									</div>
 								</ul>

@@ -14,9 +14,6 @@ import Feed from './routes/Feed';
 import MyPostings from './routes/MyPostings';
 import MyProfile from './routes/MyProfile';
 
-// Style
-import './App.css';
-
 // Seria possível utilizar o AuthContext junto com as rotas para fazer a autenticação por meio de estruturas de controle, porém isso poluiria o código e foge do recomendado.
 
 function App() {
