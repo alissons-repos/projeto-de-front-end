@@ -35,21 +35,24 @@ const Login = () => {
 		event.preventDefault(); // Previne o comportamento padrão do formulário ao recarregar a página
 
 		try {
-			const response = await apiPrivate.post(path.LOGIN_URL, JSON.stringify({ email, password }));
-			console.log(response?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			const accessToken = response?.data?.Token;
-			setAuth({ email, accessToken });
+			const resLogin = await apiPrivate.post(path.LOGIN_URL, JSON.stringify({ email, password }));
+			const resGetUsers = await apiPrivate.get(path.USER_URL);
+			const loggedUser = resGetUsers?.data?.find((user) => user.email === email);
+			const accessToken = resLogin?.data?.Token;
+			// console.log(resLogin?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			// console.log(resGetUsers?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			setAuth({ userData: loggedUser, accessToken });
 			setEmail('');
 			setPassword('');
 			setSuccess(true);
 			navigate(from, { state: { from: location }, replace: true });
 			// setTimeout(navigate(from, { replace: true }), 2000); // FIXME:
 		} catch (error) {
-			if (!error?.response) {
+			if (!error?.resLogin) {
 				setErrorMsg('Sem resposta do servidor!');
-			} else if (error.response?.status === 400) {
+			} else if (error.resLogin?.status === 400) {
 				setErrorMsg('E-mail e senha são obrigatórios!');
-			} else if (error.response?.status === 401) {
+			} else if (error.resLogin?.status === 401) {
 				setErrorMsg('Email ou senha inválidos!');
 			} else {
 				setErrorMsg('Algo deu errado!');

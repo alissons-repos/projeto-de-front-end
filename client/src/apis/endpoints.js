@@ -5,6 +5,7 @@ const routes = {
 	LOGIN_URL: '/login',
 	LOGOUT_URL: '/logout',
 	REGISTER_URL: '/register',
+	USER_URL: '/users',
 	AUTH_USER_URL: '/auth/users',
 	POSTS_URL: '/posts',
 	POSTS_ID_URL: '/posts/:id',
