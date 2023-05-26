@@ -22,6 +22,7 @@ const FaveButton = () => {
 		<>
 			{icon ? (
 				<AiFillHeart
+					className='pointer'
 					color={favedFlag ? '#dc3545' : '#909090'}
 					size='1.5em'
 					onClick={handleClick}
@@ -30,6 +31,7 @@ const FaveButton = () => {
 				/>
 			) : (
 				<AiOutlineHeart
+					className='pointer'
 					color='#909090'
 					size='1.5em'
 					onClick={handleClick}

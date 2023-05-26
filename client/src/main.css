@@ -91,12 +91,24 @@ body {
 .customCard {
 	box-shadow: rgba(0, 0, 0, 0.125) 0 4px 4px;
 	border-radius: 16px;
+	cursor: pointer;
 }
-.cardImage {
+.cardImageBox {
 	background-color: #dadada;
 	border-radius: 16px 16px 0 0;
 	width: 100%;
-	height: 200px;
+	aspect-ratio: 2/1;
+	overflow: hidden;
+}
+.cardImage {
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+	aspect-ratio: 2/1;
+	transition: all 1s;
+}
+.cardImage:hover {
+	transform: scale(1.1);
 }
 .cardBody {
 	background-color: #fff;
@@ -123,10 +135,14 @@ body {
 	display: flex;
 	justify-content: right;
 	gap: 8px;
+	cursor: default;
 }
 .cardBadges {
 	display: flex;
 	gap: 8px;
+}
+.pointer {
+	cursor: pointer;
 }
 
 /* Classes usadas no componente Tag */
@@ -161,4 +177,12 @@ body {
 }
 .btnOutlineOnHoverTextFix:hover {
 	color: #fe9a2e;
+}
+
+/* Classes usadas no componente Perfil */
+.preview {
+	width: 75%;
+	object-fit: cover;
+	object-position: center;
+	aspect-ratio: 1/1;
 }

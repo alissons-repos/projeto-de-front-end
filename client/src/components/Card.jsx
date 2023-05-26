@@ -38,7 +38,9 @@ const Card = ({ data }) => {
 
 	return (
 		<div className='customCard'>
-			<img src={imagePath} className='cardImage' alt='' />
+			<div className='cardImageBox'>
+				<img src={imagePath} className='cardImage' alt='' />
+			</div>
 			<div className='cardBody'>
 				<h5 className='cardTitle text-truncate'>{data.title}</h5>
 				<div className='cardBadges cardText text-capitalize'>
