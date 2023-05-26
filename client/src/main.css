@@ -15,11 +15,24 @@ body {
 /* Classes usadas no componente Navigation */
 .avatar {
 	background-color: #dadada;
+	/* width: 200px;
+	height: 200px;
+	min-width: 150px;
+	min-height: 150px; */
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
+	overflow: hidden;
+}
+.avatar img {
 	width: 200px;
 	height: 200px;
 	min-width: 150px;
 	min-height: 150px;
-	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	aspect-ratio: 1/1;
 }
 .linkStyle {
 	text-decoration: none;

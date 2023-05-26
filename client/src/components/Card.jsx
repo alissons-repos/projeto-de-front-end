@@ -10,7 +10,7 @@ import path from '../apis/endpoints';
 
 const Card = ({ data }) => {
 	const drawGenderIcon = () => {
-		switch (data.sex) {
+		switch (data?.sex) {
 			case 'macho':
 				return (
 					<Tag sex='male'>
@@ -34,7 +34,7 @@ const Card = ({ data }) => {
 		}
 	};
 
-	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${data.image}`;
+	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`;
 
 	return (
 		<div className='customCard'>
@@ -42,15 +42,15 @@ const Card = ({ data }) => {
 				<img src={imagePath} className='cardImage' alt='' />
 			</div>
 			<div className='cardBody'>
-				<h5 className='cardTitle text-truncate'>{data.title}</h5>
+				<h5 className='cardTitle text-truncate'>{data?.title}</h5>
 				<div className='cardBadges cardText text-capitalize'>
-					<Tag>{data.category}</Tag>
+					<Tag>{data?.category}</Tag>
 					{drawGenderIcon()}
 				</div>
-				<p className='cardText text-truncate'>{data.description}</p>
+				<p className='cardText text-truncate'>{data?.description}</p>
 			</div>
 			<div className='cardFooter'>
-				<FaveButton /> {data.likes.length ? data.likes.length : 0}
+				<FaveButton /> {data?.likes.length ? data?.likes.length : 0}
 			</div>
 		</div>
 	);

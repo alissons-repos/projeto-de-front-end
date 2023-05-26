@@ -6,7 +6,7 @@ import Card from './Card';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const Postings = ({ message, isLarge }) => {
+const Postings = ({ message, usersPosts, isLarge }) => {
 	const [posts, setPosts] = useState([]);
 
 	const apiPrivate = useApiPrivate();
@@ -19,11 +19,11 @@ const Postings = ({ message, isLarge }) => {
 
 		const getPosts = async () => {
 			try {
-				const response = await apiPrivate.get(path.POSTS_URL, {
+				const response = await apiPrivate.get(`${usersPosts ? path.AUTH_POSTS_URL : path.POSTS_URL}`, {
 					signal: controller.signal,
-					// Esse propriedade permite que possamos cancelar a requisição utilizando utilizando métodos da classe AbortController()
+					// Esse propriedade permite que possamos cancelar a requisição utilizando métodos da classe AbortController()
 				});
-				console.log(response.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+				// console.log(response.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 				isMounted && setPosts(response.data); // Estrutura condicional, se isMounted for true então executa setPosts()
 			} catch (error) {
 				console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO

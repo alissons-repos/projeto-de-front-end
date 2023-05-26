@@ -4,12 +4,13 @@ import Postings from '../components/Postings';
 
 const MyPostings = ({ isLarge }) => {
 	const message = 'Você não possui nenhuma postagem!';
+	const usersPosts = true;
 	return (
 		<div className='container-fluid'>
 			<div className='row'>
 				<Header isLarge={isLarge} />
 				{isLarge ? <Navigation isLarge={isLarge} /> : <></>}
-				<Postings message={message} isLarge={isLarge} />
+				<Postings message={message} usersPosts={usersPosts} isLarge={isLarge} />
 			</div>
 		</div>
 	);
