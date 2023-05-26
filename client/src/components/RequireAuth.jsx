@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 
 import useAuth from '../hooks/useAuth';
@@ -27,6 +28,10 @@ import useAuth from '../hooks/useAuth';
 const RequireAuth = () => {
 	const { auth } = useAuth();
 	const location = useLocation();
+
+	useEffect(() => {
+		console.log('Houve alteração no contexto da aplicação!');
+	}, [auth]);
 
 	return auth?.accessToken ? <Outlet /> : <Navigate to='/login' state={{ from: location }} replace />;
 };

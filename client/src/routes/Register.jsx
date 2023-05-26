@@ -201,8 +201,6 @@ const Register = () => {
 								onChange={(event) => setFirstName(event.target.value)}
 								value={firstName}
 								required
-								onFocus={() => setFirstNameFocus(true)}
-								onBlur={() => setFirstNameFocus(false)}
 							/>
 							<div className='form-text'>Pode utilizar também nomes compostos</div>
 						</div>
@@ -219,8 +217,6 @@ const Register = () => {
 								onChange={(event) => setLastName(event.target.value)}
 								value={lastName}
 								required
-								onFocus={() => setLastNameFocus(true)}
-								onBlur={() => setLastNameFocus(false)}
 							/>
 						</div>
 
