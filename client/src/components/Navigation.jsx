@@ -1,12 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+// import useLogout from '../hooks/useLogout';
 import useAuth from '../hooks/useAuth';
 import path from '../apis/endpoints';
 
 const Navigation = ({ isLarge }) => {
 	const { auth } = useAuth();
+	// const logout = useLogout();
+	// const navigate = useNavigate();
+
 	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${auth.userData.avatar}`;
+
+	// Poderíamos deslogar imediatamente o usuário quando ele clicasse no link "sair"
+	// const signOut = async () => {
+	// await logout();
+	// navigate(path.LOGIN_URL, { replace: true });
+	// };
 
 	return (
 		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>

@@ -9,7 +9,7 @@ const routes = {
 	AUTH_USER_URL: '/auth/users',
 	POSTS_URL: '/posts',
 	POSTS_ID_URL: '/posts/:id',
-	AUTH_POSTS_URL: '/auth/posts/',
+	AUTH_POSTS_URL: '/auth/posts',
 	AUTH_POSTS_ID_URL: '/auth/posts/:id',
 	AUTH_POSTS_UPLOAD_ID_URL: '/auth/posts/upload/:id',
 };

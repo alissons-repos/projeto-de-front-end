@@ -15,17 +15,19 @@ const useRefreshToken = () => {
 		// A API define um cookie não acessível, não visível por meio de código JS vanilla
 		// Essa estratégia permite enviarmos cookies seguros como resposta da requisição
 		const response = await apiPrivate.get(path.REFRESH_URL);
+		// console.log('Resposta do Refresh:', response?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 
-		// Após obter o Refresh Token, iremos adicioná-lo ao AuthContext por meio de sua função setAuth
-		// Manteremos o estado anterior, porém adicionaremos em accessToken esse novo Refresh Token
-		// Tanto access como refresh são tokens, a diferença entre eles é seu propósito e eles serão armazenados no contexto
-		setAuth((prev) => {
-			console.log(JSON.stringify(prev)); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			console.log(response.data.accessToken); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			return { ...prev, accessToken: response.data.accessToken }; // FIXME:
-			// Sobrescreve o access token anterior com o novo refresh token
+		// Após obter o um novo accessToken, por meio da requisição GET em /refresh, iremos adicioná-lo ao AuthContext por meio de sua função setAuth
+		// Manteremos o estado anterior, porém substituiremos o antigo accessToken pelo novo
+		// Tanto access como refresh são tokens, a diferença entre eles está em seu propósito
+		setAuth((previous) => {
+			// previous recebe o estado atual/anterior do contexto
+			// console.log('Estado Anterior:', previous); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			// console.log('Novo accessToken:', response.data.Token); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			return { ...previous, accessToken: response.data.Token };
+			// Estamos sobrescrevendo o estado antigo trocando o valor de accessToken
 		});
-		return response.data.accessToken;
+		return response.data.Token;
 	};
 	return refresh;
 };

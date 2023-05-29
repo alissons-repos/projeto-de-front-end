@@ -14,7 +14,7 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 	const location = useLocation();
 
 	useEffect(() => {
-		let isMounted = true;
+		let isMounted = true; // A variável isMounted está sendo utilizada como um indicador, de modo a permitir ou negar a definição do estado dos posts dependendo se a requisição está aberta ou não não. Estamos fazendo  uma requisição e logo em seguida limpando suas alterações. ???
 		const controller = new AbortController();
 
 		const getPosts = async () => {
@@ -44,7 +44,6 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 		};
 	}, []);
 
-	// style={{ backgroundColor: '#fe9a2e' }}
 	return (
 		<div className='col-12 col-xl-10'>
 			<div className={isLarge ? 'col-12 col-xl-10 position-fixed' : 'col-12 col-xl-10 position-static'}>
@@ -79,7 +78,7 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 					))}
 				</ul>
 			) : (
-				<p>{message}</p>
+				<p className='d-flex justify-content-center align-items-center'>{message}</p>
 			)}
 		</div>
 	);

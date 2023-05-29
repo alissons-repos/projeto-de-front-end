@@ -9,6 +9,7 @@ import PersistLogin from './components/PersistLogin';
 // Rotas
 import NoPage from './routes/NoPage';
 import Login from './routes/Login';
+import Logout from './routes/Logout';
 import Register from './routes/Register';
 import Feed from './routes/Feed';
 import MyPostings from './routes/MyPostings';
@@ -40,15 +41,19 @@ function App() {
 				<Route path='*' element={<NoPage />} />
 
 				{/* Todos os filhos de PersistLogin serão renderizados pelo "Outlet" do react-router-dom */}
-				<Route element={<RequireAuth />}>
-					{/* <Route element={<PersistLogin />}> */}
-					<Route path='feed' element={<Feed isLarge={isLarge} />} />
-					<Route path='postings' element={<MyPostings isLarge={isLarge} />} />
-					<Route path='profile' element={<MyProfile isLarge={isLarge} />} />
-					{/* </Route> */}
+				<Route element={<PersistLogin />}>
+					<Route element={<RequireAuth />}>
+						<Route path='feed' element={<Feed isLarge={isLarge} />} />
+						<Route path='postings' element={<MyPostings isLarge={isLarge} />} />
+						<Route path='profile' element={<MyProfile isLarge={isLarge} />} />
+						<Route path='logout' element={<Logout />} />
+					</Route>
 				</Route>
 			</Route>
 		</Routes>
+
+		// Uma boa prática é não colar nenhuma lógica, como estruturas condicionais, sendo diretamente aplicadas junto com as rotas.
+		// O ideal é que a lógica esteja contida dentro de camadas por meio de componentes.
 	);
 }
 
