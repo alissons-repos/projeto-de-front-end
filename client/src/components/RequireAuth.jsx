@@ -34,12 +34,7 @@ const RequireAuth = () => {
 	// 	console.log('Houve alteração no contexto da aplicação!');
 	// }, [auth]);
 
-	return auth?.accessToken ? (
-		// <Outlet isLarge={isLarge} />
-		<Outlet />
-	) : (
-		<Navigate to='/login' state={{ from: location }} replace />
-	);
+	return auth?.accessToken ? <Outlet /> : <Navigate to='/login' state={{ from: location }} replace />;
 };
 
 export default RequireAuth;

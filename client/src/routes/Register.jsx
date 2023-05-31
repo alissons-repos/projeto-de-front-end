@@ -35,10 +35,6 @@ const Register = () => {
 	const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
-		emailRef.current.focus(); // Por o foco no input de email
-	}, []);
-
-	useEffect(() => {
 		setValidEmail(EMAIL_REGEX.test(email));
 	}, [email]);
 

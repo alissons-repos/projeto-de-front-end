@@ -18,6 +18,8 @@ const Navigation = ({ isLarge }) => {
 	// navigate(path.LOGIN_URL, { replace: true });
 	// };
 
+	console.log(auth);
+
 	return (
 		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
@@ -26,8 +28,8 @@ const Navigation = ({ isLarge }) => {
 						<img src={imagePath} alt='foto do usuário logado' />
 					</div>
 					<div className='d-flex flex-column text-center'>
-						<h2>{auth.userData.userName}</h2>
-						<h2 className='display-font'>Fulano de Tal</h2>
+						<h2 className='display-font text-capitalize'>{auth.userData.firstName}</h2>
+						{/* <h2 className='display-font'>Fulano de Tal</h2> */}
 						<ul className='list-unstyled'>
 							<li className='py-2'>
 								<Link className='linkStyle' to='/profile'>

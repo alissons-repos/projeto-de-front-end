@@ -34,10 +34,7 @@ const PersistLogin = () => {
 		console.log(`authJWT: ${JSON.stringify(auth?.accessToken)}`); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 	}, [isLoading]);
 
-	return (
-		<>{!persist ? <Outlet /> : isLoading ? <p>Carregando...</p> : <Outlet />}</>
-		// <>{!persist ? <Outlet isLarge={isLarge} /> : isLoading ? <p>Carregando...</p> : <Outlet isLarge={isLarge} />}</>
-	);
+	return <>{!persist ? <Outlet /> : isLoading ? <p>Carregando...</p> : <Outlet />}</>;
 	// Outlet renderizará todos os componentes filhos dentro do componente PersistLogin
 };
 
