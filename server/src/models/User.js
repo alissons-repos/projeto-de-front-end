@@ -43,7 +43,7 @@ const userSchema = new Schema(
 			type: String,
 			required: false,
 			trim: true,
-			select: false,
+			// select: false,
 		},
 		postings: [
 			{

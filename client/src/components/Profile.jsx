@@ -33,13 +33,13 @@ const Profile = () => {
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
-	function handleChange(event) {
-		console.log(event.target.files);
-		setFile(URL.createObjectURL(e.target.files[0]));
-	}
+	// function handleChange(event) {
+	// 	console.log(event.target.files);
+	// 	setFile(URL.createObjectURL(e.target.files[0]));
+	// }
 
 	const [errorMsg, setErrorMsg] = useState('');
-	const [currentUser, setCurrentUser] = useState(auth.userData);
+	// const [currentUser, setCurrentUser] = useState(auth.userData);
 
 	useEffect(() => {
 		setValidEmail(EMAIL_REGEX.test(email));
@@ -87,7 +87,7 @@ const Profile = () => {
 											? 'form-control text-capitalize'
 											: 'form-control text-capitalize input-valid'
 									}
-									placeholder={currentUser.firstName}
+									placeholder={auth.userData.firstName}
 									type='text'
 									id='firstName'
 									value={firstName}
@@ -104,7 +104,7 @@ const Profile = () => {
 											? 'form-control text-capitalize'
 											: 'form-control text-capitalize input-valid'
 									}
-									placeholder={currentUser.lastName}
+									placeholder={auth.userData.lastName}
 									type='text'
 									id='lastName'
 									value={lastName}
@@ -125,7 +125,7 @@ const Profile = () => {
 											? 'form-control input-valid'
 											: 'form-control input-invalid'
 									}
-									placeholder={currentUser.email}
+									placeholder={auth.userData.email}
 									type='email'
 									id='email'
 									value={email}

@@ -18,8 +18,6 @@ const Navigation = ({ isLarge }) => {
 	// navigate(path.LOGIN_URL, { replace: true });
 	// };
 
-	console.log(auth);
-
 	return (
 		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>

@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
 	// AuthProvider = AuthContext.Provider
 	const [auth, setAuth] = useState({});
 	const [persist, setPersist] = useState(JSON.parse(localStorage.getItem('persist')) || false);
-	// persist...
 	// O localStorage não está sendo utilizado para armazenar token JWT, apenas um boolean que indica se o dispositivo é ou não confiável
 	// Armazenar tokens no localStorage ou Cookie do browser não é um boa prática, pois compromete a segurança da aplicação
 

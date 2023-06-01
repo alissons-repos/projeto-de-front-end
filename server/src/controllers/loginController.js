@@ -4,10 +4,10 @@ const User = require('../models/User');
 
 const handleLogin = async (req, res) => {
 	const { email, password } = req.body;
-	if (!email || !password) return res.status(400).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unprocessable Entity
+	if (!email || !password) return res.status(400).json({ Erro: 'E-mail e senha são obrigatórios!' }); // Unauthorized
 
 	const foundUser = await User.findOne({ email: email }).select('+password').exec();
-	if (!foundUser) return res.status(400).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
+	if (!foundUser) return res.status(401).json({ Erro: 'Email ou senha inválidos!' }); // Unauthorized
 
 	const match = await bcrypt.compare(password, foundUser.password);
 	if (match) {
@@ -30,7 +30,7 @@ const handleLogin = async (req, res) => {
 		// Estamos armazenando o refreshToken e entregando o accessToken para o usuário utilizar nas outras requisições.
 		// O accessToken expira muito rápido, então precisamos "trocar" o token de verificação. Para isso criamos uma rota refresh que possui um método GET que aciona o refreshController.
 	} else {
-		return res.status(401).json({ Erro: 'Email ou senha inválidos!' }); // Unprocessable Entity
+		return res.status(401).json({ Erro: 'Email ou senha inválidos!' }); // Unauthorized
 	}
 };
 

@@ -37,22 +37,25 @@ const Login = () => {
 		try {
 			const resLogin = await apiPrivate.post(path.LOGIN_URL, JSON.stringify({ email, password }));
 			const resGetUsers = await apiPrivate.get(path.USER_URL);
-			const loggedUser = resGetUsers?.data?.find((user) => user.email === email);
+			const userData = resGetUsers?.data?.find((user) => user.email === email);
 			const accessToken = resLogin?.data?.Token;
 			// console.log(resLogin?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			// console.log(resGetUsers?.data); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			setAuth({ userData: loggedUser, accessToken });
+			if (JSON.parse(localStorage.getItem('persist'))) {
+				localStorage.setItem('refresh', userData.refreshToken);
+			}
+			setAuth({ userData, accessToken });
 			setEmail('');
 			setPassword('');
 			setSuccess(true);
 			navigate(from, { state: { from: location }, replace: true });
 			// setTimeout(navigate(from, { replace: true }), 2000); // FIXME:
 		} catch (error) {
-			if (!error?.resLogin) {
+			if (!error?.response) {
 				setErrorMsg('Sem resposta do servidor!');
-			} else if (error.resLogin?.status === 400) {
+			} else if (error.response?.status === 400) {
 				setErrorMsg('E-mail e senha são obrigatórios!');
-			} else if (error.resLogin?.status === 401) {
+			} else if (error.response?.status === 401) {
 				setErrorMsg('Email ou senha inválidos!');
 			} else {
 				setErrorMsg('Algo deu errado!');
@@ -62,7 +65,7 @@ const Login = () => {
 	};
 
 	const togglePersist = () => {
-		setPersist((prev) => !prev);
+		setPersist((previous) => !previous);
 	};
 
 	useEffect(() => {
@@ -88,9 +91,6 @@ const Login = () => {
 										Arranje um companheiro para o seu pet!
 									</h1>
 									<p className='lead fs-5 py-4'>
-										{/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis incidunt sed quisquam
-										voluptates aliquam quas nostrum, ipsa minus in voluptatum animi id quos esse quia
-										voluptate beatae. Cupiditate, laborum dolorum? */}
 										Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se
 										a nós e faça você também parte de nossa calorosa comunidade!
 									</p>
@@ -142,16 +142,14 @@ const Login = () => {
 										/>
 									</div>
 									<div className='px-2 mb-3'>
-										<div className='persistCheck'>
-											<input
-												className='me-2'
-												type='checkbox'
-												id='persist'
-												onChange={togglePersist}
-												checked={persist}
-											/>
-											<label htmlFor='persist'>Manter-se conectado</label>
-										</div>
+										<input
+											className='me-2'
+											type='checkbox'
+											id='persist'
+											onChange={togglePersist}
+											checked={persist}
+										/>
+										<label htmlFor='persist'>Manter-se conectado</label>
 									</div>
 									<div className='px-2 mb-3 d-flex flex-column gap-4'>
 										<button
