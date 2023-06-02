@@ -85,6 +85,12 @@ body {
 	font-weight: bold;
 	border-radius: 0.375rem;
 }
+.successmsg {
+	background-color: rgb(25, 135, 84, 0.25);
+	color: #198754;
+	font-weight: bold;
+	border-radius: 0.375rem;
+}
 .input-valid {
 	border-color: #198754;
 }

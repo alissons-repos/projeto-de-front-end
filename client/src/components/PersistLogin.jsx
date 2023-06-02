@@ -25,7 +25,7 @@ const PersistLogin = () => {
 			} catch (error) {
 				console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			} finally {
-				isMounted && setIsLoadingToken(true);
+				isMounted && setIsLoadingToken(false);
 				// setIsLoadingToken(false);
 				// Estrutura condicional para resolver o problema de memory leaking
 			}
@@ -39,14 +39,14 @@ const PersistLogin = () => {
 			} catch (error) {
 				console.error(error);
 			} finally {
-				isMounted && setIsLoadingData(true);
+				isMounted && setIsLoadingData(false);
 				// setIsLoadingData(false);
 			}
 		};
 
 		// !auth?.userData ? persistUserData() : setAuth((previous) => previous);
-		!auth?.userData ? persistUserData() : setIsLoadingData(true);
-		!auth?.accessToken ? verifyRefreshToken() : setIsLoadingToken(true);
+		!auth?.userData ? persistUserData() : setIsLoadingData(false);
+		!auth?.accessToken ? verifyRefreshToken() : setIsLoadingToken(false);
 		// A função verifyRefreshToken() deve ser executada apenas uma vez ao recarregar a página, pois se houver um usuário logado e seu token estiver válido, não é necessário ir buscar um novo refreshtoken na rota "/refresh"
 
 		return () => {

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
+import { FaInfoCircle } from 'react-icons/fa';
 
 import useAuth from '../hooks/useAuth';
 import useApiPrivate from '../hooks/useApiPrivate';
@@ -10,20 +10,18 @@ const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,4})+$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,}$/;
 
 const Profile = () => {
-	const { auth } = useAuth();
-	const errorRef = useRef();
+	const { auth, setAuth } = useAuth();
+	const apiPrivate = useApiPrivate();
 
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
+	const [password, setPassword] = useState('');
 	const [file, setFile] = useState('');
+	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_avatar.jpg`;
 
 	const [email, setEmail] = useState('');
 	const [validEmail, setValidEmail] = useState(false);
 	const [emailFocus, setEmailFocus] = useState(false);
-
-	const [password, setPassword] = useState('');
-	const [validPassword, setValidPassword] = useState(false);
-	const [passwordFocus, setPasswordFocus] = useState(false);
 
 	const [newPassword, setNewPassword] = useState('');
 	const [validNewPassword, setValidNewPassword] = useState(false);
@@ -33,21 +31,12 @@ const Profile = () => {
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
-	// function handleChange(event) {
-	// 	console.log(event.target.files);
-	// 	setFile(URL.createObjectURL(e.target.files[0]));
-	// }
-
 	const [errorMsg, setErrorMsg] = useState('');
-	// const [currentUser, setCurrentUser] = useState(auth.userData);
+	const [successMsg, setSuccessMsg] = useState('');
 
 	useEffect(() => {
 		setValidEmail(EMAIL_REGEX.test(email));
 	}, [email]);
-
-	useEffect(() => {
-		setValidPassword(password === 'test2'); // FIXME: comparar com a senha atual do usuário
-	}, [password]);
 
 	useEffect(() => {
 		setValidNewPassword(PASSWORD_REGEX.test(newPassword));
@@ -55,19 +44,74 @@ const Profile = () => {
 	}, [newPassword, matchPassword]);
 
 	useEffect(() => {
-		setErrorMsg(''); // Limpar o erro sempre que houver alguma alteração nos estados abaixo
+		setValidEmail(EMAIL_REGEX.test(email));
+	}, [email]);
+
+	useEffect(() => {
+		setErrorMsg(''); // Limpa o erro sempre que houver alguma alteração nos estados abaixo
+		// setSuccessMsg(''); // FIXME: Não entendi o que está acontecendo, seria bom ter um timeout pra mostrar a mensagem
 	}, [email, password, newPassword, matchPassword]);
 
-	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${auth.userData.avatar}`;
+	const handleDataSubmit = async (event) => {
+		event.preventDefault();
+		try {
+			const respose = await apiPrivate.patch(path.AUTH_USER_URL, JSON.stringify({ firstName, lastName, email }));
+			const userData = respose?.data;
+			setAuth((previous) => ({ ...previous, userData }));
+			setSuccessMsg('Dados alterados com sucesso!');
+			setEmail('');
+			setFirstName('');
+			setLastName('');
+		} catch (error) {
+			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			if (!error?.response) {
+				setErrorMsg('Sem resposta do servidor!');
+			} else if (error.response?.status === 409) {
+				setErrorMsg('O e-mail informado já existe!');
+			} else if (error.response?.status === 400) {
+				setErrorMsg('Nenhum dado informado para ser atualizado!');
+			} else {
+				setErrorMsg('Algo deu errado!');
+			}
+		}
+	};
 
-	const handleDataSubmit = (event) => {
+	const handlePassSubmit = async (event) => {
 		event.preventDefault();
+		try {
+			await apiPrivate.put(path.AUTH_USER_URL, JSON.stringify({ password, newPassword, matchPassword }));
+			setSuccessMsg('Senha alterada com sucesso!');
+			setPassword('');
+			setNewPassword('');
+			setMatchPassword('');
+		} catch (error) {
+			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			if (!error?.response) {
+				setErrorMsg('Sem resposta do servidor!');
+			} else if (error.response?.status === 400) {
+				setErrorMsg(`${error.response?.data?.Erro}`);
+			} else {
+				setErrorMsg('Algo deu errado!');
+			}
+		}
 	};
-	const handlePassSubmit = (event) => {
+
+	const handleFileSubmit = async (event) => {
 		event.preventDefault();
-	};
-	const handleFileSubmit = (event) => {
-		event.preventDefault();
+		try {
+			await apiPrivate.put('');
+			setSuccessMsg('Foto de perfil alterada com sucesso!');
+			setFile('');
+		} catch (error) {
+			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			if (!error?.response) {
+				setErrorMsg('Sem resposta do servidor!');
+			} else if (error.response?.status === 400) {
+				setErrorMsg(`${error.response?.data?.Erro}`);
+			} else {
+				setErrorMsg('Algo deu errado!');
+			}
+		}
 	};
 
 	return (
@@ -114,8 +158,6 @@ const Profile = () => {
 							<div className='my-2'>
 								<label htmlFor='email' className='form-label'>
 									E-mail:
-									<FaCheck className={validEmail ? 'ms-2 valid' : 'hide'} />
-									<FaTimes className={validEmail || !email ? 'hide' : 'ms-2 invalid'} />
 								</label>
 								<input
 									className={
@@ -143,7 +185,7 @@ const Profile = () => {
 								<button
 									className='btn btn-secondary'
 									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
-									type='reset'
+									type='submit'
 									disabled={!validEmail && !firstName && !lastName ? true : false}
 								>
 									Alterar Dados
@@ -155,35 +197,20 @@ const Profile = () => {
 							<div className='my-2'>
 								<label htmlFor='currentpassword' className='form-label'>
 									Senha Atual:
-									<FaCheck className={validPassword ? 'ms-2 valid' : 'hide'} />
-									<FaTimes className={validPassword || !password ? 'hide' : 'ms-2 invalid'} />
 								</label>
 								<input
-									className={
-										!password
-											? 'form-control'
-											: validPassword
-											? 'form-control input-valid'
-											: 'form-control input-invalid'
-									}
+									className='form-control'
 									placeholder='**********'
 									type='password'
 									id='currentpassword'
 									value={password}
 									onChange={(event) => setPassword(event.target.value)}
-									onFocus={() => setPasswordFocus(true)}
-									onBlur={() => setPasswordFocus(false)}
 									required
 								/>
-								<div className={passwordFocus && !validPassword ? 'p-2 instructions' : 'offscreen'}>
-									<FaInfoCircle />A senha informada não confere com a senha atual!
-								</div>
 							</div>
 							<div className='my-2'>
 								<label htmlFor='newpassword' className='form-label'>
 									Nova Senha:
-									<FaCheck className={validNewPassword ? 'ms-2 valid' : 'hide'} />
-									<FaTimes className={validNewPassword || !newPassword ? 'hide' : 'ms-2 invalid'} />
 								</label>
 								<input
 									className={
@@ -205,18 +232,14 @@ const Profile = () => {
 								<div
 									className={newPasswordFocus && !validNewPassword ? 'p-2 instructions' : 'offscreen'}
 								>
-									<FaInfoCircle />
-									Deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um
-									número e um símbolo especial. <br />
-									<FaInfoCircle />
-									Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
+									<FaInfoCircle /> Deve conter 8 ou mais caracteres, pelo menos uma letra maiúscula,
+									uma minúscula, um número e um símbolo especial. <br />
+									<FaInfoCircle /> Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
 								</div>
 							</div>
 							<div className='my-2'>
 								<label htmlFor='match' className='form-label'>
 									Confirmar Nova Senha:
-									<FaCheck className={validMatch && matchPassword ? 'ms-2 valid' : 'hide'} />
-									<FaTimes className={validMatch || !matchPassword ? 'hide' : 'ms-2 invalid'} />
 								</label>
 								<input
 									className={
@@ -236,7 +259,7 @@ const Profile = () => {
 									required
 								/>
 								<div className={matchFocus && !validMatch ? 'p-2 instructions' : 'offscreen'}>
-									<FaInfoCircle />A confirmação deve coincidir com o campo nova senha.
+									<FaInfoCircle /> A confirmação deve coincidir com o campo nova senha!
 								</div>
 							</div>
 							<div className='my-2 d-flex justify-content-end'>
@@ -244,7 +267,7 @@ const Profile = () => {
 									className='btn btn-secondary'
 									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
 									type='submit'
-									disabled={!validPassword || !validNewPassword || !validMatch ? true : false}
+									disabled={!password || !validNewPassword || !validMatch ? true : false}
 								>
 									Alterar Senha
 								</button>
@@ -258,22 +281,48 @@ const Profile = () => {
 								<label htmlFor='avatar' className='form-label'>
 									Avatar:
 								</label>
-								<input type='file' className='form-control' />
+								<input
+									type='file'
+									name='avatarImage'
+									className='form-control'
+									onChange={(event) => setFile(event.target.files[0])}
+								/>
 							</div>
 							<div className='text-center'>
-								<img src={imagePath} alt='' className='preview' />
+								{file ? (
+									<img src={URL.createObjectURL(file)} alt='' className='preview' />
+								) : (
+									<img src={imagePath} alt='imagem padrão reservada' className='preview' />
+								)}
 							</div>
 							<div className='my-2 d-flex justify-content-end'>
 								<button
 									className='btn btn-secondary'
 									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
 									type='submit'
+									disabled={!file ? true : false}
 									// disabled={!validFile || !file ? true : false}
 								>
 									Alterar Foto de Perfil
 								</button>
 							</div>
 						</form>
+
+						<form>
+							<div className='my-2'>
+								<label htmlFor='identification' className='form-label'>
+									ID da sua conta:
+								</label>
+								<input
+									className='form-control'
+									placeholder={auth.userData._id}
+									type='text'
+									id='identification'
+									readOnly
+								/>
+							</div>
+						</form>
+
 						<div className='my-2 d-flex justify-content-end'>
 							<button className='btn btn-danger' style={{ border: 'none' }} type='button'>
 								Exluir Conta
@@ -284,10 +333,13 @@ const Profile = () => {
 			</div>
 
 			<section className='row px-5 text-center my-2'>
-				{/* <p>Mensagens em caso de Erro</p> */}
-				<p ref={errorRef} className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>
-					&nbsp;{errorMsg}
-				</p>
+				{successMsg ? (
+					<p className={successMsg ? 'p-2 successmsg' : 'p-2 invisible'}>&nbsp;{successMsg}</p>
+				) : (
+					<p className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>&nbsp;{errorMsg}</p>
+				)}
+				{/* {successMsg && <p className={successMsg ? 'p-2 successmsg' : 'p-2 invisible'}>&nbsp;{successMsg}</p>}
+				{errorMsg && <p className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>&nbsp;{errorMsg}</p>} */}
 			</section>
 		</div>
 	);

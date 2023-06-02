@@ -23,6 +23,12 @@ router
 	.route('/auth/users')
 	.get(verifyJWT, usersController.getTheUser)
 	.patch(verifyJWT, usersController.updateTheUser)
+	.put(verifyJWT, usersController.updateTheUserPassword)
 	.delete(verifyJWT, usersController.deleteTheUser);
+
+router
+	// PATCH -> Permite que o usuário logado adicione/atualize sua foto de perfil (...)
+	.route('/auth/users/upload/:id')
+	.patch(verifyJWT, verifyID, uploads.single('file'), usersController.uploadTheUserAvatar);
 
 module.exports = router;
