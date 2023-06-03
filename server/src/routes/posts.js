@@ -34,7 +34,7 @@ router
 router
 	// PATCH -> Permite que o usuário logado adicione/atualize uma foto ao seu post (...)
 	.route('/auth/posts/upload/:id')
-	.patch(verifyJWT, verifyID, uploads.single('file'), postsController.uploadImgTheUserPost);
+	.patch(verifyJWT, verifyID, uploads.single('postImage'), postsController.uploadImgTheUserPost);
 
 router
 	// PATCH -> Permite que o usuário logado favorite um post (...)

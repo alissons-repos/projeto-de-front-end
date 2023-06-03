@@ -3,6 +3,7 @@ const router = express.Router();
 const usersController = require('../controllers/usersController');
 const verifyJWT = require('../middlewares/verifyJWT');
 const verifyID = require('../middlewares/verifyID');
+const uploads = require('../middlewares/uploads');
 
 // ROTAS PÚBLICAS
 router
@@ -29,6 +30,6 @@ router
 router
 	// PATCH -> Permite que o usuário logado adicione/atualize sua foto de perfil (...)
 	.route('/auth/users/upload/:id')
-	.patch(verifyJWT, verifyID, uploads.single('file'), usersController.uploadTheUserAvatar);
+	.patch(verifyJWT, verifyID, uploads.single('profileImage'), usersController.uploadTheUserAvatar);
 
 module.exports = router;

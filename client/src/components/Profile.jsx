@@ -283,16 +283,24 @@ const Profile = () => {
 								</label>
 								<input
 									type='file'
-									name='avatarImage'
+									name='profileImage'
 									className='form-control'
 									onChange={(event) => setFile(event.target.files[0])}
 								/>
 							</div>
 							<div className='text-center'>
 								{file ? (
-									<img src={URL.createObjectURL(file)} alt='' className='preview' />
+									<img
+										src={URL.createObjectURL(file)}
+										alt='imagem de perfil enviada pelo usuário'
+										className='preview'
+									/>
 								) : (
-									<img src={imagePath} alt='imagem padrão reservada' className='preview' />
+									<img
+										src={imagePath}
+										alt='imagem padrão reservada utilizada pelo site'
+										className='preview'
+									/>
 								)}
 							</div>
 							<div className='my-2 d-flex justify-content-end'>
