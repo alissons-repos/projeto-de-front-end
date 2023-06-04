@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Post = require('../models/Post');
 
@@ -69,8 +68,8 @@ const deleteTheUser = async (req, res) => {
 		for (let i = 0; i < user.postings.length; i++) {
 			await Post.deleteOne({ _id: user.postings[i] });
 		}
-		const result = await user.deleteOne({ _id: req.user.userID });
-		return res.status(200).json(result); // OK
+		await user.deleteOne({ _id: req.user.userID });
+		return res.status(200).json({ Mensagem: 'Usuário deletado com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
@@ -94,8 +93,8 @@ const updateTheUserPassword = async (req, res) => {
 			const hashedPassword = await bcrypt.hash(newPassword, 10);
 			user.password = hashedPassword;
 		}
-		const result = await user.save();
-		return res.status(200).json(result); // OK
+		await user.save();
+		return res.status(200).json({ Mensagem: 'Senha alterada com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
@@ -107,13 +106,9 @@ const uploadTheUserAvatar = async (req, res) => {
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
-		const post = await Post.findOne({ _id: req.params.id }).exec();
-		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
-		const includes = user.postings.includes(req.params.id);
-		if (!includes) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Bad Request
-		if (req.file.filename) post.image = req.file.filename;
-		const result = await post.save();
-		return res.status(200).json({ Arquivo: 'Arquivo enviado com sucesso!', Resultado: result }); // OK
+		if (req.file.filename) user.avatar = req.file.filename;
+		await user.save();
+		return res.status(200).json({ Mensagem: 'Arquivo enviado com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error

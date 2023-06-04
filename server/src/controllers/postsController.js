@@ -139,8 +139,8 @@ const deleteTheUserPost = async (req, res) => {
 		if (postIndex === -1) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Not Found
 		user.postings.splice(postIndex, 1);
 		user.save();
-		const result = await post.deleteOne({ _id: req.params.id });
-		return res.status(200).json(result); // OK
+		await post.deleteOne({ _id: req.params.id });
+		return res.status(200).json({ Mensagem: 'Postagem deletada com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
@@ -149,6 +149,7 @@ const deleteTheUserPost = async (req, res) => {
 
 const uploadImgTheUserPost = async (req, res) => {
 	if (!req.file) return res.status(400).json({ Erro: 'Nenhum arquivo de imagem enviado!' }); // Bad Request
+	console.log(req.file);
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
@@ -157,8 +158,8 @@ const uploadImgTheUserPost = async (req, res) => {
 		const includes = user.postings.includes(req.params.id);
 		if (!includes) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Bad Request
 		if (req.file.filename) post.image = req.file.filename;
-		const result = await post.save();
-		return res.status(200).json({ Arquivo: 'Arquivo enviado com sucesso!', Resultado: result }); // OK
+		await post.save();
+		return res.status(200).json({ Mensagem: 'Arquivo enviado com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
