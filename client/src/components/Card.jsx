@@ -5,10 +5,14 @@ import { BsGenderAmbiguous, BsGenderFemale, BsGenderMale } from 'react-icons/bs'
 import Tag from './Tag';
 import FaveButton from './FaveButton';
 
-// import { apiPrivate } from '../apis/axios';
+import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
 const Card = ({ data }) => {
+	const apiPrivate = useApiPrivate();
+	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`);
+	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
+
 	const drawGenderIcon = () => {
 		switch (data?.sex) {
 			case 'macho':
@@ -34,12 +38,29 @@ const Card = ({ data }) => {
 		}
 	};
 
-	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`;
+	useEffect(() => {
+		const getCardImage = () => {
+			apiPrivate.get(imagePath).catch(() => setImagePath(''));
+		};
+		getCardImage();
+	}, []);
 
 	return (
 		<div className='customCard'>
 			<div className='cardImageBox'>
-				<img src={imagePath} className='cardImage' alt='' />
+				{imagePath ? (
+					<img
+						src={imagePath}
+						className='cardImage d-flex justify-content-center align-items-center'
+						alt='imagem da postagem enviada pelo usuário'
+					/>
+				) : (
+					<img
+						src={imagePlaceHolder}
+						alt='imagem padrão reservada pelo site'
+						className='cardImage d-flex justify-content-center align-items-center'
+					/>
+				)}
 			</div>
 			<div className='cardBody'>
 				<h5 className='cardTitle text-truncate'>{data?.title}</h5>

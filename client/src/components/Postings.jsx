@@ -78,7 +78,9 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 					))}
 				</ul>
 			) : (
-				<p className='d-flex justify-content-center align-items-center'>{message}</p>
+				<div className='d-flex justify-content-center align-items-center h-100 m-5 py-5'>
+					<p className='m-5 py-5'>{message}</p>
+				</div>
 			)}
 		</div>
 	);
