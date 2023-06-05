@@ -25,6 +25,4 @@ const handleLogout = async (req, res) => {
 	return res.status(204).json({ Mensagem: 'Desconexão realizada com sucesso!' }); // No content
 };
 
-// res.clearCookie('tokenUsuario', { path: '/', domain: 'localhost' });
-
 module.exports = { handleLogout };

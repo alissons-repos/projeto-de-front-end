@@ -8,11 +8,10 @@ const useLogout = () => {
 	const apiPrivate = useApiPrivate();
 
 	const logout = async () => {
-		// setAuth({});
 		try {
 			// withCredentials, já configurado em apiPrivate, é necessário para que o secure cookie seja retornado na resposta da requisição
 			const response = await apiPrivate.get(path.LOGOUT_URL);
-			// console.log('Resultado logout:', response); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+			console.log('Resultado logout:', response); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			setAuth({});
 		} catch (error) {
 			console.error(error);

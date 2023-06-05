@@ -149,7 +149,6 @@ const deleteTheUserPost = async (req, res) => {
 
 const uploadImgTheUserPost = async (req, res) => {
 	if (!req.file) return res.status(400).json({ Erro: 'Nenhum arquivo de imagem enviado!' }); // Bad Request
-	console.log(req.file);
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found

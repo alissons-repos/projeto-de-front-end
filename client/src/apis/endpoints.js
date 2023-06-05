@@ -1,5 +1,6 @@
 const routes = {
 	BASE_URL: 'http://localhost:3500',
+	GOODBYE_URL: '/goodbye',
 	LOGIN_URL: '/login',
 	LOGOUT_URL: '/logout',
 	PUBLIC_URL: '/public',
@@ -10,7 +11,7 @@ const routes = {
 	USER_ID_URL: '/users/:id',
 	AUTH_USER_URL: '/auth/users',
 	AUTH_USER_ID_URL: '/auth/users/:id',
-	AUTH_USER_UPLOAD_ID_URL: '/auth/users/upload/:id',
+	AUTH_USER_UPLOAD_URL: '/auth/users/upload',
 
 	POSTS_URL: '/posts',
 	POSTS_ID_URL: '/posts/:id',

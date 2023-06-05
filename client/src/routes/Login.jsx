@@ -88,11 +88,11 @@ const Login = () => {
 							<div className={`dogsBG d-flex flex-column justify-content-center px-4 h-100`}>
 								<div className={`d-flex flex-column justify-content-center h-100 p-5`}>
 									<h1 className='display-font display-5 fw-normal'>
-										Arranje um companheiro para o seu pet!
+										Adote um pet ou encontre um companheiro para o seu!
 									</h1>
 									<p className='lead fs-5 py-4'>
 										Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se
-										a nós e faça você também parte de nossa calorosa comunidade!
+										a nós e faça parte também de nossa calorosa comunidade!
 									</p>
 									<Link className='btn btn-outline-light btn-lg' to='/register'>
 										Faça parte

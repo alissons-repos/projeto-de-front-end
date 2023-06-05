@@ -107,8 +107,8 @@ const uploadTheUserAvatar = async (req, res) => {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
 		if (req.file.filename) user.avatar = req.file.filename;
-		await user.save();
-		return res.status(200).json({ Mensagem: 'Arquivo enviado com sucesso!' }); // OK
+		const result = await user.save();
+		return res.status(200).json(result); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error

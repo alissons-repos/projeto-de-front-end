@@ -8,6 +8,7 @@ import PersistLogin from './components/PersistLogin';
 
 // Rotas
 import NoPage from './routes/NoPage';
+import Goodbye from './routes/Goodbye';
 import Login from './routes/Login';
 import Logout from './routes/Logout';
 import Register from './routes/Register';
@@ -54,6 +55,7 @@ function App() {
 						<Route path='postings' element={<MyPostings isLarge={isLarge} />} />
 						<Route path='profile' element={<MyProfile isLarge={isLarge} />} />
 						<Route path='logout' element={<Logout />} />
+						<Route path='goodbye' element={<Goodbye />} />
 					</Route>
 				</Route>
 			</Route>
