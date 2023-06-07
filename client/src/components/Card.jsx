@@ -71,7 +71,7 @@ const Card = ({ data }) => {
 				<p className='cardText text-truncate'>{data?.description}</p>
 			</div>
 			<div className='cardFooter'>
-				<FaveButton /> {data?.likes.length ? data?.likes.length : 0}
+				<FaveButton postID={data._id} likes={data?.likes.length} />
 			</div>
 		</div>
 	);

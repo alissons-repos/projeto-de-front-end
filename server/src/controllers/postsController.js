@@ -165,10 +165,6 @@ const uploadImgTheUserPost = async (req, res) => {
 	}
 };
 
-// O usuário logado poderá favoritar e desfavoritar diversos posts
-// O usuário logado poderá favoritar suas próprias postagens
-// O post favoritado deve ser atualizado no DB adicionando ou removendo o id do usuário logado no array de likes (quantidade: likes.length)
-
 const likeTheUserPost = async (req, res) => {
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
@@ -176,10 +172,15 @@ const likeTheUserPost = async (req, res) => {
 		const post = await Post.findOne({ _id: req.params.id }).exec();
 		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
 		if (post.likes.filter((like) => like.toString() === req.user.userID).length > 0) {
-			return res.status(400).json({ Erro: 'Postagem já favoritada!' });
+			return res.status(422).json({ Erro: 'Postagem já favoritada!' });
+		}
+		if (user.favorites.filter((like) => like.toString() === req.params.id).length > 0) {
+			return res.status(422).json({ Erro: 'Postagem já favoritada!' });
 		}
 		post.likes.unshift(req.user.userID);
+		user.favorites.unshift(req.params.id);
 		await post.save();
+		await user.save();
 		return res.status(200).json({ Mensagem: 'Postagem favoritada com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
@@ -194,18 +195,27 @@ const unlikeTheUserPost = async (req, res) => {
 		const post = await Post.findOne({ _id: req.params.id }).exec();
 		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
 		if (post.likes.filter((like) => like.toString() === req.user.userID).length === 0) {
-			return res.status(400).json({ Erro: 'Postagem ainda não favoritada!' });
+			return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' });
+		}
+		if (user.favorites.filter((like) => like.toString() === req.params.id).length === 0) {
+			return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' });
 		}
 		const userIndex = post.likes.indexOf(req.user.userID);
-		if (userIndex === -1) return res.status(404).json({ Erro: 'Postagem ainda não favoritada!' }); // Not Found
+		const postIndex = user.favorites.indexOf(req.params.id);
+		if (userIndex === -1) return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' }); // Not Found
+		if (postIndex === -1) return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' }); // Not Found
 		post.likes.splice(userIndex, 1);
+		user.favorites.splice(postIndex, 1);
 		await post.save();
+		await user.save();
 		return res.status(200).json({ Mensagem: 'Postagem desfavoritada com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
 	}
 };
+
+// Basicamente estamos "trocando id's". O ID do post será salvo no usuário e o id do usuário será salvo no post.
 
 module.exports = {
 	getAllPosts,

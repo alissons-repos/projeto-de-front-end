@@ -12,7 +12,6 @@ const userSchema = new Schema(
 			required: false,
 			trim: true,
 			default: `default_avatar_0`,
-			// get: (fileName) => `'${DIRECTORY}/${fileName}`,
 		},
 		email: {
 			type: String,
@@ -46,6 +45,12 @@ const userSchema = new Schema(
 			// select: false,
 		},
 		postings: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Post',
+			},
+		],
+		favorites: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Post',
