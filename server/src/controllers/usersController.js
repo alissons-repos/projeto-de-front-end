@@ -64,7 +64,6 @@ const deleteTheUser = async (req, res) => {
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
-		// user.postings.forEach(async (post) => await Post.deleteOne({ _id: post._id }));
 		for (let i = 0; i < user.postings.length; i++) {
 			await Post.deleteOne({ _id: user.postings[i] });
 		}

@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-// import useLogout from '../hooks/useLogout';
 import useAuth from '../hooks/useAuth';
 import path from '../apis/endpoints';
 
 const Navigation = ({ isLarge }) => {
 	const { auth } = useAuth();
-	// const logout = useLogout();
-	// const navigate = useNavigate();
-
 	const imagePath = `${path.BASE_URL}${path.PUBLIC_URL}/${auth.userData.avatar}`;
 
-	// Poderíamos deslogar imediatamente o usuário quando ele clicasse no link "sair"
-	// const signOut = async () => {
-	// await logout();
-	// navigate(path.LOGIN_URL, { replace: true });
-	// };
-
 	return (
-		<div className='col-12 col-lg-12 col-xl-2 d-flex justify-content-center mt-5'>
+		<div className='col-xl-2 d-flex justify-content-center pt-5 vh-100 ms-auto'>
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
 				<div className='d-flex flex-column gap-3 align-items-center p-3'>
 					<div className='avatar'>
@@ -27,12 +16,35 @@ const Navigation = ({ isLarge }) => {
 					</div>
 					<div className='d-flex flex-column text-center'>
 						<h2 className='display-font text-capitalize'>{auth.userData.firstName}</h2>
-						{/* <h2 className='display-font'>Fulano de Tal</h2> */}
 						<ul className='list-unstyled'>
-							<li className='py-2'>
-								<Link className='linkStyle' to='/profile'>
+							<li className='dropdown-center py-2'>
+								<Link
+									className='dropdown-toggle linkStyle d-inline'
+									role='button'
+									data-bs-toggle='dropdown'
+								>
 									Meu Perfil
 								</Link>
+								<ul className='dropdown-menu text-center'>
+									<li>
+										<Link className='dropdown-item' to='/profile/mydata'>
+											Alterar dados e senha
+										</Link>
+									</li>
+									<li>
+										<Link className='dropdown-item' to='/profile/myavatar'>
+											Alterar foto de perfil
+										</Link>
+									</li>
+									<li>
+										<hr className='dropdown-divider' />
+									</li>
+									<li>
+										<Link className='dropdown-item' to='/profile/deleteaccount'>
+											Deletar minha conta
+										</Link>
+									</li>
+								</ul>
 							</li>
 							<li className='py-2'>
 								<Link className='linkStyle' to='/postings'>
@@ -51,7 +63,6 @@ const Navigation = ({ isLarge }) => {
 							</li>
 						</ul>
 					</div>
-					{/* <div className='position-absolute bottom-0'>Footer</div> */}
 				</div>
 			</div>
 		</div>

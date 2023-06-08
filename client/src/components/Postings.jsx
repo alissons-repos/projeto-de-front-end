@@ -45,8 +45,8 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 	}, []);
 
 	return (
-		<div className='col-12 col-xl-10'>
-			<div className={isLarge ? 'col-12 col-xl-10 position-fixed' : 'col-12 col-xl-10 position-static'}>
+		<div className='col-12 col-xl-9 me-auto'>
+			<div className={isLarge ? 'col-12 col-xl-9 position-fixed index' : 'col-12 col-xl-9 position-static'}>
 				<div className='row' style={{ backgroundColor: '#fe9a2e' }}>
 					<nav className='d-flex justify-content-center gap-5 list-unstyled p-2'>
 						<li className='fs-4'>
