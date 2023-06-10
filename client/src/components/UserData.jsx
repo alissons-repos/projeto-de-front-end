@@ -145,7 +145,7 @@ const UserData = () => {
 									onChange={(event) => setLastName(event.target.value)}
 								/>
 							</div>
-							<div className='my-2'>
+							<div className='my-2 father'>
 								<label htmlFor='email' className='form-label'>
 									E-mail:
 								</label>
@@ -199,7 +199,7 @@ const UserData = () => {
 									required
 								/>
 							</div>
-							<div className='my-2'>
+							<div className='my-2 father'>
 								<label htmlFor='newpassword' className='form-label'>
 									Nova Senha:
 								</label>
@@ -228,7 +228,7 @@ const UserData = () => {
 									<FaInfoCircle /> Símbolos especiais permitidos: ? ! @ # $ % & * , . ; : /
 								</div>
 							</div>
-							<div className='my-2'>
+							<div className='my-2 father'>
 								<label htmlFor='match' className='form-label'>
 									Confirmar Nova Senha:
 								</label>
@@ -282,7 +282,6 @@ const UserData = () => {
 					</div>
 				</div>
 			</div>
-
 			<section className='row px-5 text-center my-2'>
 				{successMsg && (
 					<p className={successMsg ? 'p-2 successmsg' : 'p-2 invisible'}>

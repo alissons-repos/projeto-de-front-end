@@ -69,6 +69,9 @@ body {
 }
 
 /* Classes usadas na rota Register */
+.father {
+	position: relative;
+}
 .instructions {
 	background: #adb5bd;
 	position: absolute;
@@ -85,15 +88,12 @@ body {
 	visibility: hidden;
 	display: none;
 }
-.hide {
-	display: none;
-}
 .valid {
-	fill: #198754;
+	color: #198754;
 	border-color: #198754;
 }
 .invalid {
-	fill: #dc3545;
+	color: #dc3545;
 	border-color: #dc3545;
 }
 .errormsg {
