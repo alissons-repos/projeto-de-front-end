@@ -34,9 +34,9 @@ function App() {
 		};
 	}, []);
 
-	useEffect(() => {
-		console.log(auth); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-	}, [auth]);
+	// useEffect(() => {
+	// 	console.log(auth); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+	// }, [auth]);
 
 	return (
 		<Routes>

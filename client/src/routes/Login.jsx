@@ -12,10 +12,8 @@ const Login = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-	const from = location.state?.from?.pathname || '/feed';
-
 	const emailRef = useRef(); // Necessário para por o foco no campo e-mail quando a tela recarregar
-	const errorRef = useRef(); // Necessário para por o foco em erros para auxiliar na acessibilidade
+	const from = location.state?.from?.pathname || '/feed';
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -45,9 +43,7 @@ const Login = () => {
 			setAuth({ userData, accessToken });
 			setEmail('');
 			setPassword('');
-			setSuccess(true);
 			navigate(from, { state: { from: location }, replace: true });
-			// setTimeout(navigate(from, { replace: true }), 2000); // FIXME:
 		} catch (error) {
 			if (!error?.response) {
 				setErrorMsg('Sem resposta do servidor!');
@@ -58,7 +54,6 @@ const Login = () => {
 			} else {
 				setErrorMsg('Algo deu errado!');
 			}
-			errorRef.current.focus(); // Por o foco na mensagen de erro
 		}
 	};
 
@@ -72,9 +67,7 @@ const Login = () => {
 
 	return (
 		<section className='container-fluid'>
-			{/* Página inteira */}
 			<div className='row'>
-				{/* Direita */}
 				<div className={`grassBG col-12 col-lg-7 vh-100 px-0 text-white`}>
 					<div className={`dogsBG d-flex flex-column justify-content-center px-4 h-100`}>
 						<div className={`d-flex flex-column justify-content-center h-100 p-5`}>
@@ -91,10 +84,8 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
-				{/* Esquerda */}
 				<div className='col-12 col-lg-5 vh-100 px-4'>
 					<div className='d-flex flex-column justify-content-center h-100'>
-						{/* <h1 className='text-center display-2'>Meu Amigo PET</h1> */}
 						<img
 							src={logo}
 							alt='Meu Amigo PET'
@@ -115,7 +106,7 @@ const Login = () => {
 									ref={emailRef}
 									value={email} // Torna o valor do input controlável e assim podemos limpar o campo quando necessário
 									required
-									onChange={(event) => setEmail(event.target.value)}
+									onChange={(event) => setEmail(event.target.value.toLowerCase())}
 								/>
 							</div>
 							<div className='px-2 mb-3'>
@@ -165,9 +156,7 @@ const Login = () => {
 							</div>
 						</form>
 						<section className='text-center'>
-							<p ref={errorRef} className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>
-								&nbsp;{errorMsg}
-							</p>
+							<p className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>&nbsp;{errorMsg}</p>
 						</section>
 					</div>
 				</div>

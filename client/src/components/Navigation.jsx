@@ -14,10 +14,10 @@ const Navigation = ({ isLarge }) => {
 					<div className='avatar'>
 						<img src={imagePath} alt='foto do usuário logado' />
 					</div>
-					<div className='d-flex flex-column text-center'>
+					<div className='navbar d-flex flex-column text-center'>
 						<h2 className='display-font text-capitalize'>{auth.userData.firstName}</h2>
-						<ul className='list-unstyled'>
-							<li className='dropdown-center py-2'>
+						<ul className='navbar-nav list-unstyled'>
+							<li className='dropdown py-2'>
 								<Link
 									className='dropdown-toggle linkStyle d-inline'
 									role='button'

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import { BsGenderAmbiguous, BsGenderFemale, BsGenderMale } from 'react-icons/bs';
 
 import Tag from './Tag';
@@ -8,7 +7,7 @@ import FaveButton from './FaveButton';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const Card = ({ data }) => {
+const Card = ({ data, clickFunction }) => {
 	const apiPrivate = useApiPrivate();
 	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`);
 	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
@@ -18,19 +17,19 @@ const Card = ({ data }) => {
 			case 'macho':
 				return (
 					<Tag sex='male'>
-						<BsGenderMale />
+						<BsGenderMale size={20} />
 					</Tag>
 				);
 			case 'fêmea':
 				return (
 					<Tag sex='female'>
-						<BsGenderFemale />
+						<BsGenderFemale size={20} />
 					</Tag>
 				);
 			case 'ambos':
 				return (
 					<Tag sex='ambiguous'>
-						<BsGenderAmbiguous />
+						<BsGenderAmbiguous size={20} />
 					</Tag>
 				);
 			default:
@@ -47,6 +46,7 @@ const Card = ({ data }) => {
 
 	return (
 		<div className='customCard'>
+			{/* <div>  Div que será utilizada como caixa para o abrir o modal*/}
 			<div className='cardImageBox'>
 				{imagePath ? (
 					<img
@@ -57,8 +57,8 @@ const Card = ({ data }) => {
 				) : (
 					<img
 						src={imagePlaceHolder}
-						alt='imagem padrão reservada pelo site'
 						className='cardImage d-flex justify-content-center align-items-center'
+						alt='imagem padrão reservada pelo site'
 					/>
 				)}
 			</div>
@@ -70,6 +70,7 @@ const Card = ({ data }) => {
 				</div>
 				<p className='cardText text-truncate'>{data?.description}</p>
 			</div>
+			{/* </div> */}
 			<div className='cardFooter'>
 				<FaveButton postID={data._id} likes={data?.likes.length} />
 			</div>
