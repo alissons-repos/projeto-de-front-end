@@ -11,16 +11,17 @@ import NoPage from './routes/NoPage';
 import Login from './routes/Login';
 import Logout from './routes/Logout';
 import Register from './routes/Register';
+import Recover from './routes/Recover';
 import Feed from './routes/Feed';
 import MyPostings from './routes/MyPostings';
 import MyProfile from './routes/MyProfile';
 
-import useAuth from './hooks/useAuth';
+// import useAuth from './hooks/useAuth';
 
 // Seria possível utilizar o AuthContext junto com as rotas para fazer a autenticação por meio de estruturas de controle, porém isso poluiria o código e foge do recomendado.
 
 function App() {
-	const { auth } = useAuth();
+	// const { auth } = useAuth();
 	const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
 	const isLarge = windowSize[0] >= 1200 ? true : false;
 
@@ -45,6 +46,7 @@ function App() {
 				<Route index element={<Login />} />
 				<Route path='login' element={<Login />} />
 				<Route path='register' element={<Register />} />
+				<Route path='recover' element={<Recover />} />
 				<Route path='*' element={<NoPage />} />
 
 				{/* Todos os filhos de PersistLogin serão renderizados pelo "Outlet" do react-router-dom */}

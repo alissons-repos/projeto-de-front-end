@@ -15,6 +15,7 @@ const refreshRoute = require('./src/routes/refresh');
 const userRoute = require('./src/routes/users');
 const postRoute = require('./src/routes/posts');
 const registerRoute = require('./src/routes/register');
+const recoverRoute = require('./src/routes//recover');
 const loginRoute = require('./src/routes/login');
 const logoutRoute = require('./src/routes/logout');
 
@@ -37,6 +38,7 @@ app.use(refreshRoute);
 app.use(userRoute);
 app.use(postRoute);
 app.use(registerRoute);
+app.use(recoverRoute);
 app.use(loginRoute);
 app.use(logoutRoute);
 

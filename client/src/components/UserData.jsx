@@ -41,10 +41,6 @@ const UserData = () => {
 	}, [newPassword, matchPassword]);
 
 	useEffect(() => {
-		setValidEmail(EMAIL_REGEX.test(email));
-	}, [email]);
-
-	useEffect(() => {
 		setErrorMsg('');
 	}, [email, password, newPassword, matchPassword]);
 

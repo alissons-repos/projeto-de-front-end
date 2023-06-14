@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaInfoCircle } from 'react-icons/fa';
 
@@ -10,7 +10,6 @@ const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$%&*,.;:/]).{8,
 
 const Register = () => {
 	const navigate = useNavigate();
-	const errorRef = useRef();
 
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -71,7 +70,6 @@ const Register = () => {
 			} else {
 				setErrorMsg('Algo deu errado!');
 			}
-			errorRef.current.focus(); // Por o foco na mensagen de erro
 		}
 	};
 
@@ -231,7 +229,7 @@ const Register = () => {
 					</p>
 				)}
 				{errorMsg && (
-					<p ref={errorRef} className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>
+					<p className={errorMsg ? 'p-2 errormsg' : 'p-2 invisible'}>
 						{errorMsg} <span className='align-middle fs-4'>&#128533;</span>
 					</p>
 				)}

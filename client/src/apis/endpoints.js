@@ -5,6 +5,7 @@ const routes = {
 	PUBLIC_URL: '/public',
 	REFRESH_URL: '/refresh',
 	REGISTER_URL: '/register',
+	RECOVER_URL: '/recover',
 
 	USER_URL: '/users',
 	USER_ID_URL: '/users/',
