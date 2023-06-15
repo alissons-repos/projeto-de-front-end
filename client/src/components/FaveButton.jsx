@@ -1,47 +1,48 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 import useAuth from '../hooks/useAuth';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const FaveButton = ({ postID, likes }) => {
+const FaveButton = ({ postID, likesLength }) => {
 	const { auth, setAuth } = useAuth();
 	const apiPrivate = useApiPrivate();
 
 	const liked = auth.userData.favorites.includes(postID);
 
-	const [qtdLikes, setQtdLikes] = useState(likes);
-	const [icon, fillIcon] = useState(liked);
-	const [favedFlag, setFavedFlag] = useState(liked);
-
-	const handleClick = () => {
-		if (favedFlag) {
-			fillIcon(false);
-			setFavedFlag(false);
-		} else {
-			fillIcon(true);
-			setFavedFlag(true);
-		}
-		// console.log('Faved?: ' + favedFlag); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-	};
+	const [qtdLikes, setQtdLikes] = useState(likesLength);
+	const [icon, fillIcon] = useState(false);
+	const [favedFlag, setFavedFlag] = useState(false);
 
 	const handleLikeUnlike = async () => {
 		try {
 			if (liked) {
 				await apiPrivate.patch(`${path.AUTH_POSTS_UNLIKE_ID_URL}${postID}`);
+				fillIcon(false);
+				setFavedFlag(false);
 			} else {
 				await apiPrivate.patch(`${path.AUTH_POSTS_LIKE_ID_URL}${postID}`);
+				fillIcon(true);
+				setFavedFlag(true);
 			}
 		} catch (error) {
-			console.error(error);
+			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 		} finally {
-			const response1 = await apiPrivate.get(`${path.USER_ID_URL}${auth.userData._id}`);
-			const response2 = await apiPrivate.get(`${path.POSTS_ID_URL}${postID}`);
-			setAuth((previous) => ({ ...previous, userData: response1?.data }));
-			setQtdLikes(response2?.data.likes.length);
+			const response = await apiPrivate.get(`${path.USER_ID_URL}${auth.userData._id}`);
+			setAuth((previous) => ({ ...previous, userData: response?.data }));
 		}
 	};
+
+	useEffect(() => {
+		const updateComponent = async () => {
+			const response = await apiPrivate.get(`${path.POSTS_ID_URL}${postID}`);
+			setQtdLikes(response?.data.likes.length);
+			fillIcon(liked);
+			setFavedFlag(liked);
+		};
+		updateComponent();
+	}, [auth]);
 
 	return (
 		<div className='d-flex justify-content-center align-items-center gap-2'>
@@ -52,7 +53,6 @@ const FaveButton = ({ postID, likes }) => {
 						className='pointer'
 						color={favedFlag ? '#dc3545' : '#909090'}
 						size='1.5em'
-						onClick={handleClick}
 						onMouseOver={favedFlag ? null : () => fillIcon(true)}
 						onMouseLeave={favedFlag ? null : () => fillIcon(false)}
 					/>
@@ -61,7 +61,6 @@ const FaveButton = ({ postID, likes }) => {
 						className='pointer'
 						color='#909090'
 						size='1.5em'
-						onClick={handleClick}
 						onMouseOver={favedFlag ? null : () => fillIcon(true)}
 						onMouseLeave={favedFlag ? null : () => fillIcon(false)}
 					/>

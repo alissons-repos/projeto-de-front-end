@@ -127,7 +127,6 @@ body {
 .customCard {
 	box-shadow: rgba(0, 0, 0, 0.125) 0 4px 4px;
 	border-radius: 16px;
-	cursor: pointer;
 }
 .cardImageBox {
 	background-color: #dadada;
@@ -135,6 +134,7 @@ body {
 	width: 100%;
 	aspect-ratio: 2/1;
 	overflow: hidden;
+	cursor: pointer;
 }
 .cardImage {
 	width: 100%;
@@ -237,6 +237,8 @@ body {
 	justify-content: center;
 	align-items: center;
 	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100vw;
 	height: 100vh;
 }

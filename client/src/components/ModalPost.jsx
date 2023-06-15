@@ -9,6 +9,7 @@ import path from '../apis/endpoints';
 
 const ModalPost = ({ post }) => {
 	const apiPrivate = useApiPrivate();
+
 	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${post?.image}`);
 	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
 
@@ -69,50 +70,11 @@ const ModalPost = ({ post }) => {
 						<Tag>{post?.category}</Tag>
 						{drawGenderIcon()}
 					</div>
-					<FaveButton postID={post._id} likes={post?.likes.length} />
+					<FaveButton postID={post?._id} likesLength={post?.likes.length} />
 				</div>
 			</div>
 		</div>
 	);
 };
-
-{
-	/*
-
-    const hideOrShowModal = (display) => {
-		const modal = document.querySelector('#modal');
-		if (display) {
-			modal?.classList.remove('hide');
-		} else {
-			modal?.classList.add('hide');
-		}
-	};
-
-	const editTask = (task) => {
-		hideOrShowModal(true);
-		setTaskToUpdate(task);
-	};
-
-	const updateTask = (id, title, difficulty) => {
-		const updatedTask = { id, title, difficulty };
-		const updatedItems = taskList.map((task) => {
-			return task.id === updatedTask.id ? updatedTask : task;
-		});
-		setTaskList(updatedItems);
-		hideOrShowModal(false);
-	};
-
-    <Modal
-        children={
-            <TaskForm
-                btnText="Editar Tarefa"
-                taskList={taskList}
-                task={taskToUpdate}
-                handleUpdate={updateTask}
-            />
-        }
-    />
-*/
-}
 
 export default ModalPost;
