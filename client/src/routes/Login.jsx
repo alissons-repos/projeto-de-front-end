@@ -90,7 +90,7 @@ const Login = () => {
 							src={logo}
 							alt='Meu Amigo PET'
 							width='250'
-							style={{ paddingBottom: '30px', margin: '0 auto' }}
+							style={{ paddingBottom: '30px', paddingTop: '30px', margin: '0 auto' }}
 						/>
 						<form onSubmit={handleSubmit}>
 							<div className='px-2 mb-3'>
