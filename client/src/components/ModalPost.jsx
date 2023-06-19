@@ -46,7 +46,7 @@ const ModalPost = ({ post }) => {
 	}, []);
 
 	return (
-		<div className='my-modal-box col-11 col-xl-8 d-flex flex-column flex-md-row'>
+		<div className='my-modal-box col-11 col-xxl-8 d-flex flex-column flex-lg-row'>
 			<div className='modalImageBox'>
 				{imagePath ? (
 					<img

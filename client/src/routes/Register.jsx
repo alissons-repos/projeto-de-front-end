@@ -209,7 +209,7 @@ const Register = () => {
 				<div className='my-3 d-flex flex-column'>
 					<button
 						className='btn btn-secondary'
-						style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+						style={{ backgroundColor: '#fd7e14', border: 'none' }}
 						type='submit'
 						disabled={
 							!validEmail || !validPassword || !validMatch || !firstName || !lastName ? true : false

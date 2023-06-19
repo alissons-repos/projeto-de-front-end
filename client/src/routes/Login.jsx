@@ -136,7 +136,7 @@ const Login = () => {
 							<div className='px-2 mb-3 d-flex flex-column gap-4'>
 								<button
 									className='btn btn-secondary'
-									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+									style={{ backgroundColor: '#fd7e14', border: 'none' }}
 									type='submit'
 									disabled={!email || !password ? true : false}
 								>

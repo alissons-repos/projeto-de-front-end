@@ -3,8 +3,8 @@
 
 body {
 	font-family: 'Roboto', sans-serif;
-	color: #7e7e7e;
-	background-color: #fafafa;
+	color: #495057;
+	background-color: #f8f9fa;
 }
 
 /* Fonte secundária da aplicação, usada em textos de display */
@@ -14,7 +14,7 @@ body {
 
 /* Classes usadas no componente Navigation */
 .avatar {
-	background-color: #dadada;
+	background-color: #dee2e6;
 	border-radius: 50%;
 	border: 1px solid #ced4da;
 	width: 200px;
@@ -37,32 +37,32 @@ body {
 }
 .linkStyle {
 	text-decoration: none;
-	color: #fe9a2e;
+	color: #fd7e14;
 }
 .linkStyle:hover {
-	color: #ffbe5c;
-	border-bottom: 1px #ffbe5c solid;
+	color: #feb272;
+	border-bottom: 1px #feb272 solid;
 }
 
 /* Classes usadas no componente Postings */
 .navlinkStyle {
-	color: #fafafa;
+	color: #f8f9fa;
 	text-decoration: none;
 }
 .navlinkStyle:hover {
-	color: #fafafa;
-	border-bottom: 2px solid #fafafa;
+	color: #f8f9fa;
+	border-bottom: 2px solid #f8f9fa;
 }
 .navlinkStyleDropdown {
-	color: #fafafa;
+	color: #f8f9fa;
 	text-decoration: none;
 }
 .navlinkStyleDropdown:hover {
-	color: #fafafa;
-	border-bottom: 2px solid #fafafa;
+	color: #f8f9fa;
+	border-bottom: 2px solid #f8f9fa;
 }
 .dropdown-item:active {
-	background-color: #fe9a2e;
+	background-color: #fd7e14;
 }
 .index {
 	z-index: 44;
@@ -73,7 +73,7 @@ body {
 	position: relative;
 }
 .instructions {
-	background: #adb5bd;
+	background: #ced4da;
 	position: absolute;
 	margin-top: 0.25rem;
 	padding: 0.25rem 0.5rem;
@@ -125,11 +125,11 @@ body {
 
 /* Classes usadas no componente Card */
 .customCard {
-	box-shadow: rgba(0, 0, 0, 0.125) 0 4px 4px;
+	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	border-radius: 16px;
 }
 .cardImageBox {
-	background-color: #dadada;
+	background-color: #dee2e6;
 	border-radius: 16px 16px 0 0;
 	width: 100%;
 	aspect-ratio: 2/1;
@@ -167,7 +167,7 @@ body {
 .cardFooter {
 	background-color: #fff;
 	border-radius: 0 0 16px 16px;
-	border-top: 1px dotted #dadada;
+	border-top: 1px dotted #dee2e6;
 	padding: 8px 16px;
 	display: flex;
 	justify-content: right;
@@ -181,39 +181,45 @@ body {
 .pointer {
 	cursor: pointer;
 }
+.edit-button {
+	fill: #fd7e14;
+}
+.delete-button {
+	fill: #dc3545;
+}
 
 /* Classes usadas no componente Tag */
 .tag {
 	padding: 5px 15px;
 	font-size: 0.875em;
 	color: #fff;
-	background-color: #fe9a2e;
+	background-color: #fd7e14;
 	border-radius: 5px;
 	text-align: center;
 	height: 30px;
 }
 .sex-male {
 	padding: 5px 10px;
-	background-color: #58acfa;
+	background-color: #6ea8fe;
 }
 .sex-female {
 	padding: 5px 10px;
-	background-color: #f78ef3;
+	background-color: #e685b5;
 }
 .sex-ambiguous {
 	padding: 5px 10px;
-	background-color: #a07dff;
+	background-color: #a370f7;
 }
 
 /* Classes usadas na rota Login */
 .grassBG {
-	background: url('./public/grass.png') #fe9a2e bottom repeat-x;
+	background: url('./public/grass.png') #fd7e14 bottom repeat-x;
 }
 .dogsBG {
 	background: url('./public/dogs.png') bottom center no-repeat;
 }
 .btnOutlineOnHoverTextFix:hover {
-	color: #fe9a2e;
+	color: #fd7e14;
 }
 
 /* Classes usadas no componente Perfil */
@@ -244,7 +250,7 @@ body {
 }
 .my-fade {
 	z-index: 55;
-	background-color: rgb(33, 37, 41, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -257,35 +263,38 @@ body {
 	min-height: 40%;
 	z-index: 65;
 	background-color: #fff;
-	box-shadow: rgba(0, 0, 0, 0.125) 0 4px 4px;
+	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	border-radius: 16px;
+	overflow: hidden;
 }
 .modalImageBox {
 	min-width: 60%;
 	max-width: 60%;
-	background-color: #dadada;
+	background-color: #dee2e6;
+	object-fit: cover;
+	object-position: center;
 	aspect-ratio: 1/1;
-	overflow: hidden;
-	border-radius: 16px 0 0 16px;
 }
 .modalImage {
 	width: 100%;
 	object-fit: cover;
 	object-position: center;
 	aspect-ratio: 1/1;
-	transition: all 1s;
+	transition: all 0.5s;
+}
+label .modalImage:hover {
+	filter: blur(2px);
+	opacity: 0.75;
 }
 .modalInfo {
-	min-width: 20%;
-	max-width: 100%;
-	margin: 16px;
+	width: 100%;
+	padding: 16px;
 }
 .modalTitle {
 	font-size: 1.5rem;
-	padding: 16px;
 }
 .modalText {
-	padding: 0 16px 16px 16px;
+	padding: 16px 0;
 }
 .modalTitle::first-letter,
 .modalText::first-letter {
@@ -293,9 +302,8 @@ body {
 }
 .modalFooter {
 	background-color: #fff;
-	border-top: 2px dashed #dadada;
-	padding: 8px 0 0;
-	margin: 0 16px;
+	border-top: 2px dashed #dee2e6;
+	padding: 16px 0 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -305,9 +313,15 @@ body {
 	gap: 8px;
 	padding: 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+	.my-modal-box {
+		overflow: auto;
+	}
 	.modalImageBox {
 		max-width: 100%;
-		border-radius: 16px 16px 0 0;
+		aspect-ratio: 4/3;
+	}
+	.modalImage {
+		aspect-ratio: 4/3;
 	}
 }

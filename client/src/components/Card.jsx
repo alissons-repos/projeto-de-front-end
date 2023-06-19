@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react';
 import { BsGenderAmbiguous, BsGenderFemale, BsGenderMale } from 'react-icons/bs';
+import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 
 import Tag from './Tag';
 import FaveButton from './FaveButton';
 import ModalPost from './ModalPost';
+import ModalMyPost from './ModalMyPost';
 
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const Card = ({ data }) => {
+const Card = ({ data, myposts }) => {
 	const apiPrivate = useApiPrivate();
 
+	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
+	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`);
 	const [wasClicked, setWasClicked] = useState(false);
 	const [clickedPost, setClickedPost] = useState({});
-	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`);
-	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
+	const [modalType, setModalType] = useState('');
 
 	const drawGenderIcon = () => {
 		switch (data?.sex) {
@@ -42,14 +45,26 @@ const Card = ({ data }) => {
 	};
 
 	const closeModal = () => {
-		document.body.classList.remove('overflow-hidden');
+		// document.body.classList.remove('overflow-hidden');
 		setWasClicked(false);
+		setModalType('');
 	};
 
-	const handleClick = (data) => {
-		document.body.classList.add('overflow-hidden');
+	const handleClick = (data, modal) => {
+		// document.body.classList.add('overflow-hidden');
 		setClickedPost(data);
 		setWasClicked(true);
+		switch (modal) {
+			case 'modalPost':
+				setModalType('modalPost');
+				break;
+			case 'modalMyPost':
+				setModalType('modalMyPost');
+				break;
+			case 'modalDelete':
+				setModalType('modalDelete');
+				break;
+		}
 	};
 
 	useEffect(() => {
@@ -64,11 +79,13 @@ const Card = ({ data }) => {
 			{wasClicked ? (
 				<div id='modalPost'>
 					<div className='my-fade' onClick={closeModal}></div>
-					<ModalPost post={clickedPost} />
+					{modalType === 'modalPost' && <ModalPost post={clickedPost} />}
+					{modalType === 'modalMyPost' && <ModalMyPost post={clickedPost} />}
+					{modalType === 'modalDelete' && <ModalDelete post={clickedPost} />}
 				</div>
 			) : null}
 			<div className='customCard'>
-				<div className='cardImageBox' onClick={() => handleClick(data)}>
+				<div className='cardImageBox' onClick={() => handleClick(data, 'modalPost')}>
 					{imagePath ? (
 						<img
 							src={imagePath}
@@ -91,7 +108,17 @@ const Card = ({ data }) => {
 					</div>
 					<p className='cardText text-truncate'>{data?.description}</p>
 				</div>
-				<div className='cardFooter'>
+				<div className={['cardFooter', `${myposts ? 'justify-content-between' : ''}`].join(' ')}>
+					{myposts ? (
+						<div className='cardBadges'>
+							<div className='mx-1' onClick={() => handleClick(data, 'modalMyPost')}>
+								<FaRegEdit size={20} className='edit-button pointer' />
+							</div>
+							<div className='mx-1' onClick={() => handleClick(data, 'modalDelete')}>
+								<FaRegTrashAlt size={20} className='delete-button pointer' />
+							</div>
+						</div>
+					) : null}
 					<FaveButton postID={data?._id} likesLength={data?.likes.length} />
 				</div>
 			</div>

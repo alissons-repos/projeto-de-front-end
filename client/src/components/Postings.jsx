@@ -47,7 +47,7 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 	return (
 		<div className='col-12 col-xl-9 me-auto'>
 			<div className={isLarge ? 'col-12 col-xl-9 position-fixed index' : 'col-12 col-xl-9 position-static'}>
-				<div className='row' style={{ backgroundColor: '#fe9a2e' }}>
+				<div className='row' style={{ backgroundColor: '#fd7e14' }}>
 					<nav className='d-flex justify-content-center gap-5 list-unstyled p-2'>
 						<li className='fs-4'>
 							<Link className='navlinkStyle' to='#'>
@@ -72,7 +72,7 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 				<ul className='row list-unstyled mt-xl-5'>
 					{posts.map((post) => (
 						<li className='col-12 col-md-6 col-xxl-4' key={post._id}>
-							<Card data={post} />
+							<Card data={post} myposts={usersPosts} />
 							<br />
 						</li>
 					))}

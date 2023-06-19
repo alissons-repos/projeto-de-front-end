@@ -67,7 +67,7 @@ const UserAvatar = () => {
 							<div className='my-2 d-flex justify-content-end'>
 								<button
 									className='btn btn-secondary'
-									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+									style={{ backgroundColor: '#fd7e14', border: 'none' }}
 									type='submit'
 									disabled={!file ? true : false}
 								>
@@ -86,7 +86,7 @@ const UserAvatar = () => {
 								) : (
 									<img
 										src={imagePlaceHolder}
-										alt='imagem padrão reservada utilizada pelo site'
+										alt='imagem padrão reservada pelo site'
 										className='preview'
 									/>
 								)}

@@ -231,7 +231,7 @@ const Profile = () => {
 							<div className='my-2 d-flex justify-content-end'>
 								<button
 									className='btn btn-secondary'
-									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+									style={{ backgroundColor: '#fd7e14', border: 'none' }}
 									type='submit'
 									disabled={!validEmail && !firstName && !lastName ? true : false}
 								>
@@ -312,7 +312,7 @@ const Profile = () => {
 							<div className='my-2 d-flex justify-content-end'>
 								<button
 									className='btn btn-secondary'
-									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+									style={{ backgroundColor: '#fd7e14', border: 'none' }}
 									type='submit'
 									disabled={!password || !validNewPassword || !validMatch ? true : false}
 								>
@@ -355,7 +355,7 @@ const Profile = () => {
 							<div className='my-2 d-flex justify-content-end'>
 								<button
 									className='btn btn-secondary'
-									style={{ backgroundColor: '#fe9a2e', border: 'none' }}
+									style={{ backgroundColor: '#fd7e14', border: 'none' }}
 									type='submit'
 									disabled={!file ? true : false}
 								>

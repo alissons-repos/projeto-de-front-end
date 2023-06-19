@@ -19,7 +19,7 @@ const Logout = () => {
 
 	return (
 		<div className='vh-100 d-flex flex-column justify-content-center align-items-center text-center'>
-			<h1 className='display-font display-3 fw-semibold' style={{ color: '#fe9a2e' }}>
+			<h1 className='display-font display-3 fw-semibold' style={{ color: '#fd7e14' }}>
 				Foi bom te ver por aqui!
 			</h1>
 			<h2 className='m-4'>

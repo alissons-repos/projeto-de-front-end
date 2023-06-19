@@ -3,7 +3,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 75.4 34.3" style="enable-background:new 0 0 75.4 34.3;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFBE5C;}
+	.st0{fill:#FEB272;}
 	.st1{fill:url(#SVGID_1_);}
 	.st2{fill:url(#SVGID_00000018227928814797402000000014737826891515968169_);}
 	.st3{fill:url(#SVGID_00000108289390594805732480000008767312968305953964_);}
@@ -56,8 +56,8 @@
 <g>
 	<g>
 		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="968.7031" y1="956.2402" x2="968.7031" y2="973.04">
-			<stop  offset="0" style="stop-color:#FFBE5C"/>
-			<stop  offset="1" style="stop-color:#FE9A2E"/>
+			<stop  offset="0" style="stop-color:#FEB272"/>
+			<stop  offset="1" style="stop-color:#FD7E14"/>
 		</linearGradient>
 		<path class="st1" d="M973,957c1.2,0.5,2,1.2,2.7,2.2s0.9,2.1,0.9,3.4s-0.3,2.4-0.9,3.4c-0.6,1-1.5,1.7-2.7,2.2
 			c-1.2,0.5-2.5,0.8-4.1,0.8h-2.4v2.9c0,0.7-0.5,1.2-1.2,1.2H962c-0.7,0-1.2-0.5-1.2-1.2v-14.4c0-0.7,0.5-1.2,1.2-1.2h6.9
@@ -65,16 +65,16 @@
 			C969.3,964.5,969.9,964.4,970.3,964z"/>
 		
 			<linearGradient id="SVGID_00000039840386142180177170000002733494732264700335_" gradientUnits="userSpaceOnUse" x1="987.8073" y1="956.2402" x2="987.8073" y2="973.04">
-			<stop  offset="0" style="stop-color:#FFBE5C"/>
-			<stop  offset="1" style="stop-color:#FE9A2E"/>
+			<stop  offset="0" style="stop-color:#FEB272"/>
+			<stop  offset="1" style="stop-color:#FD7E14"/>
 		</linearGradient>
 		<path style="fill:url(#SVGID_00000039840386142180177170000002733494732264700335_);" d="M994.8,970v1.9c0,0.7-0.5,1.2-1.2,1.2
 			H982c-0.7,0-1.2-0.5-1.2-1.2v-14.4c0-0.7,0.5-1.2,1.2-1.2h11.3c0.7,0,1.2,0.5,1.2,1.2v1.9c0,0.7-0.5,1.2-1.2,1.2h-6.9v2h5.9
 			c0.7,0,1.2,0.5,1.2,1.2v1.7c0,0.7-0.5,1.2-1.2,1.2h-5.9v2.2h7.2C994.3,968.8,994.8,969.3,994.8,970z"/>
 		
 			<linearGradient id="SVGID_00000090291748349683129840000000170470977522775953_" gradientUnits="userSpaceOnUse" x1="1005.8552" y1="956.2402" x2="1005.8552" y2="973.04">
-			<stop  offset="0" style="stop-color:#FFBE5C"/>
-			<stop  offset="1" style="stop-color:#FE9A2E"/>
+			<stop  offset="0" style="stop-color:#FEB272"/>
+			<stop  offset="1" style="stop-color:#FD7E14"/>
 		</linearGradient>
 		<path style="fill:url(#SVGID_00000090291748349683129840000000170470977522775953_);" d="M1003,960.6h-3.7c-0.7,0-1.2-0.5-1.2-1.2
 			v-2c0-0.7,0.5-1.2,1.2-1.2h13.1c0.7,0,1.2,0.5,1.2,1.2v2c0,0.7-0.5,1.2-1.2,1.2h-3.7v11.2c0,0.7-0.5,1.2-1.2,1.2h-3.3
