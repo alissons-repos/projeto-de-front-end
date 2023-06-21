@@ -6,12 +6,14 @@ import Tag from './Tag';
 import FaveButton from './FaveButton';
 import ModalPost from './ModalPost';
 import ModalMyPost from './ModalMyPost';
+import ModalDelete from './ModalDelete';
 
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
 const Card = ({ data, myposts }) => {
 	const apiPrivate = useApiPrivate();
+	const deleteMessage = 'Você confirma a exclusão da postagem?';
 
 	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
 	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`);
@@ -81,7 +83,7 @@ const Card = ({ data, myposts }) => {
 					<div className='my-fade' onClick={closeModal}></div>
 					{modalType === 'modalPost' && <ModalPost post={clickedPost} />}
 					{modalType === 'modalMyPost' && <ModalMyPost post={clickedPost} />}
-					{modalType === 'modalDelete' && <ModalDelete post={clickedPost} />}
+					{modalType === 'modalDelete' && <ModalDelete post={clickedPost} message={deleteMessage} />}
 				</div>
 			) : null}
 			<div className='customCard'>

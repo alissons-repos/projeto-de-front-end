@@ -286,6 +286,10 @@ label .modalImage:hover {
 	filter: blur(2px);
 	opacity: 0.75;
 }
+.image-span {
+	color: #fff;
+	text-shadow: 2px 2px 6px #212529;
+}
 .modalInfo {
 	width: 100%;
 	padding: 16px;

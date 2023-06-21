@@ -114,8 +114,8 @@ const ModalPost = ({ post }) => {
 
 	return (
 		<div className='my-modal-box col-11 col-xxl-8 d-flex flex-column flex-lg-row'>
-			<div className='modalImageBox'>
-				<form className='position-relative' onSubmit={handleFileSubmit}>
+			<div className='modalImageBox position-relative'>
+				<form className='position-relative' id='imageSubmit' onSubmit={handleFileSubmit}>
 					<label htmlFor='image' className='d-flex justify-content-center align-items-center'>
 						{file ? (
 							<img
@@ -132,17 +132,6 @@ const ModalPost = ({ post }) => {
 								alt='imagem padrão reservada pelo site'
 							/>
 						)}
-						<span className='position-absolute text-white fs-2'>Escolha uma imagem...</span>
-						<div className='position-absolute m-3 bottom-0 end-0'>
-							<button
-								className='btn btn-secondary'
-								style={{ backgroundColor: '#fd7e14', border: 'none' }}
-								type='submit'
-								disabled={!file ? true : false}
-							>
-								Alterar Foto de Perfil
-							</button>
-						</div>
 					</label>
 					<input
 						type='file'
@@ -156,6 +145,18 @@ const ModalPost = ({ post }) => {
 						}}
 					/>
 				</form>
+				<span className='position-absolute image-span fs-3 m-3 top-0 start-0'>Escolha uma imagem...</span>
+				<div className='position-absolute m-3 bottom-0 end-0'>
+					<button
+						className='btn btn-secondary'
+						style={{ backgroundColor: '#fd7e14', border: 'none' }}
+						type='submit'
+						form='imageSubmit'
+						disabled={!file ? true : false}
+					>
+						Alterar Foto de Perfil
+					</button>
+				</div>
 			</div>
 			<div className='modalInfo position-relative'>
 				<form className='d-flex flex-wrap' onSubmit={handleDataSubmit}>
@@ -254,8 +255,10 @@ const ModalPost = ({ post }) => {
 						</div>
 					</div>
 					<div className='col-12'>
-						<label htmlFor='breeds'>Raças:</label>
-						<div className='d-flex flex-wrap gap-1'>
+						<label htmlFor='breeds' className='form-label'>
+							Raças:
+						</label>
+						<div className='d-flex flex-wrap gap-1 mb-5'>
 							{breeds.map((breed, index) => (
 								<span key={index} className='badge text-bg-dark' style={{ fontSize: '1em' }}>
 									{breed} <FaTimesCircle onClick={() => removeBreed(index)} />

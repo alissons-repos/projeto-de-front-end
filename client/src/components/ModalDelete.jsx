@@ -4,7 +4,7 @@ import useLogout from '../hooks/useLogout';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const ModalDelete = () => {
+const ModalDelete = ({ post, message }) => {
 	const logout = useLogout();
 	const apiPrivate = useApiPrivate();
 
@@ -13,19 +13,23 @@ const ModalDelete = () => {
 
 	const handleDelete = async () => {
 		try {
-			document.querySelector('#confirmButton').setAttribute('disabled', true);
+			if (!post) document.querySelector('#confirmButton').setAttribute('disabled', true);
 			document.querySelector('#deleteButton').setAttribute('disabled', true);
-			setSuccessMsg('Conta deletada com sucesso!');
+			setSuccessMsg('Exclusão efetuada com sucesso!');
 			setTimeout(async () => {
 				setSuccessMsg('');
-				await logout();
-				await apiPrivate.delete(path.AUTH_USER_URL);
+				if (post) {
+					await apiPrivate.delete(`${path.AUTH_POSTS_ID_URL}${post?._id}`);
+				} else {
+					await logout();
+					await apiPrivate.delete(path.AUTH_USER_URL);
+				}
 			}, 5000);
 		} catch (error) {
 			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			if (!error?.response) {
 				setErrorMsg('Sem resposta do servidor!');
-			} else if (error.response?.status === 400) {
+			} else if (error.response?.status === 404) {
 				setErrorMsg(`${error.response?.data?.Erro}`);
 			} else {
 				setErrorMsg('Algo deu errado!');
@@ -37,9 +41,9 @@ const ModalDelete = () => {
 	};
 
 	return (
-		<div className='my-modal-box col-11 col-xl-8 d-flex flex-column justify-content-center'>
-			<div className='p-4'>
-				<p className='py-3 m-0 fs-4'>Você confirma a exclusão da sua conta?</p>
+		<div className='my-modal-box col-11 col-xxl-8 d-flex flex-column justify-content-center'>
+			<div className='p-4 text-center'>
+				<p className='py-3 m-0 fs-4'>{message}</p>
 				<div className='py-2'>
 					<button
 						className='btn btn-danger btn-lg'

@@ -4,6 +4,7 @@ import ModalDelete from './ModalDelete';
 
 const DeleteUser = () => {
 	const [confirmation, setConfirmation] = useState(false);
+	const deleteMessage = 'Você confirma a exclusão da sua conta?';
 
 	const closeModal = () => {
 		setConfirmation(false);
@@ -35,7 +36,7 @@ const DeleteUser = () => {
 				{confirmation && (
 					<div id='modalPost'>
 						<div className='my-fade' onClick={closeModal}></div>
-						<ModalDelete />
+						<ModalDelete message={deleteMessage} />
 					</div>
 				)}
 			</div>
