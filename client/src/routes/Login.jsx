@@ -76,7 +76,7 @@ const Login = () => {
 							</h1>
 							<p className='lead fs-5 py-4'>
 								Somos uma rede social voltada para a socialização de pets e seus donos. Junte-se a nós e
-								faça parte também de nossa calorosa comunidade!
+								faça parte de nossa calorosa comunidade!
 							</p>
 							<Link className='btn btn-outline-light btn-lg' to='/register'>
 								Faça parte

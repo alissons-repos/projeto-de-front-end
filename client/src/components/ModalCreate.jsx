@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const ModalMyPost = ({ post }) => {
+const ModalCreate = ({ post }) => {
 	const { setAuth } = useAuth();
 	const apiPrivate = useApiPrivate();
 
@@ -13,13 +13,13 @@ const ModalMyPost = ({ post }) => {
 	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${post?.image}`);
 
 	const [file, setFile] = useState('');
-	const [title, setTitle] = useState(post?.title);
-	const [description, setDescription] = useState(post?.description);
-	const [category, setCategory] = useState(post?.category);
-	const [sex, setSex] = useState(post?.sex);
-	const [breeds, setBreeds] = useState(post?.breeds);
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [category, setCategory] = useState('');
+	const [sex, setSex] = useState('');
+	const [breeds, setBreeds] = useState([]);
 	const [newBreed, setNewBreed] = useState('');
-	const [amount, setAmount] = useState(post?.amount);
+	const [amount, setAmount] = useState('');
 
 	const [errorMsg, setErrorMsg] = useState('');
 	const [successMsg, setSuccessMsg] = useState('');
@@ -85,13 +85,13 @@ const ModalMyPost = ({ post }) => {
 	const handleDataSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const response = await apiPrivate.patch(
+			const response = await apiPrivate.post(
 				`${path.AUTH_POSTS_ID_URL}${post?._id}`,
 				JSON.stringify({ title, description, category, sex, breeds, amount })
 			);
 			console.log(response);
 			setAuth((previous) => ({ ...previous }));
-			setSuccessMsg('Postagem alterada com sucesso!');
+			setSuccessMsg('Postagem criada com sucesso!');
 			setTimeout(() => {
 				setSuccessMsg('');
 			}, 5000);
@@ -293,4 +293,4 @@ const ModalMyPost = ({ post }) => {
 	);
 };
 
-export default ModalMyPost;
+export default ModalCreate;

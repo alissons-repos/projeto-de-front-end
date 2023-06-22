@@ -127,6 +127,7 @@ body {
 .customCard {
 	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	border-radius: 16px;
+	overflow: hidden;
 }
 .cardImageBox {
 	background-color: #dee2e6;
