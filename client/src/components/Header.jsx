@@ -32,9 +32,9 @@ const Header = ({ isLarge }) => {
 						</button>
 						<div className='collapse navbar-collapse' id='userInfo'>
 							<div className='d-flex flex-column gap-3 align-items-center p-3'>
-								<div className='avatar'>
+								<Link className='avatar link-secondary' to='/profile/myavatar'>
 									<img src={imagePath} alt='foto do usuário logado' />
-								</div>
+								</Link>
 								<ul className='navbar-nav'>
 									<div className='d-flex flex-column text-center list-unstyled'>
 										<h2 className='display-font text-capitalize text-white'>

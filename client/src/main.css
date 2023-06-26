@@ -16,7 +16,6 @@ body {
 .avatar {
 	background-color: #dee2e6;
 	border-radius: 50%;
-	border: 1px solid #ced4da;
 	width: 200px;
 	height: 200px;
 	min-width: 150px;
@@ -45,8 +44,16 @@ body {
 }
 
 /* Classes usadas no componente Postings */
+.filterActive {
+	background-color: #f8f9fa;
+	border-radius: 0.375rem;
+	padding: 6px;
+	color: #fd7e14;
+	text-decoration: none;
+}
 .navlinkStyle {
 	color: #f8f9fa;
+	margin: 0 6px;
 	text-decoration: none;
 }
 .navlinkStyle:hover {
@@ -149,7 +156,7 @@ body {
 	transform: scale(1.1);
 }
 .cardBody {
-	background-color: #fff;
+	background-color: #f8f9fa;
 }
 .cardTitle {
 	font-size: 1.5rem;
@@ -166,7 +173,7 @@ body {
 	text-transform: uppercase;
 }
 .cardFooter {
-	background-color: #fff;
+	background-color: #f8f9fa;
 	border-radius: 0 0 16px 16px;
 	border-top: 1px dotted #dee2e6;
 	padding: 8px 16px;
@@ -188,12 +195,21 @@ body {
 .delete-button {
 	fill: #dc3545;
 }
+.customHeight {
+	height: 150px;
+	background-color: #fd7e14;
+	transition: all 1s;
+	margin: 0 auto;
+}
+.customHeight:hover {
+	background-color: #feb272;
+}
 
 /* Classes usadas no componente Tag */
 .tag {
 	padding: 5px 15px;
 	font-size: 0.875em;
-	color: #fff;
+	color: #f8f9fa;
 	background-color: #fd7e14;
 	border-radius: 5px;
 	text-align: center;
@@ -263,7 +279,7 @@ body {
 	max-height: 80%;
 	min-height: 40%;
 	z-index: 65;
-	background-color: #fff;
+	background-color: #f8f9fa;
 	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	border-radius: 16px;
 	overflow: hidden;
@@ -288,7 +304,7 @@ label .modalImage:hover {
 	opacity: 0.75;
 }
 .image-span {
-	color: #fff;
+	color: #f8f9fa;
 	text-shadow: 2px 2px 6px #212529;
 }
 .modalInfo {
@@ -306,7 +322,7 @@ label .modalImage:hover {
 	text-transform: uppercase;
 }
 .modalFooter {
-	background-color: #fff;
+	background-color: #f8f9fa;
 	border-top: 2px dashed #dee2e6;
 	padding: 16px 0 0;
 	display: flex;

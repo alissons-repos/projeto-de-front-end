@@ -38,8 +38,8 @@ const getAllUserPosts = async (req, res) => {
 
 const createNewUserPost = async (req, res) => {
 	const { title, description, category, sex, breeds, amount } = req.body;
-	if (!title || !description || !category) {
-		return res.status(400).json({ Mensagem: 'Título, descrição e categoria são obrigatórios!' }); // Bad Request
+	if (!title || !description || !category || !sex) {
+		return res.status(400).json({ Erro: 'Título, descrição, categoria e sexo são obrigatórios!' }); // Bad Request
 	}
 	if (
 		String(category).toLowerCase() !== 'adoção' &&

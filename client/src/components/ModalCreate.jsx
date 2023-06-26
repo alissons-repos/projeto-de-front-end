@@ -86,7 +86,7 @@ const ModalCreate = ({ post }) => {
 		event.preventDefault();
 		try {
 			const response = await apiPrivate.post(
-				`${path.AUTH_POSTS_ID_URL}${post?._id}`,
+				path.AUTH_POSTS_URL,
 				JSON.stringify({ title, description, category, sex, breeds, amount })
 			);
 			console.log(response);
@@ -198,6 +198,7 @@ const ModalCreate = ({ post }) => {
 								onChange={(event) => setCategory(event.target.value)}
 								required
 							>
+								<option defaultValue={''}>Selecione</option>
 								<option value={'adoção'}>Adoção</option>
 								<option value={'cruzamento'}>Cruzamento</option>
 								<option value={'evento'}>Evento</option>
@@ -212,6 +213,7 @@ const ModalCreate = ({ post }) => {
 								value={sex}
 								onChange={(event) => setSex(event.target.value)}
 							>
+								<option defaultValue={''}>Selecione</option>
 								<option value={'ambos'}>Ambos</option>
 								<option value={'fêmea'}>Fêmea</option>
 								<option value={'macho'}>Macho</option>
@@ -226,7 +228,7 @@ const ModalCreate = ({ post }) => {
 								id='amount'
 								value={amount}
 								onChange={(event) => setAmount(event.target.value)}
-								min={1}
+								min={0}
 							/>
 							<label htmlFor='amount'>Quantidade</label>
 						</div>
@@ -272,7 +274,7 @@ const ModalCreate = ({ post }) => {
 							style={{ backgroundColor: '#fd7e14', border: 'none' }}
 							type='submit'
 						>
-							Atualizar post
+							Criar Postagem
 						</button>
 					</div>
 					<div className='position-absolute m-3 bottom-0 start-0'>

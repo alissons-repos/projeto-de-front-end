@@ -65,6 +65,18 @@ const ModalPost = ({ post }) => {
 			<div className='modalInfo'>
 				<h5 className='modalTitle'>{post?.title}</h5>
 				<p className='modalText'>{post?.description}</p>
+				{post?.breeds.length !== 0 && (
+					<>
+						<p className='form-label'>Raças:</p>
+						<div className='d-flex flex-wrap gap-1 mb-3'>
+							{post?.breeds.map((breed, index) => (
+								<span key={index} className='badge text-bg-dark' style={{ fontSize: '1em' }}>
+									{breed}
+								</span>
+							))}
+						</div>
+					</>
+				)}
 				<div className='modalFooter'>
 					<div className='modalBadges modalText text-capitalize'>
 						<Tag>{post?.category}</Tag>

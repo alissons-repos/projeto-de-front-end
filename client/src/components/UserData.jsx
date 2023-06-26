@@ -101,8 +101,8 @@ const UserData = () => {
 	};
 
 	return (
-		<div className='col-12 col-xl-9 me-auto'>
-			<div className='row mt-5 px-4'>
+		<div className='col-12 col-xl-9 me-md-auto'>
+			<div className='row mt-5 px-0 px-md-4'>
 				<h1 className='text-center display-4 mt-xl-5 mb-3'>Meus Dados</h1>
 				<div className='d-flex flex-column flex-lg-row align-items-md-start'>
 					<div className='px-3' style={{ width: '100%' }}>

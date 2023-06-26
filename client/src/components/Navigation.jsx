@@ -11,9 +11,9 @@ const Navigation = ({ isLarge }) => {
 		<div className='col-xl-2 d-flex justify-content-center pt-5 vh-100 ms-auto'>
 			<div className={isLarge ? 'position-fixed' : 'position-static'}>
 				<div className='d-flex flex-column gap-3 align-items-center p-3'>
-					<div className='avatar'>
+					<Link className='avatar link-secondary' to='/profile/myavatar'>
 						<img src={imagePath} alt='foto do usuário logado' />
-					</div>
+					</Link>
 					<div className='navbar d-flex flex-column text-center'>
 						<h2 className='display-font text-capitalize'>{auth.userData.firstName}</h2>
 						<ul className='navbar-nav list-unstyled'>

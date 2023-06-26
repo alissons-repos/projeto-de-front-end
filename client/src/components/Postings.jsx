@@ -18,56 +18,39 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 
 	const [active, setActive] = useState([0, 0, 0]);
 	const [filtered, setFiltered] = useState(false);
+	const [category, setCategory] = useState('');
 
 	const filterPosts = (filter) => {
-		const postsCopy = [...posts];
 		let newList = [];
+		let prevCategory = category;
 
-		// const checkActive = () => {
-		// 	if (active.filter((state) => !!state === true).length === 0) {
-		// 		// setFiltered(true); // aqui filtra imediatamente
-		// 		if (filtered) {
-		// 			setFiltered(false);
-		// 		} else {
-		// 			setFiltered(true);
-		// 		}
-		// 		console.log('1º clique');
-		// 	}
-
-		// 	if (active.filter((state) => !!state === true).length !== 0) {
-		// 		// setFiltered(false); // aqui mantem o estado para os outros filtros
-		// 		if (filtered) {
-		// 			setFiltered(true);
-		// 		} else {
-		// 			setFiltered(false);
-		// 		}
-		// 		console.log('2º clique');
-		// 	}
-		// };
+		const checkActive = () => {
+			if (active.filter((state) => !!state === true).length === 0) return setFiltered(true);
+			if (filter === prevCategory) return setFiltered(false);
+		};
 
 		switch (filter) {
 			case 'adoção':
-				newList = postsCopy.filter((post) => post.category === 'adoção');
+				newList = [...posts].filter((post) => post.category === 'adoção');
+				setCategory('adoção');
 				setPostsVariable(newList);
-				// checkActive();
 				setActive([!active[0], 0, 0]);
-				setFiltered(!filtered);
 				break;
 			case 'cruzamento':
-				newList = postsCopy.filter((post) => post.category === 'cruzamento');
+				newList = [...posts].filter((post) => post.category === 'cruzamento');
+				setCategory('cruzamento');
 				setPostsVariable(newList);
-				// checkActive();
 				setActive([0, !active[1], 0]);
-				setFiltered(!filtered);
 				break;
 			case 'evento':
-				newList = postsCopy.filter((post) => post.category === 'evento');
+				newList = [...posts].filter((post) => post.category === 'evento');
+				setCategory('evento');
 				setPostsVariable(newList);
-				// checkActive();
 				setActive([0, 0, !active[2]]);
-				setFiltered(!filtered);
 				break;
 		}
+
+		checkActive();
 	};
 
 	useEffect(() => {
@@ -105,10 +88,10 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 		<div className='col-12 col-xl-9 me-auto'>
 			<div className={isLarge ? 'col-12 col-xl-9 position-fixed index' : 'col-12 col-xl-9 position-static'}>
 				<div className='row' style={{ backgroundColor: '#fd7e14' }}>
-					<nav className='d-flex justify-content-center gap-4 gap-md-5 list-unstyled p-2'>
+					<nav className='d-flex justify-content-center gap-2 gap-md-5 list-unstyled p-2'>
 						<li className='fs-4'>
 							<Link
-								className={active[0] ? 'bg-white' : 'navlinkStyle'}
+								className={active[0] ? 'filterActive' : 'navlinkStyle'}
 								to='#'
 								onClick={() => filterPosts('adoção')}
 							>
@@ -117,7 +100,7 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 						</li>
 						<li className='fs-4'>
 							<Link
-								className={active[1] ? 'bg-white' : 'navlinkStyle'}
+								className={active[1] ? 'filterActive' : 'navlinkStyle'}
 								to='#'
 								onClick={() => filterPosts('cruzamento')}
 							>
@@ -126,7 +109,7 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 						</li>
 						<li className='fs-4'>
 							<Link
-								className={active[2] ? 'bg-white' : 'navlinkStyle'}
+								className={active[2] ? 'filterActive' : 'navlinkStyle'}
 								to='#'
 								onClick={() => filterPosts('evento')}
 							>
@@ -137,10 +120,10 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 				</div>
 			</div>
 			<br />
-			{posts ? (
+			{posts.length ? (
 				filtered ? (
 					postsVariable.length !== 0 ? (
-						<ul className='row list-unstyled mt-xl-5'>
+						<ul className='row list-unstyled mt-xl-5 d-flex align-items-center'>
 							{postsVariable.map((post) => (
 								<li className='col-12 col-md-6 col-xxl-4' key={post._id}>
 									<Card data={post} myposts={usersPosts} />
@@ -155,12 +138,18 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 							) : null}
 						</ul>
 					) : (
-						<div className='d-flex justify-content-center align-items-center h-100 m-5 py-5'>
-							<p className='m-5 py-5'>{filterMessage}</p>
+						<div className='d-flex flex-column align-items-center my-5 py-5'>
+							<p className='my-5 text-center'>{filterMessage}</p>
+							{usersPosts ? (
+								<div className='col-12 col-md-6 col-xxl-4'>
+									<AddPostButton />
+									<br />
+								</div>
+							) : null}
 						</div>
 					)
 				) : (
-					<ul className='row list-unstyled mt-xl-5'>
+					<ul className='row list-unstyled mt-xl-5 d-flex align-items-center'>
 						{posts.map((post) => (
 							<li className='col-12 col-md-6 col-xxl-4' key={post._id}>
 								<Card data={post} myposts={usersPosts} />
@@ -176,8 +165,14 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 					</ul>
 				)
 			) : (
-				<div className='d-flex justify-content-center align-items-center h-100 m-5 py-5'>
-					<p className='m-5 py-5'>{message}</p>
+				<div className='d-flex flex-column align-items-center my-5 py-5'>
+					<p className='my-5 text-center'>{message}</p>
+					{usersPosts ? (
+						<div className='col-12 col-md-6 col-xxl-4'>
+							<AddPostButton />
+							<br />
+						</div>
+					) : null}
 				</div>
 			)}
 		</div>
