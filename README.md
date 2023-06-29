@@ -1,4 +1,4 @@
-> # DoggoSocial 🐶
+> # Projeto de Front End 🐶
 
 
 Bem-vindo ao DoggoSocial, a rede social para cachorros e seus amantes!
