@@ -38,8 +38,8 @@ const getAllUserPosts = async (req, res) => {
 
 const createNewUserPost = async (req, res) => {
 	const { title, description, category, sex, breeds, amount } = req.body;
-	if (!title || !description || !category) {
-		return res.status(400).json({ Message: 'Título, descrição e categoria são obrigatórios!' }); // Bad Request
+	if (!title || !description || !category || !sex) {
+		return res.status(400).json({ Erro: 'Título, descrição, categoria e sexo são obrigatórios!' }); // Bad Request
 	}
 	if (
 		String(category).toLowerCase() !== 'adoção' &&
@@ -70,11 +70,12 @@ const createNewUserPost = async (req, res) => {
 			sex,
 			breeds,
 			amount: Math.trunc(amount),
+			image: `default_image_${Math.floor(Math.random() * 6)}.jpg`,
 			owner: req.user.userID,
 		});
 		user.postings.push(result);
 		user.save();
-		return res.status(201).json({ Mensagem: 'Postagem criada com sucesso!' }); // Created
+		return res.status(201).json(result); // Created
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
@@ -138,13 +139,83 @@ const deleteTheUserPost = async (req, res) => {
 		if (postIndex === -1) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Not Found
 		user.postings.splice(postIndex, 1);
 		user.save();
-		const result = await post.deleteOne({ _id: req.params.id });
-		return res.status(200).json(result); // OK
+		await post.deleteOne({ _id: req.params.id });
+		return res.status(200).json({ Mensagem: 'Postagem deletada com sucesso!' }); // OK
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
 	}
 };
+
+const uploadImgTheUserPost = async (req, res) => {
+	if (!req.file) return res.status(400).json({ Erro: 'Nenhum arquivo de imagem enviado!' }); // Bad Request
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
+		const post = await Post.findOne({ _id: req.params.id }).exec();
+		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
+		const includes = user.postings.includes(req.params.id);
+		if (!includes) return res.status(404).json({ Erro: 'Postagem não existente!' }); // Bad Request
+		if (req.file.filename) post.image = req.file.filename;
+		await post.save();
+		return res.status(200).json({ Mensagem: 'Arquivo enviado com sucesso!' }); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
+};
+
+const likeTheUserPost = async (req, res) => {
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
+		const post = await Post.findOne({ _id: req.params.id }).exec();
+		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
+		if (post.likes.filter((like) => like.toString() === req.user.userID).length > 0) {
+			return res.status(422).json({ Erro: 'Postagem já favoritada!' });
+		}
+		if (user.favorites.filter((like) => like.toString() === req.params.id).length > 0) {
+			return res.status(422).json({ Erro: 'Postagem já favoritada!' });
+		}
+		post.likes.unshift(req.user.userID);
+		user.favorites.unshift(req.params.id);
+		await post.save();
+		await user.save();
+		return res.status(200).json({ Mensagem: 'Postagem favoritada com sucesso!' }); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
+};
+
+const unlikeTheUserPost = async (req, res) => {
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
+		const post = await Post.findOne({ _id: req.params.id }).exec();
+		if (!post) return res.status(404).json({ Erro: 'Postagem não localizada!' }); // Not Found
+		if (post.likes.filter((like) => like.toString() === req.user.userID).length === 0) {
+			return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' });
+		}
+		if (user.favorites.filter((like) => like.toString() === req.params.id).length === 0) {
+			return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' });
+		}
+		const userIndex = post.likes.indexOf(req.user.userID);
+		const postIndex = user.favorites.indexOf(req.params.id);
+		if (userIndex === -1) return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' }); // Not Found
+		if (postIndex === -1) return res.status(422).json({ Erro: 'Postagem ainda não favoritada!' }); // Not Found
+		post.likes.splice(userIndex, 1);
+		user.favorites.splice(postIndex, 1);
+		await post.save();
+		await user.save();
+		return res.status(200).json({ Mensagem: 'Postagem desfavoritada com sucesso!' }); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
+};
+
+// Basicamente estamos "trocando id's". O ID do post será salvo no usuário e o id do usuário será salvo no post.
 
 module.exports = {
 	getAllPosts,
@@ -153,4 +224,7 @@ module.exports = {
 	createNewUserPost,
 	updateTheUserPost,
 	deleteTheUserPost,
+	uploadImgTheUserPost,
+	likeTheUserPost,
+	unlikeTheUserPost,
 };

@@ -17,6 +17,7 @@ const handleRegister = async (req, res) => {
 			password: hashedPassword,
 			firstName: firstName,
 			lastName: lastName,
+			avatar: `default_avatar_${Math.floor(Math.random() * 3)}.jpg`,
 		});
 		// console.log(result); // LIMPAR QUANDO ESTIVER PRONTO
 		return res.status(201).json({ Mensagem: 'Novo usuário registrado com sucesso!' }); // Created

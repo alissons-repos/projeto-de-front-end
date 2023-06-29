@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Post = require('../models/Post');
 
@@ -35,8 +36,6 @@ const getTheUser = async (req, res) => {
 };
 
 const updateTheUser = async (req, res) => {
-	// if (!req?.params?.id) return res.status(400).json({ Erro: 'ID não informado!' }); // Bad Request
-	// if (!req.body) return res.status(400).json({ Erro: 'Nenhum dado informado para ser atualizado!' }); // Bad Request
 	const { email, firstName, lastName } = req.body;
 	if (!email && !firstName && !lastName) {
 		return res.status(400).json({ Erro: 'Nenhum dado informado para ser atualizado!' }); // Bad Request
@@ -65,11 +64,49 @@ const deleteTheUser = async (req, res) => {
 	try {
 		const user = await User.findOne({ _id: req.user.userID }).exec();
 		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
-		// user.postings.forEach(async (post) => await Post.deleteOne({ _id: post._id }));
 		for (let i = 0; i < user.postings.length; i++) {
 			await Post.deleteOne({ _id: user.postings[i] });
 		}
-		const result = await user.deleteOne({ _id: req.user.userID });
+		await user.deleteOne({ _id: req.user.userID });
+		return res.status(200).json({ Mensagem: 'Usuário deletado com sucesso!' }); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
+};
+
+const updateTheUserPassword = async (req, res) => {
+	const { password, newPassword, matchPassword } = req.body;
+	if (!password || !newPassword || !matchPassword) {
+		return res.status(400).json({ Erro: 'Nenhum dado informado para ser atualizado!' }); // Bad Request
+	}
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).select('+password').exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Bad Request
+		const match = await bcrypt.compare(password, user.password);
+		if (!match) return res.status(400).json({ Erro: 'A senha informada não confere com a senha atual!' }); // Bad Request
+		if (newPassword !== matchPassword) {
+			return res.status(400).json({ Erro: 'A confirmação deve coincidir com o campo nova senha!' }); // Bad Request
+		}
+		if (match && newPassword === matchPassword) {
+			const hashedPassword = await bcrypt.hash(newPassword, 10);
+			user.password = hashedPassword;
+		}
+		await user.save();
+		return res.status(200).json({ Mensagem: 'Senha alterada com sucesso!' }); // OK
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error
+	}
+};
+
+const uploadTheUserAvatar = async (req, res) => {
+	if (!req.file) return res.status(400).json({ Erro: 'Nenhum arquivo de imagem enviado!' }); // Bad Request
+	try {
+		const user = await User.findOne({ _id: req.user.userID }).exec();
+		if (!user) return res.status(404).json({ Erro: 'Usuário não localizado!' }); // Not Found
+		if (req.file.filename) user.avatar = req.file.filename;
+		const result = await user.save();
 		return res.status(200).json(result); // OK
 	} catch (error) {
 		console.error(error);
@@ -83,4 +120,6 @@ module.exports = {
 	getTheUser,
 	updateTheUser,
 	deleteTheUser,
+	updateTheUserPassword,
+	uploadTheUserAvatar,
 };

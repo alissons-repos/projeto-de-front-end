@@ -1,5 +1,8 @@
+const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+// const DIRECTORY = path.resolve('public');
 
 // Mongoose Schema
 const postSchema = new Schema(
@@ -8,7 +11,8 @@ const postSchema = new Schema(
 			type: String,
 			required: false,
 			trim: true,
-			get: (fileName) => `'../../public/'${fileName}`,
+			default: `default_image_0`,
+			// get: (fileName) => `'${DIRECTORY}/${fileName}`,
 		},
 		owner: {
 			type: mongoose.Schema.Types.String,
@@ -40,10 +44,10 @@ const postSchema = new Schema(
 		},
 		sex: {
 			type: String,
-			required: false,
+			required: true,
 			trim: true,
 			lowercase: true,
-			default: null,
+			default: 'ambos',
 			enum: {
 				values: ['ambos', 'fêmea', 'macho'],
 				message: 'O sexo deve ser: fêmea, macho ou ambos (em caso de adoção)!',
@@ -58,14 +62,20 @@ const postSchema = new Schema(
 				},
 			],
 			required: false,
-			default: null,
+			default: [],
 		},
 		amount: {
 			type: Number,
 			required: false,
-			min: 1,
-			default: null,
+			min: 0,
+			default: 0,
 		},
+		likes: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+		],
 	},
 	{
 		timestamps: true,

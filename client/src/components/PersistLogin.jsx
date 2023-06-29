@@ -1,42 +1,70 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import useRefresh from '../hooks/useRefreshToken';
+
 import useAuth from '../hooks/useAuth';
+import useRefresh from '../hooks/useRefreshToken';
+import useApiPrivate from '../hooks/useApiPrivate';
+import path from '../apis/endpoints';
 
 const PersistLogin = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const { auth, setAuth, persist } = useAuth();
 	const refresh = useRefresh();
-	const { auth, persist } = useAuth();
+	const apiPrivate = useApiPrivate();
+
+	const [isLoadingToken, setIsLoadingToken] = useState(true);
+	const [isLoadingData, setIsLoadingData] = useState(true);
+	const persistRefresh = localStorage.getItem('refresh');
 
 	useEffect(() => {
-		let isMounted = true;
-		// Utilizado para resolver o problema de memory liking
+		let isMounted = true; // Utilizado para resolver o problema de memory leaking
 
 		const verifyRefreshToken = async () => {
 			try {
 				await refresh();
-				// Busca por meio de uma requisição get do axios um novo refresh token acessando a rota "/refresh"
-			} catch (err) {
-				console.error(err);
+				// Busca por meio de uma requisição get na rota "/refresh" um novo access token por meio do refresh
+			} catch (error) {
+				console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
 			} finally {
-				isMounted && setIsLoading(false);
-				// Estrutura condicional para resolver o problema de memory liking
+				isMounted && setIsLoadingToken(false);
+				// setIsLoadingToken(false);
+				// Estrutura condicional para resolver o problema de memory leaking
 			}
 		};
 
-		!auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+		const persistUserData = async () => {
+			try {
+				const resGetUsers = await apiPrivate.get(path.USER_URL);
+				const userData = resGetUsers?.data?.find((user) => user.refreshToken === persistRefresh);
+				setAuth((previous) => ({ ...previous, userData }));
+			} catch (error) {
+				console.error(error);
+			} finally {
+				isMounted && setIsLoadingData(false);
+				// setIsLoadingData(false);
+			}
+		};
+
+		// !auth?.userData ? persistUserData() : setAuth((previous) => previous);
+		!auth?.userData ? persistUserData() : setIsLoadingData(false);
+		!auth?.accessToken ? verifyRefreshToken() : setIsLoadingToken(false);
 		// A função verifyRefreshToken() deve ser executada apenas uma vez ao recarregar a página, pois se houver um usuário logado e seu token estiver válido, não é necessário ir buscar um novo refreshtoken na rota "/refresh"
 
-		return () => (isMounted = false);
-		// A cleanup function foi necessária para resolver um problema de memory leaking
+		return () => {
+			isMounted = false; // A cleanup function foi necessária para resolver um problema de memory leaking
+		};
 	}, []);
 
-	useEffect(() => {
-		console.log(`isLoading: ${isLoading}`); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-		console.log(`authJWT: ${JSON.stringify(auth?.accessToken)}`); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-	}, [isLoading]);
-
-	return <>{!persist ? <Outlet /> : isLoading ? <p>Carregando...</p> : <Outlet />}</>;
+	return (
+		<>
+			{!persist ? (
+				<Outlet />
+			) : isLoadingToken || isLoadingData ? (
+				<h1 className='vh-100 d-flex justify-content-center align-items-center display-6'>Carregando...</h1>
+			) : (
+				<Outlet />
+			)}
+		</>
+	);
 	// Outlet renderizará todos os componentes filhos dentro do componente PersistLogin
 };
 

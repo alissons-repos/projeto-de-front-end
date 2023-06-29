@@ -5,6 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 
 // Importando configurações, middlewares e rotas
 const corsOptions = require('./src/config/corsOptions');
@@ -14,6 +15,7 @@ const refreshRoute = require('./src/routes/refresh');
 const userRoute = require('./src/routes/users');
 const postRoute = require('./src/routes/posts');
 const registerRoute = require('./src/routes/register');
+const recoverRoute = require('./src/routes//recover');
 const loginRoute = require('./src/routes/login');
 const logoutRoute = require('./src/routes/logout');
 
@@ -29,12 +31,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(credentials); // credentials é necessário para permitir o correto funcionamento de CORS e deve ser chamado antes de sua utilização
 app.use(cors(corsOptions));
+app.use('/public', express.static(path.resolve('public')));
 
 // Utilizando rotas
 app.use(refreshRoute);
 app.use(userRoute);
 app.use(postRoute);
 app.use(registerRoute);
+app.use(recoverRoute);
 app.use(loginRoute);
 app.use(logoutRoute);
 

@@ -1,0 +1,404 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+/* Importação de fontes*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,700;0,900;1,200;1,300;1,400;1,500;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+	font-family: 'Roboto', sans-serif;
+	color: #495057;
+	background-color: #f8f9fa;
+}
+
+/* Fonte secundária da aplicação, usada em textos de display */
+.display-font {
+	font-family: 'Montserrat', sans-serif;
+}
+
+/* Classes usadas no componente Navigation */
+.avatar {
+	background-color: #dee2e6;
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	min-width: 150px;
+	min-height: 150px;
+	overflow: hidden;
+}
+.avatar img {
+	width: 200px;
+	height: 200px;
+	min-width: 150px;
+	min-height: 150px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	aspect-ratio: 1/1;
+}
+.linkStyle {
+	text-decoration: none;
+	color: #fd7e14;
+}
+.linkStyle:hover {
+	color: #feb272;
+	border-bottom: 1px #feb272 solid;
+}
+
+/* Classes usadas no componente Postings */
+.filterActive {
+	background-color: #f8f9fa;
+	border-radius: 0.375rem;
+	padding: 6px;
+	color: #fd7e14;
+	text-decoration: none;
+}
+.navlinkStyle {
+	color: #f8f9fa;
+	margin: 0 6px;
+	text-decoration: none;
+}
+.navlinkStyle:hover {
+	color: #f8f9fa;
+	border-bottom: 2px solid #f8f9fa;
+}
+.navlinkStyleDropdown {
+	color: #f8f9fa;
+	text-decoration: none;
+}
+.navlinkStyleDropdown:hover {
+	color: #f8f9fa;
+	border-bottom: 2px solid #f8f9fa;
+}
+.dropdown-item:active {
+	background-color: #fd7e14;
+}
+.index {
+	z-index: 44;
+}
+
+/* Classes usadas na rota Register */
+.father {
+	position: relative;
+}
+.instructions {
+	background: #ced4da;
+	position: absolute;
+	margin-top: 0.25rem;
+	padding: 0.25rem 0.5rem;
+	color: #212529;
+	border-radius: 0.375rem;
+	z-index: 33;
+}
+.instructions > svg {
+	margin-right: 0.25rem;
+}
+.offscreen {
+	visibility: hidden;
+	display: none;
+}
+.valid {
+	color: #198754;
+	border-color: #198754;
+}
+.invalid {
+	color: #dc3545;
+	border-color: #dc3545;
+}
+.errormsg {
+	background-color: rgb(220, 53, 69, 0.25);
+	color: #dc3545;
+	font-weight: bold;
+	border-radius: 0.375rem;
+}
+.successmsg {
+	background-color: rgb(25, 135, 84, 0.25);
+	color: #198754;
+	font-weight: bold;
+	border-radius: 0.375rem;
+}
+.input-valid {
+	border-color: #198754;
+}
+.input-invalid {
+	border-color: #dc3545;
+}
+.input-valid:focus {
+	border-color: #198754;
+	-webkit-box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+	box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+.input-invalid:focus {
+	border-color: #dc3545;
+	-webkit-box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+	box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+/* Classes usadas no componente Card */
+.customCard {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
+	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
+	border-radius: 16px;
+	overflow: hidden;
+}
+.cardImageBox {
+	background-color: #dee2e6;
+	border-radius: 16px 16px 0 0;
+	width: 100%;
+	aspect-ratio: 2/1;
+	overflow: hidden;
+	cursor: pointer;
+}
+.cardImage {
+	width: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	aspect-ratio: 2/1;
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+	z-index: 22;
+}
+.cardImage:hover {
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.cardBody {
+	background-color: #f8f9fa;
+}
+.cardTitle {
+	font-size: 1.5rem;
+	padding: 16px;
+	margin: 0;
+}
+.cardText {
+	margin: 0;
+	padding: 0 16px 16px 16px;
+	line-clamp: 2;
+}
+.cardTitle::first-letter,
+.cardText::first-letter {
+	text-transform: uppercase;
+}
+.cardFooter {
+	background-color: #f8f9fa;
+	border-radius: 0 0 16px 16px;
+	border-top: 1px dotted #dee2e6;
+	padding: 8px 16px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: right;
+	-ms-flex-pack: right;
+	justify-content: right;
+	gap: 8px;
+	cursor: default;
+}
+.cardBadges {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	gap: 8px;
+}
+.pointer {
+	cursor: pointer;
+}
+.edit-button {
+	fill: #fd7e14;
+}
+.delete-button {
+	fill: #dc3545;
+}
+.customHeight {
+	height: 150px;
+	background-color: #fd7e14;
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+	margin: 0 auto;
+}
+.customHeight:hover {
+	background-color: #feb272;
+}
+
+/* Classes usadas no componente Tag */
+.tag {
+	padding: 5px 15px;
+	font-size: 0.875em;
+	color: #f8f9fa;
+	background-color: #fd7e14;
+	border-radius: 5px;
+	text-align: center;
+	height: 30px;
+}
+.sex-male {
+	padding: 5px 10px;
+	background-color: #6ea8fe;
+}
+.sex-female {
+	padding: 5px 10px;
+	background-color: #e685b5;
+}
+.sex-ambiguous {
+	padding: 5px 10px;
+	background-color: #a370f7;
+}
+
+/* Classes usadas na rota Login */
+.grassBG {
+	background: url('./public/grass.png') #fd7e14 bottom repeat-x;
+}
+.dogsBG {
+	background: url('./public/dogs.png') bottom center no-repeat;
+}
+.btnOutlineOnHoverTextFix:hover {
+	color: #fd7e14;
+}
+
+/* Classes usadas no componente Perfil */
+.preview {
+	width: 75%;
+	max-width: 304px;
+	max-height: 304px;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	aspect-ratio: 1/1;
+	border: 1px solid #ced4da;
+}
+
+/* Classes usadas no componente ModalPost */
+.hide {
+	display: none;
+}
+#modalPost {
+	z-index: 50;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+.my-fade {
+	z-index: 55;
+	background-color: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	outline: 0;
+}
+.my-modal-box {
+	max-height: 80%;
+	min-height: 40%;
+	z-index: 65;
+	background-color: #f8f9fa;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
+	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
+	border-radius: 16px;
+	overflow: hidden;
+}
+.modalImageBox {
+	min-width: 60%;
+	max-width: 60%;
+	background-color: #dee2e6;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	aspect-ratio: 1/1;
+}
+.modalImage {
+	width: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	aspect-ratio: 1/1;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+label .modalImage:hover {
+	-webkit-filter: blur(2px);
+	filter: blur(2px);
+	opacity: 0.75;
+}
+.image-span {
+	color: #f8f9fa;
+	text-shadow: 2px 2px 6px #212529;
+}
+.modalInfo {
+	width: 100%;
+	padding: 16px;
+}
+.modalTitle {
+	font-size: 1.5rem;
+}
+.modalText {
+	padding: 16px 0;
+}
+.modalTitle::first-letter,
+.modalText::first-letter {
+	text-transform: uppercase;
+}
+.modalFooter {
+	background-color: #f8f9fa;
+	border-top: 2px dashed #dee2e6;
+	padding: 16px 0 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.modalBadges {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	gap: 8px;
+	padding: 0;
+}
+@media (max-width: 992px) {
+	.my-modal-box {
+		overflow: auto;
+	}
+	.modalImageBox {
+		max-width: 100%;
+		aspect-ratio: 4/3;
+	}
+	.modalImage {
+		aspect-ratio: 4/3;
+	}
+}

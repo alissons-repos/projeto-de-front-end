@@ -1,19 +1,21 @@
-import api from '../apis/axios';
 import useAuth from './useAuth';
+import useApiPrivate from '../hooks/useApiPrivate';
+import path from '../apis/endpoints';
 
 const useLogout = () => {
 	const { setAuth } = useAuth();
+	const apiPrivate = useApiPrivate();
 
 	const logout = async () => {
-		setAuth({});
 		try {
-			const response = await api('/logout', {
-				withCredentials: true,
-				// é necessário para que possamos retornar o secure cookie como resposta dessa requisição
-				// o parâmetro withCredentials indica se as requisições de controle de acesso entre sites devem ou não ser feitas utilizando credenciais
-			});
-		} catch (err) {
-			console.error(err);
+			// withCredentials, já configurado em apiPrivate, é necessário para que o secure cookie seja retornado na resposta da requisição
+			await apiPrivate.get(path.LOGOUT_URL);
+			localStorage.clear('persist');
+			localStorage.removeItem('refresh');
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setAuth({});
 		}
 	};
 
