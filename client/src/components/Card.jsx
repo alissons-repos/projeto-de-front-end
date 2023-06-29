@@ -2,24 +2,25 @@ import { useState, useEffect } from 'react';
 import { BsGenderAmbiguous, BsGenderFemale, BsGenderMale } from 'react-icons/bs';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 
-import Tag from './Tag';
-import FaveButton from './FaveButton';
-import ModalPost from './ModalPost';
-import ModalMyPost from './ModalMyPost';
-import ModalDelete from './ModalDelete';
-
+import usePosts from '../hooks/usePosts';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
+import Tag from './Tag';
+import FaveButton from './FaveButton';
+import ModalPost from './ModalPost';
+import ModalUpdate from './ModalUpdate';
+import ModalDelete from './ModalDelete';
+
 const Card = ({ data, myposts }) => {
 	const apiPrivate = useApiPrivate();
-	const deleteMessage = 'Você confirma a exclusão da postagem?';
-
-	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
-	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`);
+	const { posts } = usePosts();
 	const [wasClicked, setWasClicked] = useState(false);
 	const [clickedPost, setClickedPost] = useState({});
 	const [modalType, setModalType] = useState('');
+	const [imagePath, setImagePath] = useState('');
+	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
+	const deleteMessage = 'Você confirma a exclusão da postagem?';
 
 	const drawGenderIcon = () => {
 		switch (data?.sex) {
@@ -42,18 +43,16 @@ const Card = ({ data, myposts }) => {
 					</Tag>
 				);
 			default:
-				return '';
+				return null;
 		}
 	};
 
 	const closeModal = () => {
-		// document.body.classList.remove('overflow-hidden');
 		setWasClicked(false);
 		setModalType('');
 	};
 
 	const handleClick = (data, modal) => {
-		// document.body.classList.add('overflow-hidden');
 		setClickedPost(data);
 		setWasClicked(true);
 		switch (modal) {
@@ -66,15 +65,21 @@ const Card = ({ data, myposts }) => {
 			case 'modalDelete':
 				setModalType('modalDelete');
 				break;
+			default:
+				setModalType('');
+				break;
 		}
 	};
 
 	useEffect(() => {
-		const getCardImage = () => {
-			apiPrivate.get(imagePath).catch(() => setImagePath(''));
+		const getCardImage = async () => {
+			await apiPrivate
+				.get(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`)
+				.then(() => setImagePath(`${path.BASE_URL}${path.PUBLIC_URL}/${data?.image}`))
+				.catch(() => setImagePath(''));
 		};
 		getCardImage();
-	}, []);
+	}, [posts]);
 
 	return (
 		<>
@@ -82,7 +87,7 @@ const Card = ({ data, myposts }) => {
 				<div id='modalPost'>
 					<div className='my-fade' onClick={closeModal}></div>
 					{modalType === 'modalPost' && <ModalPost post={clickedPost} />}
-					{modalType === 'modalMyPost' && <ModalMyPost post={clickedPost} />}
+					{modalType === 'modalMyPost' && <ModalUpdate post={clickedPost} />}
 					{modalType === 'modalDelete' && <ModalDelete post={clickedPost} message={deleteMessage} />}
 				</div>
 			) : null}
@@ -121,7 +126,7 @@ const Card = ({ data, myposts }) => {
 							</div>
 						</div>
 					) : null}
-					<FaveButton postID={data?._id} likesLength={data?.likes.length} />
+					<FaveButton postID={data?._id} likesLength={data?.likes?.length} />
 				</div>
 			</div>
 		</>

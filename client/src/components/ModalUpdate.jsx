@@ -2,27 +2,25 @@ import { useState, useEffect } from 'react';
 import { FaTimesCircle } from 'react-icons/fa';
 
 import useAuth from '../hooks/useAuth';
+import usePosts from '../hooks/usePosts';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
-const ModalMyPost = ({ post }) => {
-	const { setAuth } = useAuth();
+const ModalUpdate = ({ post }) => {
+	const { errorMsg, handleError, successMsg } = useAuth();
+	const { updatePost, updateFilePost } = usePosts();
 	const apiPrivate = useApiPrivate();
 
 	const imagePlaceHolder = `${path.BASE_URL}${path.PUBLIC_URL}/placeholder_image.jpg`;
 	const [imagePath, setImagePath] = useState(`${path.BASE_URL}${path.PUBLIC_URL}/${post?.image}`);
-
 	const [file, setFile] = useState('');
 	const [title, setTitle] = useState(post?.title);
 	const [description, setDescription] = useState(post?.description);
 	const [category, setCategory] = useState(post?.category);
 	const [sex, setSex] = useState(post?.sex);
 	const [breeds, setBreeds] = useState(post?.breeds);
-	const [newBreed, setNewBreed] = useState('');
 	const [amount, setAmount] = useState(post?.amount);
-
-	const [errorMsg, setErrorMsg] = useState('');
-	const [successMsg, setSuccessMsg] = useState('');
+	const [newBreed, setNewBreed] = useState('');
 
 	useEffect(() => {
 		const getCardImage = () => {
@@ -32,8 +30,8 @@ const ModalMyPost = ({ post }) => {
 	}, []);
 
 	useEffect(() => {
-		setErrorMsg('');
-	}, [file]);
+		handleError('');
+	}, [file, title, description, category, sex, breeds, amount]);
 
 	const addBreed = () => {
 		const input = document.getElementById('newBreed');
@@ -51,65 +49,21 @@ const ModalMyPost = ({ post }) => {
 		setBreeds(newList);
 	};
 
+	const handleInputFile = (event) => {
+		setFile(event.target.files[0]);
+		// console.log(event.target.files[0]); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
+	};
+
 	const handleFileSubmit = async (event) => {
 		event.preventDefault();
-		try {
-			const response = await apiPrivate.patchForm(`${path.AUTH_POSTS_UPLOAD_ID_URL}${post?._id}`, {
-				postImage: file,
-			});
-			console.log(response);
-			setAuth((previous) => ({ ...previous }));
-			setSuccessMsg('Imagem da postagem alterada com sucesso!');
-			setFile(null);
-			document.querySelector('#image').value = null;
-			setTimeout(() => {
-				setSuccessMsg('');
-			}, 5000);
-		} catch (error) {
-			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			if (!error?.response) {
-				setErrorMsg('Sem resposta do servidor!');
-			} else if (error.response?.status === 400) {
-				setErrorMsg(`${error.response?.data?.Erro}`);
-			} else if (error.response?.status === 404) {
-				setErrorMsg(`${error.response?.data?.Erro}`);
-			} else {
-				setErrorMsg('Algo deu errado!');
-			}
-			setTimeout(() => {
-				setErrorMsg('');
-			}, 5000);
-		}
+		await updateFilePost(post?._id, file);
+		document.querySelector('#image').value = null;
 	};
 
 	const handleDataSubmit = async (event) => {
 		event.preventDefault();
-		try {
-			const response = await apiPrivate.patch(
-				`${path.AUTH_POSTS_ID_URL}${post?._id}`,
-				JSON.stringify({ title, description, category, sex, breeds, amount })
-			);
-			console.log(response);
-			setAuth((previous) => ({ ...previous }));
-			setSuccessMsg('Postagem alterada com sucesso!');
-			setTimeout(() => {
-				setSuccessMsg('');
-			}, 5000);
-		} catch (error) {
-			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			if (!error?.response) {
-				setErrorMsg('Sem resposta do servidor!');
-			} else if (error.response?.status === 400) {
-				setErrorMsg(`${error.response?.data?.Erro}`);
-			} else if (error.response?.status === 404) {
-				setErrorMsg(`${error.response?.data?.Erro}`);
-			} else {
-				setErrorMsg('Algo deu errado!');
-			}
-			setTimeout(() => {
-				setErrorMsg('');
-			}, 5000);
-		}
+		const postObject = { title, description, category, sex, breeds, amount };
+		await updatePost(post?._id, postObject);
 	};
 
 	return (
@@ -139,10 +93,7 @@ const ModalMyPost = ({ post }) => {
 						name='postImage'
 						accept='.jpg,.jpeg,.gif,image/jpeg,image/jpg,image/gif'
 						className='hide'
-						onChange={(event) => {
-							setFile(event.target.files[0]);
-							console.log(file);
-						}}
+						onChange={(event) => handleInputFile(event)}
 					/>
 				</form>
 				<span className='position-absolute image-span fs-3 m-3 top-0 start-0'>Escolha uma imagem...</span>
@@ -226,7 +177,7 @@ const ModalMyPost = ({ post }) => {
 								id='amount'
 								value={amount}
 								onChange={(event) => setAmount(event.target.value)}
-								min={1}
+								min={0}
 							/>
 							<label htmlFor='amount'>Quantidade</label>
 						</div>
@@ -293,4 +244,4 @@ const ModalMyPost = ({ post }) => {
 	);
 };
 
-export default ModalMyPost;
+export default ModalUpdate;

@@ -7,12 +7,10 @@ const AddPostButton = () => {
 	const [wasClicked, setWasClicked] = useState(false);
 
 	const closeModal = () => {
-		// document.body.classList.remove('overflow-hidden');
 		setWasClicked(false);
 	};
 
 	const handleClick = () => {
-		// document.body.classList.add('overflow-hidden');
 		setWasClicked(true);
 	};
 

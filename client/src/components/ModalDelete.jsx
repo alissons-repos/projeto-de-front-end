@@ -1,5 +1,5 @@
-import { useState } from 'react';
-
+import useAuth from '../hooks/useAuth';
+import usePosts from '../hooks/usePosts';
 import useLogout from '../hooks/useLogout';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
@@ -7,19 +7,18 @@ import path from '../apis/endpoints';
 const ModalDelete = ({ post, message }) => {
 	const logout = useLogout();
 	const apiPrivate = useApiPrivate();
-
-	const [errorMsg, setErrorMsg] = useState('');
-	const [successMsg, setSuccessMsg] = useState('');
+	const { errorMsg, handleError, successMsg, handleSuccess } = useAuth();
+	const { deletePost } = usePosts();
 
 	const handleDelete = async () => {
 		try {
 			if (!post) document.querySelector('#confirmButton').setAttribute('disabled', true);
 			document.querySelector('#deleteButton').setAttribute('disabled', true);
-			setSuccessMsg('Exclusão efetuada com sucesso!');
+			handleSuccess('Exclusão efetuada com sucesso!');
 			setTimeout(async () => {
-				setSuccessMsg('');
+				handleSuccess('');
 				if (post) {
-					await apiPrivate.delete(`${path.AUTH_POSTS_ID_URL}${post?._id}`);
+					deletePost(post?._id);
 				} else {
 					await logout();
 					await apiPrivate.delete(path.AUTH_USER_URL);
@@ -27,16 +26,7 @@ const ModalDelete = ({ post, message }) => {
 			}, 5000);
 		} catch (error) {
 			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-			if (!error?.response) {
-				setErrorMsg('Sem resposta do servidor!');
-			} else if (error.response?.status === 404) {
-				setErrorMsg(`${error.response?.data?.Erro}`);
-			} else {
-				setErrorMsg('Algo deu errado!');
-			}
-			setTimeout(() => {
-				setErrorMsg('');
-			}, 5000);
+			handleError(error);
 		}
 	};
 

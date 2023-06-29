@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 import useAuth from '../hooks/useAuth';
+import usePosts from '../hooks/usePosts';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
 const FaveButton = ({ postID, likesLength }) => {
-	const { auth, setAuth } = useAuth();
+	const { auth } = useAuth();
+	const { likeUnlikePost } = usePosts();
 	const apiPrivate = useApiPrivate();
 
 	const liked = auth.userData.favorites.includes(postID);
@@ -16,21 +18,13 @@ const FaveButton = ({ postID, likesLength }) => {
 	const [favedFlag, setFavedFlag] = useState(false);
 
 	const handleLikeUnlike = async () => {
-		try {
-			if (liked) {
-				await apiPrivate.patch(`${path.AUTH_POSTS_UNLIKE_ID_URL}${postID}`);
-				fillIcon(false);
-				setFavedFlag(false);
-			} else {
-				await apiPrivate.patch(`${path.AUTH_POSTS_LIKE_ID_URL}${postID}`);
-				fillIcon(true);
-				setFavedFlag(true);
-			}
-		} catch (error) {
-			console.error(error); // TODO: COMENTAR A LINHA QUANDO ESTIVER PRONTO
-		} finally {
-			const response = await apiPrivate.get(`${path.USER_ID_URL}${auth.userData._id}`);
-			setAuth((previous) => ({ ...previous, userData: response?.data }));
+		await likeUnlikePost(postID, liked);
+		if (liked) {
+			fillIcon(false);
+			setFavedFlag(false);
+		} else {
+			fillIcon(true);
+			setFavedFlag(true);
 		}
 	};
 

@@ -75,7 +75,7 @@ const createNewUserPost = async (req, res) => {
 		});
 		user.postings.push(result);
 		user.save();
-		return res.status(201).json({ Mensagem: 'Postagem criada com sucesso!' }); // Created
+		return res.status(201).json(result); // Created
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ Erro: 'Erro interno na aplicação!' }); // Internal Server Error

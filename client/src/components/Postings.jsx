@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Card from './Card';
 import AddPostButton from './AddPostButton';
 
+import usePosts from '../hooks/usePosts';
 import useApiPrivate from '../hooks/useApiPrivate';
 import path from '../apis/endpoints';
 
 const Postings = ({ message, usersPosts, isLarge }) => {
-	const navigate = useNavigate();
-	const location = useLocation();
 	const apiPrivate = useApiPrivate();
-	const filterMessage = 'Você não possui nenhuma postagem com essa categoria!';
-
-	const [posts, setPosts] = useState([]);
-	const [postsVariable, setPostsVariable] = useState([]);
-
+	const { posts, setPosts } = usePosts();
+	const [filteredPosts, setFilteredPosts] = useState([]);
 	const [active, setActive] = useState([0, 0, 0]);
 	const [filtered, setFiltered] = useState(false);
 	const [category, setCategory] = useState('');
+	const filterMessage = 'Você não possui nenhuma postagem com essa categoria!';
 
 	const filterPosts = (filter) => {
 		let newList = [];
@@ -33,19 +30,19 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 			case 'adoção':
 				newList = [...posts].filter((post) => post.category === 'adoção');
 				setCategory('adoção');
-				setPostsVariable(newList);
+				setFilteredPosts(newList);
 				setActive([!active[0], 0, 0]);
 				break;
 			case 'cruzamento':
 				newList = [...posts].filter((post) => post.category === 'cruzamento');
 				setCategory('cruzamento');
-				setPostsVariable(newList);
+				setFilteredPosts(newList);
 				setActive([0, !active[1], 0]);
 				break;
 			case 'evento':
 				newList = [...posts].filter((post) => post.category === 'evento');
 				setCategory('evento');
-				setPostsVariable(newList);
+				setFilteredPosts(newList);
 				setActive([0, 0, !active[2]]);
 				break;
 		}
@@ -122,30 +119,30 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 			<br />
 			{posts.length ? (
 				filtered ? (
-					postsVariable.length !== 0 ? (
+					filteredPosts.length !== 0 ? (
 						<ul className='row list-unstyled mt-xl-5 d-flex align-items-center'>
-							{postsVariable.map((post) => (
+							{filteredPosts.map((post) => (
 								<li className='col-12 col-md-6 col-xxl-4' key={post._id}>
 									<Card data={post} myposts={usersPosts} />
 									<br />
 								</li>
 							))}
-							{usersPosts ? (
+							{usersPosts && (
 								<li className='col-12 col-md-6 col-xxl-4'>
 									<AddPostButton />
 									<br />
 								</li>
-							) : null}
+							)}
 						</ul>
 					) : (
 						<div className='d-flex flex-column align-items-center my-5 py-5'>
 							<p className='my-5 text-center'>{filterMessage}</p>
-							{usersPosts ? (
+							{usersPosts && (
 								<div className='col-12 col-md-6 col-xxl-4'>
 									<AddPostButton />
 									<br />
 								</div>
-							) : null}
+							)}
 						</div>
 					)
 				) : (
@@ -156,23 +153,23 @@ const Postings = ({ message, usersPosts, isLarge }) => {
 								<br />
 							</li>
 						))}
-						{usersPosts ? (
+						{usersPosts && (
 							<li className='col-12 col-md-6 col-xxl-4'>
 								<AddPostButton />
 								<br />
 							</li>
-						) : null}
+						)}
 					</ul>
 				)
 			) : (
 				<div className='d-flex flex-column align-items-center my-5 py-5'>
 					<p className='my-5 text-center'>{message}</p>
-					{usersPosts ? (
+					{usersPosts && (
 						<div className='col-12 col-md-6 col-xxl-4'>
 							<AddPostButton />
 							<br />
 						</div>
-					) : null}
+					)}
 				</div>
 			)}
 		</div>

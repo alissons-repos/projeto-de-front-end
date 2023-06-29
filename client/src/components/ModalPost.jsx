@@ -64,6 +64,7 @@ const ModalPost = ({ post }) => {
 			</div>
 			<div className='modalInfo'>
 				<h5 className='modalTitle'>{post?.title}</h5>
+				<h5 className='form-text'>{post?._id}</h5>
 				<p className='modalText'>{post?.description}</p>
 				{post?.breeds.length !== 0 && (
 					<>

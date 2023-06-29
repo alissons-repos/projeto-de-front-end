@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /* Importação de fontes*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,700;0,900;1,200;1,300;1,400;1,500;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
@@ -27,10 +34,18 @@ body {
 	height: 200px;
 	min-width: 150px;
 	min-height: 150px;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
 	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
+	-o-object-fit: cover;
 	object-fit: cover;
+	-o-object-position: center;
 	object-position: center;
 	aspect-ratio: 1/1;
 }
@@ -123,15 +138,18 @@ body {
 }
 .input-valid:focus {
 	border-color: #198754;
+	-webkit-box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 	box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
 .input-invalid:focus {
 	border-color: #dc3545;
+	-webkit-box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 	box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 }
 
 /* Classes usadas no componente Card */
 .customCard {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	border-radius: 16px;
 	overflow: hidden;
@@ -146,13 +164,19 @@ body {
 }
 .cardImage {
 	width: 100%;
+	-o-object-fit: cover;
 	object-fit: cover;
+	-o-object-position: center;
 	object-position: center;
 	aspect-ratio: 2/1;
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
 	transition: all 1s;
 	z-index: 22;
 }
 .cardImage:hover {
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
 	transform: scale(1.1);
 }
 .cardBody {
@@ -177,12 +201,18 @@ body {
 	border-radius: 0 0 16px 16px;
 	border-top: 1px dotted #dee2e6;
 	padding: 8px 16px;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: right;
+	-ms-flex-pack: right;
 	justify-content: right;
 	gap: 8px;
 	cursor: default;
 }
 .cardBadges {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 	gap: 8px;
 }
@@ -198,6 +228,8 @@ body {
 .customHeight {
 	height: 150px;
 	background-color: #fd7e14;
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
 	transition: all 1s;
 	margin: 0 auto;
 }
@@ -244,7 +276,9 @@ body {
 	width: 75%;
 	max-width: 304px;
 	max-height: 304px;
+	-o-object-fit: cover;
 	object-fit: cover;
+	-o-object-position: center;
 	object-position: center;
 	aspect-ratio: 1/1;
 	border: 1px solid #ced4da;
@@ -256,8 +290,14 @@ body {
 }
 #modalPost {
 	z-index: 50;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
 	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 	position: fixed;
 	top: 0;
@@ -280,6 +320,7 @@ body {
 	min-height: 40%;
 	z-index: 65;
 	background-color: #f8f9fa;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	box-shadow: rgba(0, 0, 0, 0.25) 0 4px 4px;
 	border-radius: 16px;
 	overflow: hidden;
@@ -288,18 +329,25 @@ body {
 	min-width: 60%;
 	max-width: 60%;
 	background-color: #dee2e6;
+	-o-object-fit: cover;
 	object-fit: cover;
+	-o-object-position: center;
 	object-position: center;
 	aspect-ratio: 1/1;
 }
 .modalImage {
 	width: 100%;
+	-o-object-fit: cover;
 	object-fit: cover;
+	-o-object-position: center;
 	object-position: center;
 	aspect-ratio: 1/1;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
 	transition: all 0.5s;
 }
 label .modalImage:hover {
+	-webkit-filter: blur(2px);
 	filter: blur(2px);
 	opacity: 0.75;
 }
@@ -325,11 +373,19 @@ label .modalImage:hover {
 	background-color: #f8f9fa;
 	border-top: 2px dashed #dee2e6;
 	padding: 16px 0 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
 	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 }
 .modalBadges {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 	gap: 8px;
 	padding: 0;

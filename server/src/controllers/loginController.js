@@ -9,13 +9,13 @@ const handleLogin = async (req, res) => {
 	const foundUser = await User.findOne({ email: email }).select('+password').exec();
 	if (!foundUser) return res.status(401).json({ Erro: 'Email ou senha inválidos!' }); // Unauthorized
 
-	const match = await bcrypt.compare(password, foundUser.password);
+	const match = bcrypt.compare(password, foundUser.password);
 	if (match) {
 		const accessToken = jwt.sign({ userData: { userID: foundUser._id } }, process.env.ACCESS_TOKEN_SECRET, {
 			expiresIn: '15s',
 		});
 		const refreshToken = jwt.sign({ userID: foundUser._id }, process.env.REFRESH_TOKEN_SECRET, {
-			expiresIn: '5m',
+			expiresIn: '10m',
 		});
 		// No payload do accessToken estamos guardando um objeto "userData" que conterá seu id
 
@@ -24,7 +24,7 @@ const handleLogin = async (req, res) => {
 		// O token não deve ser armazenado em cookies ou no localStorage de modo que fique disponível para o JS do browser.
 		// O token deve ficar apenas em memória. Porém, deixaremos salvo em um cookie com a propriedade "http only", tornando-o inacessível para JS.
 
-		res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 300000 }); // secure: true
+		res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 600000 }); // secure: true
 		// TODO: Perguntar se devemos ou não passar o ID do usuário como resposta além do token.
 		return res.status(200).json({ Mensagem: 'Autenticação realizada com sucesso!', Token: accessToken });
 		// Estamos armazenando o refreshToken e entregando o accessToken para o usuário utilizar nas outras requisições.
