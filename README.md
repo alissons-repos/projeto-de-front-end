@@ -1,11 +1,11 @@
 > # Projeto de Front End 🐶
 
 
-Bem-vindo ao DoggoSocial, a rede social para cachorros e seus amantes!
+Bem-vindo a rede social para cachorros e seus amantes!
 
 ## Descrição
 
-O DoggoSocial é uma plataforma online que visa conectar donos de cachorros, fornecendo um espaço divertido e interativo para compartilhar fotos, histórias e experiências relacionadas aos nossos amigos peludos.
+O site é uma plataforma online que visa conectar donos de cachorros, fornecendo um espaço divertido e interativo para compartilhar fotos, histórias e experiências relacionadas aos nossos amigos peludos.
 
 ## Recursos Principais
 
@@ -67,4 +67,4 @@ Este projeto está licenciado sob a [IESB](LICENSE).
 
 ## Contato
 
-Se tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato conosco pelo email contato@doggosocial.com ou visite nosso site em www.doggosocial.com.
+Se tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato conosco pelo email.
